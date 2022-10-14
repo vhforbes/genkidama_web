@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import HeaderComponent from '../components/header.component';
+
+import PostComponent from '../components/post.component';
+import postsList from '../public/mocks/postsList.json';
 
 const Home: NextPage = () => {
   return (
@@ -12,13 +14,18 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <div>
-          <HeaderComponent />
+      <main className="h-screen dark:text-white">
+        <div className="flex p-10">
+          <div className="w-1/2 mr-16">
+            {postsList.posts.map(post => {
+              const { title, content } = post;
+              return (
+                <PostComponent title={title} content={content} key={post.id} />
+              );
+            })}
+          </div>
+          <div>Some other content in here</div>
         </div>
-        <h1 className="text-center mt-20 text-slate-800 dark:text-red-600">
-          This is <a href="/">Genkidama</a>
-        </h1>
       </main>
     </div>
   );
