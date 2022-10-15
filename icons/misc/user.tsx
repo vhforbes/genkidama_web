@@ -3,7 +3,7 @@ import React from 'react';
 const UserSvg = () => {
   return (
     <svg
-      className="stroke-slate900 dark:stroke-white"
+      className="stroke-neutral"
       width={22}
       height={22}
       viewBox="0 0 26 26"

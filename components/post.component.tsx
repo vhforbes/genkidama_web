@@ -5,21 +5,26 @@ interface PostProps {
   content: string;
 }
 
-const PostComponent = ({ title, content }: PostProps) => {
-  return (
-    <div className="flex flex-col mb-12 border-neutral900 dark:border-white border-2 rounded-2xl">
-      <div className="flex">
-        <img src="/logo-gnk-1.png" alt="" className="m-4 w-1/4" />
-        <div>
-          <h1 className="mt-4 text-xl">{title}</h1>
-          <p className="mt-4">{content}</p>
-        </div>
+const PostComponent = ({ title, content }: PostProps) => (
+  <div className="card w-auto mb-10 lg:card-side bg-primary">
+    <figure>
+      <img className="w-60 m-4" src="/thumb1.jpg" alt="Album" />
+    </figure>
+    <div className="card-body">
+      <h2 className="card-title">{title}</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. {content}
+      </p>
+      <div className="card-actions justify-center">
+        <button type="button" className="btn btn-secondary">
+          Assista
+        </button>
       </div>
-      <button className="" type="button">
-        Acesse o video
-      </button>
     </div>
-  );
-};
+  </div>
+);
 
 export default PostComponent;

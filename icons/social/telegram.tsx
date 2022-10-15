@@ -2,7 +2,7 @@ import React from 'react';
 
 const TelegramSvg = () => (
   <svg
-    className="fill-slate900 dark:fill-white"
+    className="fill-neutral"
     width={24}
     height={24}
     viewBox="0 0 24 24"
