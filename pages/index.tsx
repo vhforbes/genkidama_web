@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 
-import PostComponent from '../components/Post.component';
+import PostComponent from '../components/post.component';
 import postsList from '../public/mocks/postsList.json';
 
 const Home: NextPage = () => {
