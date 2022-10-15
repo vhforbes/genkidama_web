@@ -2,7 +2,7 @@ import React from 'react';
 
 const YoutubeSvg = () => (
   <svg
-    className="fill-slate900 dark:fill-white"
+    className="fill-neutral"
     width={36}
     height={24}
     viewBox="0 0 36 24"

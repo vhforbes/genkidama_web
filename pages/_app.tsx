@@ -4,7 +4,8 @@ import React from 'react';
 
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import HeaderComponent from '../components/header.component';
+// import { themeChange } from 'theme-change';
+import HeaderComponent from '../components/header/Header.component';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
