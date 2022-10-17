@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       <main className="h-screen">
         <div className="flex flex-col md:flex-row p-10">
-          <div className="w-auto md:w-2/3 md:mr-16">
+          <div className="w-auto md:w-1/3 md:mr-16">
             {postsList.posts.map(post => {
               const { title, content } = post;
               return (
@@ -24,7 +24,10 @@ const Home: NextPage = () => {
               );
             })}
           </div>
-          <div>Some other content in here</div>
+          <div>
+            Some other content in here: grafico bitcoin? Gatilhos? Operacoes
+            abertas?
+          </div>
         </div>
       </main>
     </div>
