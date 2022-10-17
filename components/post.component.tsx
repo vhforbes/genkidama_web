@@ -11,8 +11,8 @@ const PostComponent = ({ title, content }: PostProps) => (
       <img src="/thumb1.jpg" alt="Shoes" />
     </figure>
     <div className="card-body">
-      <h2 className="card-title">Shoes!</h2>
-      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <h2 className="card-title">{title}</h2>
+      <p>{content}</p>
       <div className="card-actions justify-center mt-4">
         <button type="button" className="btn btn-secondary">
           Call to action
