@@ -26,7 +26,7 @@ const Home: NextPage = () => {
           </div>
           <div>
             Some other content in here: grafico bitcoin? Gatilhos? Operacoes
-            abertas?
+            abertas? Calendario de lives para membros? Give me more ideasss
           </div>
         </div>
       </main>
