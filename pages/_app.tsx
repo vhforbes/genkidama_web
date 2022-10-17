@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import '../styles/globals.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
@@ -8,6 +8,16 @@ import type { AppProps } from 'next/app';
 import HeaderComponent from '../components/header/Header.component';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <ThemeProvider attribute="class">
       <HeaderComponent />
