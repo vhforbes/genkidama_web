@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { themeChange } from 'theme-change';
 
 import { useTheme } from 'next-themes';
@@ -7,10 +7,11 @@ import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
 import InstagramSvg from '../../icons/social/instagram';
 import SunAndMoon from './SunAndMoon.component';
+import { useAuth } from '../../context/AuthContext';
 
 const HeaderComponent = () => {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { user, signOut } = useAuth();
 
   const switchTheme = () => {
     if (theme === 'light') {
@@ -24,12 +25,7 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     themeChange(false);
-    setMounted(true);
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <div className="flex h-20 p-5 content-center items-center justify-between bg-primary drop-shadow">
@@ -60,6 +56,11 @@ const HeaderComponent = () => {
         <a className="m-4" href="/sign-in">
           <UserSvg />
         </a>
+        {user ? (
+          <button type="button" onClick={signOut}>
+            SignOut
+          </button>
+        ) : null}
         <SunAndMoon switchTheme={switchTheme} />
       </div>
     </div>

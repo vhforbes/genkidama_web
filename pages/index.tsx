@@ -1,11 +1,25 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import PostComponent from '../components/post.component';
+import { useAuth } from '../context/AuthContext';
 import postsList from '../public/mocks/postsList.json';
 
 const Home: NextPage = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  if (!user) {
+    router.push('sign-in');
+    return (
+      <div>
+        <h1>Just members</h1>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Head>
