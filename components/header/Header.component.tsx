@@ -32,7 +32,7 @@ const HeaderComponent = () => {
   }, []);
 
   return (
-    <div className="bg-primary drop-shadow sticky top-0 z-20">
+    <div className="bg-primary drop-shadow sticky top-0 z-10">
       {/* HEADER DESKTOP */}
       <div className="hidden md:flex content-center items-center justify-between h-20 p-5">
         <div className="flex items-center">

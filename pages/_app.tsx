@@ -27,8 +27,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider attribute="class">
       <AppProvider>
         <HeaderComponent />
-        <ToastComponent messages={messages} />
         <Drawer />
+        <ToastComponent messages={messages} />
         <Component {...pageProps} />
       </AppProvider>
     </ThemeProvider>
