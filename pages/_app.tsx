@@ -9,13 +9,11 @@ import AppProvider from '../hooks';
 import ToastComponent from '../components/toast/toast.component';
 import { useToast } from '../hooks/toast';
 import Drawer from '../components/header/Drawer.component';
-import { useDrawer } from '../hooks/drawer';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [mounted, setMounted] = useState(false);
 
   const { messages } = useToast();
-  const { open, openClose } = useDrawer();
 
   useEffect(() => {
     setMounted(true);
