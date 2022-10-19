@@ -7,7 +7,8 @@ import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
 import InstagramSvg from '../../icons/social/instagram';
 import SunAndMoon from './SunAndMoon.component';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/auth';
+import HambuerguerSvg from '../../icons/misc/hambuerguer';
 
 const HeaderComponent = () => {
   const { theme, setTheme } = useTheme();
@@ -28,40 +29,56 @@ const HeaderComponent = () => {
   }, []);
 
   return (
-    <div className="flex h-20 p-5 content-center items-center justify-between bg-primary drop-shadow">
-      <div className="flex items-center">
+    <div className="bg-primary drop-shadow">
+      {/* HEADER DESKTOP */}
+      <div className="hidden md:flex content-center items-center justify-between h-20 p-5">
+        <div className="flex items-center">
+          <a href="/">
+            <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />
+          </a>
+          <a className="ml-6" href="/">
+            <YoutubeSvg />
+          </a>
+          <a className="ml-6" href="/">
+            <TelegramSvg />
+          </a>
+          <a className="ml-6" href="/">
+            <InstagramSvg />
+          </a>
+        </div>
+        <div className="flex items-center justify-around">
+          <a href="none" className="m-4 hover:text-accent">
+            Seja membro
+          </a>
+          <a href="none" className="m-4 hover:text-accent">
+            Mentoria
+          </a>
+          <a href="/sobre-nos" className="m-4 hover:text-accent">
+            Sobre nós
+          </a>
+          <a className="m-4" href="/sign-in">
+            <UserSvg />
+          </a>
+          {user ? (
+            <button type="button" onClick={signOut}>
+              SignOut
+            </button>
+          ) : null}
+          <SunAndMoon switchTheme={switchTheme} />
+        </div>
+      </div>
+      {/* HEADER MOBILE */}
+      <div className="md:hidden flex content-center items-center justify-between h-20 p-5">
+        <div className="w-20">
+          <HambuerguerSvg />
+        </div>
         <a href="/">
           <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />
         </a>
-        <a className="ml-6" href="/">
-          <YoutubeSvg />
-        </a>
-        <a className="ml-6" href="/">
-          <TelegramSvg />
-        </a>
-        <a className="ml-6" href="/">
-          <InstagramSvg />
-        </a>
-      </div>
-      <div className="flex items-center justify-around">
-        <a href="none" className="m-4 hover:text-accent">
-          Seja membro
-        </a>
-        <a href="none" className="m-4 hover:text-accent">
-          Mentoria
-        </a>
-        <a href="/sobre-nos" className="m-4 hover:text-accent">
-          Sobre nós
-        </a>
-        <a className="m-4" href="/sign-in">
+        <div className="flex items-center justify-around w-20">
           <UserSvg />
-        </a>
-        {user ? (
-          <button type="button" onClick={signOut}>
-            SignOut
-          </button>
-        ) : null}
-        <SunAndMoon switchTheme={switchTheme} />
+          <SunAndMoon switchTheme={switchTheme} />
+        </div>
       </div>
     </div>
   );

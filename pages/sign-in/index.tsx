@@ -1,10 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { useFormik } from 'formik';
-import { useAuth } from '../../context/AuthContext';
+import { FormikErrors, useFormik } from 'formik';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 const SignIn: NextPage = () => {
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   // Se o usuario existir, precisamos redirecionar para outro lugar
 
@@ -13,12 +15,27 @@ const SignIn: NextPage = () => {
       email: '',
       password: '',
     },
-    onSubmit: ({ email, password }) => {
-      // Call context to make api call
-      signIn({
-        email,
-        password,
-      });
+    validate: ({ email }) => {
+      const errors: FormikErrors<{ email: string }> = {};
+      if (!email) {
+        errors.email = 'Required custom';
+      }
+
+      return errors;
+    },
+    onSubmit: async ({ email, password }) => {
+      try {
+        await signIn({
+          email,
+          password,
+        });
+      } catch (error) {
+        addToast({
+          type: 'error',
+          title: 'An error has ocurred',
+          description: 'This is an error, please correct it',
+        });
+      }
     },
   });
 

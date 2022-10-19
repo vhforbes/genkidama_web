@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import { setCookie } from 'nookies';
 import { useRouter } from 'next/router';
 import api from '../services/api';
 
@@ -23,11 +22,9 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const AuthContext = createContext<AuthContextData>(
-  {} as AuthContextData,
-);
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC<Props> = ({ children }) => {
+const AuthProvider: React.FC<Props> = ({ children }) => {
   const router = useRouter();
 
   // Set the auth data if it already exists or start it as null
@@ -70,7 +67,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   );
 };
 
-export const useAuth = (): AuthContextData => {
+const useAuth = (): AuthContextData => {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -79,3 +76,5 @@ export const useAuth = (): AuthContextData => {
 
   return context;
 };
+
+export { AuthProvider, useAuth };

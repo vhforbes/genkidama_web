@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import PostComponent from '../components/post.component';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/auth';
 import postsList from '../public/mocks/postsList.json';
 
 const Home: NextPage = () => {

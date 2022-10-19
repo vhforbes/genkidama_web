@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-// import { themeChange } from 'theme-change';
 import HeaderComponent from '../components/header/Header.component';
-import { AuthProvider } from '../context/AuthContext';
+import AppProvider from '../hooks';
+import ToastComponent from '../components/toast/toast.component';
+import { useToast } from '../hooks/toast';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [mounted, setMounted] = useState(false);
+  const { messages } = useToast();
 
   useEffect(() => {
     setMounted(true);
@@ -21,10 +23,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ThemeProvider attribute="class">
-      <AuthProvider>
+      <AppProvider>
         <HeaderComponent />
         <Component {...pageProps} />
-      </AuthProvider>
+        <ToastComponent messages={messages} />
+      </AppProvider>
     </ThemeProvider>
   );
 };
