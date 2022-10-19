@@ -2,17 +2,20 @@ import React, { useEffect } from 'react';
 import { themeChange } from 'theme-change';
 
 import { useTheme } from 'next-themes';
+import { useAuth } from '../../hooks/auth';
+import { useDrawer } from '../../hooks/drawer';
+
 import UserSvg from '../../icons/misc/user';
 import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
 import InstagramSvg from '../../icons/social/instagram';
 import SunAndMoon from './SunAndMoon.component';
-import { useAuth } from '../../hooks/auth';
 import HambuerguerSvg from '../../icons/misc/hambuerguer';
 
 const HeaderComponent = () => {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
+  const { openClose } = useDrawer();
 
   const switchTheme = () => {
     if (theme === 'light') {
@@ -29,7 +32,7 @@ const HeaderComponent = () => {
   }, []);
 
   return (
-    <div className="bg-primary drop-shadow">
+    <div className="bg-primary drop-shadow sticky top-0 z-20">
       {/* HEADER DESKTOP */}
       <div className="hidden md:flex content-center items-center justify-between h-20 p-5">
         <div className="flex items-center">
@@ -70,7 +73,9 @@ const HeaderComponent = () => {
       {/* HEADER MOBILE */}
       <div className="md:hidden flex content-center items-center justify-between h-20 p-5">
         <div className="w-20">
-          <HambuerguerSvg />
+          <button type="button" onClick={() => openClose()}>
+            <HambuerguerSvg />
+          </button>
         </div>
         <a href="/">
           <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />

@@ -1,12 +1,14 @@
 import React from 'react';
-import ToastComponent from '../components/toast/toast.component';
 
 import { AuthProvider } from './auth';
+import { DrawerProvider } from './drawer';
 import { ToastProvider } from './toast';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <AuthProvider>
-    <ToastProvider>{children}</ToastProvider>
+    <ToastProvider>
+      <DrawerProvider>{children}</DrawerProvider>
+    </ToastProvider>
   </AuthProvider>
 );
 
