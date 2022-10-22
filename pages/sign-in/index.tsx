@@ -1,95 +1,98 @@
 import React from 'react';
+import * as Yup from 'yup';
 import { NextPage } from 'next';
-import { FormikErrors, useFormik } from 'formik';
+import { useRouter } from 'next/router';
+import { Form, Formik } from 'formik';
+
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
+import MyTextInput from '../../components/textInput.component';
+
+interface SubmitLoginData {
+  email: string;
+  password: string;
+}
+
 const SignIn: NextPage = () => {
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
   const { addToast } = useToast();
+  const router = useRouter();
 
-  // Se o usuario existir, precisamos redirecionar para outro lugar
+  if (user) {
+    router.push('/');
+    return null;
+  }
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validate: ({ email }) => {
-      const errors: FormikErrors<{ email: string }> = {};
-      if (!email) {
-        errors.email = 'Required custom';
-      }
-
-      return errors;
-    },
-    onSubmit: async ({ email, password }) => {
-      try {
-        await signIn({
-          email,
-          password,
-        });
-      } catch (error) {
-        addToast({
-          type: 'error',
-          title: 'An error has ocurred',
-          description: 'This is an error, please correct it',
-        });
-      }
-    },
-  });
+  const submit = async (
+    { email, password }: SubmitLoginData,
+    setSubmitting: (bool: boolean) => void,
+  ) => {
+    try {
+      await signIn({
+        email,
+        password,
+      });
+      setSubmitting(false);
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'An error has ocurred',
+        description: 'This is an error, please correct it',
+      });
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="hero mt-24">
       <div className="hero-content flex-col w-auto md:w-2/5">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
-          <form onSubmit={formik.handleSubmit}>
-            <div className="card-body">
-              <div className="form-control">
-                <span className="label">Email:</span>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  className="input input-bordered"
-                />
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={Yup.object({
+              email: Yup.string()
+                .email('Endereço de email inválido')
+                .required('Campo obrigatório'),
+              password: Yup.string().required('Campo obrigatório'),
+            })}
+            onSubmit={(values, { setSubmitting }) => {
+              submit(values, setSubmitting);
+            }}
+          >
+            <Form>
+              <div className="card-body">
+                <div className="form-control">
+                  <MyTextInput
+                    label="Email:"
+                    name="email"
+                    type="text"
+                    placeholder="email@gmail.com"
+                  />
+                </div>
+                <div className="form-control">
+                  <MyTextInput
+                    label="Senha:"
+                    name="password"
+                    type="password"
+                    placeholder="senha"
+                  />
+                </div>
+                <div className="form-control mt-6">
+                  <button type="submit" className="btn btn-secondary">
+                    Login
+                  </button>
+                </div>
               </div>
-              <div className="form-control">
-                <span>Senha:</span>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  minLength={3}
-                  className="input input-bordered"
-                />
-                <a
-                  href="/esqueci-minha-senha"
-                  className="label-text-alt link link-hover mt-2"
-                >
-                  Esqueceu sua senha?
-                </a>
-              </div>
-              <div className="form-control mt-6">
-                <button type="submit" className="btn btn-secondary">
-                  Login
-                </button>
-              </div>
-            </div>
-          </form>
+            </Form>
+          </Formik>
         </div>
         <h1 className="text-lg text-center">
           Ainda não tem conta?
           <br />
           <a href="/sign-up" className="link-hover">
             {' '}
-            Crie agora a sua, clique aqui!
+            Crie agora a sua, <i>clique aqui!</i>
           </a>
         </h1>
       </div>

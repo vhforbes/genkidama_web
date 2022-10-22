@@ -15,7 +15,6 @@ const DrawerProvider = ({ children }: Props) => {
   const [open, setOpen] = useState(false);
 
   const openClose = () => {
-    // console.log('open');
     setOpen(!open);
   };
 

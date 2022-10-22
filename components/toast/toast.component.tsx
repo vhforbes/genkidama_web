@@ -19,8 +19,6 @@ interface ToastComponentProps {
 const ToastComponent: React.FC<ToastComponentProps> = () => {
   const { messages, removeToast } = useToast();
 
-  console.log(messages);
-
   const svgType = (type?: string) => {
     switch (type) {
       case 'success':

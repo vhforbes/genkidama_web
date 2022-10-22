@@ -13,11 +13,7 @@ const Home: NextPage = () => {
 
   if (!user) {
     router.push('sign-in');
-    return (
-      <div>
-        <h1>Just members</h1>
-      </div>
-    );
+    return null;
   }
 
   return (
