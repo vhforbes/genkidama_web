@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface PagesInfo {
-  next: object;
-  previous: object;
   totalPages: number;
+  changePage: (pageNumber: number) => void;
+  currentPage: number;
 }
 
-const PageButtonsComponent = ({ next, previous, totalPages }: PagesInfo) => {
+const PageButtonsComponent = ({
+  totalPages,
+  changePage,
+  currentPage,
+}: PagesInfo) => {
   const buttons = [];
 
   for (let i = 1; i <= totalPages; i += 1) {
@@ -19,7 +23,10 @@ const PageButtonsComponent = ({ next, previous, totalPages }: PagesInfo) => {
         <button
           key={pageNumber}
           type="button"
-          className="btn btn-secondary m-1"
+          className={`btn btn-secondary m-1 ${
+            pageNumber === currentPage ? 'bg-primary btn-disabled' : null
+          }`}
+          onClick={() => changePage(pageNumber)}
         >
           {pageNumber}
         </button>
