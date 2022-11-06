@@ -6,7 +6,7 @@ interface PostProps {
 }
 
 const PostComponent = ({ title, content }: PostProps) => (
-  <div className="card card-compact mb-10 w-auto bg-primary shadow-xl">
+  <div className="card card-compact m-3 max-w-xs bg-primary shadow-xl">
     <figure>
       <img src="/thumb1.jpg" alt="Shoes" />
     </figure>

@@ -18,7 +18,7 @@ const SignUp: NextPage = () => {
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      // Method doesent exist
+      // Method doesent exist i must create it
       await signUp({
         email,
         password,

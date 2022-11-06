@@ -3,9 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import PostComponent from '../components/post.component';
+import PostsContainerComponent from '../components/posts/postsContainer.component';
 import { useAuth } from '../hooks/auth';
-import postsList from '../public/mocks/postsList.json';
 
 const Home: NextPage = () => {
   const { user } = useAuth();
@@ -25,14 +24,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="h-screen">
-        <div className="flex flex-col md:flex-row p-10">
-          <div className="w-auto md:w-1/3 md:mr-16">
-            {postsList.posts.map(post => {
-              const { title, content } = post;
-              return (
-                <PostComponent title={title} content={content} key={post.id} />
-              );
-            })}
+        <div className="flex flex-col-reverse 2xl:flex-row p-10">
+          <div className="w-auto md:w-4/5 md:mr-16">
+            <PostsContainerComponent />
           </div>
           <div>
             Some other content in here: grafico bitcoin? Gatilhos? Operacoes

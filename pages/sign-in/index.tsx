@@ -38,7 +38,7 @@ const SignIn: NextPage = () => {
       addToast({
         type: 'error',
         title: 'An error has ocurred',
-        description: 'This is an error, please correct it',
+        description: 'Could not login',
       });
       setSubmitting(false);
     }

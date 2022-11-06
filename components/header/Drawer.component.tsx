@@ -16,7 +16,7 @@ const Drawer = () => {
   }, [open]);
 
   return (
-    <div className={`drawer fixed ${zIndex}`}>
+    <div className={`drawer fixed ${zIndex} hidden`}>
       <input
         readOnly
         checked={open}

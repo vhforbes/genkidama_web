@@ -14,6 +14,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user?: object | null;
+  token?: string | null;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -40,7 +41,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post('/sessions', { email, password });
+    const response = await api().post('/sessions', { email, password });
 
     const { token, user } = response.data;
 
@@ -60,8 +61,10 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AuthContext.Provider value={{ user: data?.user, signIn, signOut }}>
+    <AuthContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{ user: data?.user, token: data?.token, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
