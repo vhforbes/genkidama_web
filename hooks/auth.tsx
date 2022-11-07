@@ -1,6 +1,8 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import api from '../services/api';
+import routes from '../enums/routes';
+import { useToast } from './toast';
 
 interface AuthState {
   token: string;
@@ -12,11 +14,19 @@ interface SignInCredentials {
   password: string;
 }
 
+interface SignUpCredentials {
+  email: string;
+  name: string;
+  password: string;
+  confirmedPassword: string;
+}
+
 interface AuthContextData {
   user?: object | null;
   token?: string | null;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  signUp(credentials: SignUpCredentials): Promise<void>;
 }
 
 interface Props {
@@ -26,6 +36,7 @@ interface Props {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
+  const { addToast } = useToast();
   const router = useRouter();
 
   // Set the auth data if it already exists or start it as null
@@ -41,11 +52,12 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api().post('/sessions', { email, password });
+    const response = await api().post(routes.sessions, { email, password });
 
-    const { token, user } = response.data;
+    const { token, user, refreshToken } = response.data;
 
     localStorage.setItem('@Genkidama:token', token);
+    localStorage.setItem('@Genkidama:refreshToken', refreshToken);
     localStorage.setItem('@Genkidama:user', JSON.stringify(user));
 
     setData({ token, user });
@@ -60,10 +72,38 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
+  const signUp = useCallback(
+    async ({ email, password, confirmedPassword, name }: SignUpCredentials) => {
+      if (password !== confirmedPassword) {
+        addToast({
+          title: 'Passwords don`t match',
+          type: 'error',
+        });
+
+        return;
+      }
+
+      await api().post(routes.users, {
+        email,
+        name,
+        password,
+      });
+
+      router.push('/sign-in');
+    },
+    [],
+  );
+
   return (
     <AuthContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{ user: data?.user, token: data?.token, signIn, signOut }}
+      value={{
+        user: data?.user,
+        token: data?.token,
+        signIn,
+        signOut,
+        signUp,
+      }}
     >
       {children}
     </AuthContext.Provider>

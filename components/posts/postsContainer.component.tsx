@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import routes from '../../enums/routes';
 import { useAuth } from '../../hooks/auth';
-import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
 import PageButtonsComponent from './pageButtons';
 import PostComponent from './post.component';
@@ -25,7 +25,6 @@ interface Post {
 
 const PostsContainerComponent = () => {
   const { token } = useAuth();
-  const { addToast } = useToast();
 
   const [postsList, setPostsList] = useState([] as Post[]);
   const [pagesInfo, setPagesInfo] = useState({} as Omit<PostsData, 'posts'>);
@@ -38,9 +37,12 @@ const PostsContainerComponent = () => {
 
   const getPostsData = async (page: number, limit: number) => {
     try {
-      const response = await api({ token }).get(
-        `/posts?page=${page}&limit=${limit}`,
-      );
+      const response = await api({ token }).get(routes.posts, {
+        params: {
+          page,
+          limit,
+        },
+      });
       const { data }: { data: PostsData } = response;
 
       setPagesInfo({
@@ -50,11 +52,7 @@ const PostsContainerComponent = () => {
       });
       setPostsList(data.posts);
     } catch (err) {
-      addToast({
-        type: 'error',
-        title: 'Fetch error',
-        description: 'Could no get posts data',
-      });
+      console.error(err);
     }
   };
 

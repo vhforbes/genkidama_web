@@ -18,24 +18,35 @@ interface ToastComponentProps {
 
 const ToastComponent: React.FC<ToastComponentProps> = () => {
   const { messages, removeToast } = useToast();
+  // const [errorType, setErrorType] = useState('alert');
+
+  const setToastType = (type?: string) => {
+    switch (type) {
+      case 'success':
+        return 'alert-success';
+      case 'error':
+        return 'alert-error';
+      case 'info':
+        return 'alert-info';
+      case 'warning':
+        return 'alert-warning';
+      default:
+        return 'alert';
+    }
+  };
 
   const svgType = (type?: string) => {
     switch (type) {
       case 'success':
         return <SuccessSvg />;
-        break;
       case 'error':
         return <ErrorSvg />;
-        break;
       case 'info':
         return <InfoSvg />;
-        break;
       case 'warning':
         return <WarningSvg />;
-        break;
       default:
         return null;
-        break;
     }
   };
 
@@ -44,7 +55,7 @@ const ToastComponent: React.FC<ToastComponentProps> = () => {
       {messages.map(message => (
         <div
           key={message.id}
-          className={`alert alert-${message.type} shadow-lg mb-4`}
+          className={`alert shadow-lg mb-4 ${setToastType(message.type)}`}
         >
           <div>
             {svgType(message.type)}

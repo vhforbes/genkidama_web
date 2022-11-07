@@ -4,32 +4,40 @@ import * as Yup from 'yup';
 import React from 'react';
 import MyTextInput from '../../components/textInput.component';
 import { useToast } from '../../hooks/toast';
+import { useAuth } from '../../hooks/auth';
 
 interface SubmitSignUpData {
   email: string;
+  name: string;
   password: string;
   confirmedPassword: string;
 }
 const SignUp: NextPage = () => {
   const { addToast } = useToast();
+  const { signUp } = useAuth();
 
   const submit = async (
-    { email, password, confirmedPassword }: SubmitSignUpData,
+    { email, password, confirmedPassword, name }: SubmitSignUpData,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
       // Method doesent exist i must create it
       await signUp({
         email,
+        name,
         password,
         confirmedPassword,
       });
+      addToast({
+        type: 'success',
+        title: 'Conta criada com sucesso!',
+        description: 'Vá ao seu email para confirmar a criação',
+      });
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any) {
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'This is an error, please correct it',
+        title: error.response.data.message,
       });
       setSubmitting(false);
     }
@@ -40,11 +48,17 @@ const SignUp: NextPage = () => {
       <div className="hero-content flex-col w-2/5">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
           <Formik
-            initialValues={{ email: '', password: '', confirmedPassword: '' }}
+            initialValues={{
+              email: '',
+              name: '',
+              password: '',
+              confirmedPassword: '',
+            }}
             validationSchema={Yup.object({
               email: Yup.string()
                 .email('Endereço de email inválido')
                 .required('Campo obrigatório'),
+              name: Yup.string().required('Campo obrigatório'),
               password: Yup.string().required('Campo obrigatório'),
               confirmedPassword: Yup.string().required('Campo obrigatório'),
             })}
@@ -59,7 +73,15 @@ const SignUp: NextPage = () => {
                     label="Email:"
                     name="email"
                     type="text"
-                    placeholder="email@gmail.com"
+                    placeholder="seuemail@gmail.com"
+                  />
+                </div>
+                <div className="form-control">
+                  <MyTextInput
+                    label="Nome:"
+                    name="name"
+                    type="text"
+                    placeholder="Seu Nome"
                   />
                 </div>
                 <div className="form-control">
@@ -67,20 +89,20 @@ const SignUp: NextPage = () => {
                     label="Senha:"
                     name="password"
                     type="password"
-                    placeholder="senha"
+                    placeholder="Senha"
                   />
                 </div>
                 <div className="form-control">
                   <MyTextInput
                     label="Confirme sua senha:"
                     name="confirmedPassword"
-                    type="confirmedPassword"
+                    type="password"
                     placeholder="Confirme sua senha"
                   />
                 </div>
                 <div className="form-control mt-6">
                   <button type="submit" className="btn btn-secondary">
-                    Login
+                    CRIAR CONTA
                   </button>
                 </div>
               </div>

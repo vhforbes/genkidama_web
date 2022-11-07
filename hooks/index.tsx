@@ -5,11 +5,11 @@ import { DrawerProvider } from './drawer';
 import { ToastProvider } from './toast';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
-  <AuthProvider>
-    <ToastProvider>
+  <ToastProvider>
+    <AuthProvider>
       <DrawerProvider>{children}</DrawerProvider>
-    </ToastProvider>
-  </AuthProvider>
+    </AuthProvider>
+  </ToastProvider>
 );
 
 export default AppProvider;

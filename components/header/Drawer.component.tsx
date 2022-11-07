@@ -4,19 +4,18 @@ import { useDrawer } from '../../hooks/drawer';
 
 const Drawer = () => {
   const { open, openClose } = useDrawer();
-  const [zIndex, setZIndex] = useState('');
+  const [hide, setHide] = useState('');
 
-  // Await a little so the drawer wont go behind immediatly
   useEffect(() => {
     if (open) {
-      setZIndex('z-10');
+      setHide('z-10');
     } else {
-      setTimeout(() => setZIndex(''), 1000);
+      setTimeout(() => setHide('hidden'), 200);
     }
   }, [open]);
 
   return (
-    <div className={`drawer fixed ${zIndex} hidden`}>
+    <div className={`drawer fixed ${hide}`}>
       <input
         readOnly
         checked={open}
@@ -41,7 +40,6 @@ const Drawer = () => {
           </li>
         </ul>
       </div>
-      {/* <button type="button">Hey</button> */}
     </div>
   );
 };

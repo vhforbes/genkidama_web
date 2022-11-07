@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   if (!user) {
-    router.push('sign-in');
+    router.push('/sign-in');
     return null;
   }
 
