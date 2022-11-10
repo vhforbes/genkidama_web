@@ -8,15 +8,17 @@ import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
 import MyTextInput from '../../components/textInput.component';
+import { useLoader } from '../../hooks/loader';
 
 interface SubmitLoginData {
   email: string;
   password: string;
 }
-
 const SignIn: NextPage = () => {
   const { signIn, user } = useAuth();
   const { addToast } = useToast();
+  const { setLoading } = useLoader();
+
   const router = useRouter();
 
   if (user) {
@@ -29,10 +31,12 @@ const SignIn: NextPage = () => {
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
+      setLoading(true);
       await signIn({
         email,
         password,
       });
+      setLoading(false);
       setSubmitting(false);
     } catch (error) {
       addToast({

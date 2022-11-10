@@ -18,7 +18,6 @@ interface ToastComponentProps {
 
 const ToastComponent: React.FC<ToastComponentProps> = () => {
   const { messages, removeToast } = useToast();
-  // const [errorType, setErrorType] = useState('alert');
 
   const setToastType = (type?: string) => {
     switch (type) {

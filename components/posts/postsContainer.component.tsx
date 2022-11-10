@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import routes from '../../enums/routes';
+import { useLoader } from '../../hooks/loader';
 import privateApi from '../../services/privateApi';
 import PageButtonsComponent from './pageButtons';
 import PostComponent from './post.component';
@@ -23,6 +24,7 @@ interface Post {
 }
 
 const PostsContainerComponent = () => {
+  const { setLoading } = useLoader();
   const [postsList, setPostsList] = useState([] as Post[]);
   const [pagesInfo, setPagesInfo] = useState({} as Omit<PostsData, 'posts'>);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +32,7 @@ const PostsContainerComponent = () => {
 
   const getPostsData = async (page: number, limit: number) => {
     try {
+      setLoading(true);
       const response = await privateApi.get(routes.posts, {
         params: {
           page,
@@ -44,6 +47,7 @@ const PostsContainerComponent = () => {
         totalPages: data.totalPages,
       });
       setPostsList(data.posts);
+      setLoading(false);
     } catch (err) {
       console.error(err);
     }
