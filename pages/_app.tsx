@@ -9,6 +9,7 @@ import AppProvider from '../hooks';
 import ToastComponent from '../components/toast/toast.component';
 import { useToast } from '../hooks/toast';
 import Drawer from '../components/header/Drawer.component';
+import Loader from '../components/loader/loader.component';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [mounted, setMounted] = useState(false);
@@ -26,6 +27,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider attribute="class">
       <AppProvider>
+        <Loader />
         <HeaderComponent />
         <Drawer />
         <ToastComponent messages={messages} />

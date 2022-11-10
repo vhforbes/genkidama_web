@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import mem from 'mem';
 import api from './api';
 
