@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import routes from '../../enums/routes';
 import { useLoader } from '../../hooks/loader';
 import privateApi from '../../services/privateApi';
-import PageButtonsComponent from './pageButtons';
-import PostComponent from './post.component';
+import PageButtonsComponent from './components/pageButtons';
+import PostComponent from './components/post.component';
 
 export interface PostsData {
   posts: Post[];

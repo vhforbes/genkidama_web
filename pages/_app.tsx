@@ -8,7 +8,7 @@ import HeaderComponent from '../components/header/Header.component';
 import AppProvider from '../hooks';
 import ToastComponent from '../components/toast/toast.component';
 import { useToast } from '../hooks/toast';
-import Drawer from '../components/header/Drawer.component';
+import Drawer from '../components/header/components/Drawer.component';
 import Loader from '../components/loader/loader.component';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

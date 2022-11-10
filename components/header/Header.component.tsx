@@ -9,7 +9,7 @@ import UserSvg from '../../icons/misc/user';
 import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
 import InstagramSvg from '../../icons/social/instagram';
-import SunAndMoon from './SunAndMoon.component';
+import SunAndMoon from './components/SunAndMoon.component';
 import HambuerguerSvg from '../../icons/misc/hambuerguer';
 
 const HeaderComponent = () => {
@@ -50,6 +50,9 @@ const HeaderComponent = () => {
           </a>
         </div>
         <div className="flex items-center justify-around">
+          <a href="none" className="m-4 hover:text-accent">
+            Ao vivo
+          </a>
           <a href="none" className="m-4 hover:text-accent">
             Seja membro
           </a>

@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes';
 import React, { useEffect, useState } from 'react';
-import MoonSvg from '../../icons/misc/moon';
-import SunSvg from '../../icons/misc/sun';
+import MoonSvg from '../../../icons/misc/moon';
+import SunSvg from '../../../icons/misc/sun';
 
 const SunAndMoon = ({ switchTheme }: { switchTheme: () => void }) => {
   const { theme } = useTheme();
