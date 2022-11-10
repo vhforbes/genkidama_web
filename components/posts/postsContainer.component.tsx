@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import routes from '../../enums/routes';
-import { useAuth } from '../../hooks/auth';
-import api from '../../services/api';
+import privateApi from '../../services/privateApi';
 import PageButtonsComponent from './pageButtons';
 import PostComponent from './post.component';
 
@@ -24,20 +23,14 @@ interface Post {
 }
 
 const PostsContainerComponent = () => {
-  const { token } = useAuth();
-
   const [postsList, setPostsList] = useState([] as Post[]);
   const [pagesInfo, setPagesInfo] = useState({} as Omit<PostsData, 'posts'>);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsLimit] = useState(6);
 
-  if (!token) {
-    return null;
-  }
-
   const getPostsData = async (page: number, limit: number) => {
     try {
-      const response = await api({ token }).get(routes.posts, {
+      const response = await privateApi.get(routes.posts, {
         params: {
           page,
           limit,

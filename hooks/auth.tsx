@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import api from '../services/api';
+import publicApi from '../services/api';
 import routes from '../enums/routes';
 import { useToast } from './toast';
 
@@ -27,6 +27,7 @@ interface AuthContextData {
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   signUp(credentials: SignUpCredentials): Promise<void>;
+  checkSession(): void;
 }
 
 interface Props {
@@ -52,7 +53,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api().post(routes.sessions, { email, password });
+    const response = await publicApi.post(routes.sessions, { email, password });
 
     const { token, user, refreshToken } = response.data;
 
@@ -83,7 +84,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         return;
       }
 
-      await api().post(routes.users, {
+      await publicApi.post(routes.users, {
         email,
         name,
         password,
@@ -94,6 +95,14 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     [],
   );
 
+  const checkSession = useCallback(() => {
+    const token = localStorage.getItem('@Genkidama:token');
+
+    if (!token) {
+      router.push('/sign-in');
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -103,6 +112,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         signIn,
         signOut,
         signUp,
+        checkSession,
       }}
     >
       {children}

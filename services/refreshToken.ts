@@ -1,10 +1,10 @@
+import mem from 'mem';
 import api from './api';
 
 const refreshTokenFn = async () => {
-  const refreshToken = JSON.parse(
-    localStorage.getItem('@Genkidama:refreshToken') as string,
-  );
-
+  const refreshToken = localStorage.getItem(
+    '@Genkidama:refreshToken',
+  ) as string;
   try {
     const response = await api.post('/sessions/refresh', {
       refreshToken,
@@ -12,17 +12,30 @@ const refreshTokenFn = async () => {
 
     const responseData = response.data;
 
-    if (!responseData.accessToken) {
-      // Logout here
-      localStorage.removeItem('session');
-      localStorage.removeItem('user');
+    if (!responseData.token) {
+      window.location.href = '/sign-in';
+      localStorage.removeItem('@Genkidama:token');
+      localStorage.removeItem('@Genkidama:refreshToken');
+      localStorage.removeItem('@Genkidama:user');
     }
 
-    localStorage.setItem('session', JSON.stringify(session));
+    localStorage.setItem('@Genkidama:token', responseData.token);
 
-    return session;
+    return responseData.token;
   } catch (error) {
-    localStorage.removeItem('session');
-    localStorage.removeItem('user');
+    window.location.href = '/sign-in';
+    localStorage.removeItem('@Genkidama:token');
+    localStorage.removeItem('@Genkidama:refreshToken');
+    localStorage.removeItem('@Genkidama:user');
+
+    return null;
   }
 };
+
+const maxAge = 10000;
+
+const memoizedRefreshToken = mem(refreshTokenFn, {
+  maxAge,
+});
+
+export default memoizedRefreshToken;
