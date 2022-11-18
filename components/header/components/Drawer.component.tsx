@@ -33,10 +33,22 @@ const Drawer = () => {
         />
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
           <li>
-            <a href="/">Sidebar Item 1</a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="/">Sidebar Item 2</a>
+            <a href="/live">Ao vivo</a>
+          </li>
+          <li>
+            <a href="/seja-membro">Seja membro</a>
+          </li>
+          <li>
+            <a href="/mentoria">Mentoria</a>
+          </li>
+          <li>
+            <a href="/sobre-nos">Sobre nós</a>
+          </li>
+          <li>
+            <a href="/seja-membro">Seja membro</a>
           </li>
         </ul>
       </div>
