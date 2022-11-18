@@ -5,6 +5,7 @@ import React from 'react';
 import MyTextInput from '../../components/textInput.component';
 import { useToast } from '../../hooks/toast';
 import { useAuth } from '../../hooks/auth';
+import { useLoader } from '../../hooks/loader';
 
 interface SubmitSignUpData {
   email: string;
@@ -14,6 +15,7 @@ interface SubmitSignUpData {
 }
 const SignUp: NextPage = () => {
   const { addToast } = useToast();
+  const { setLoading } = useLoader();
   const { signUp } = useAuth();
 
   const submit = async (
@@ -22,6 +24,7 @@ const SignUp: NextPage = () => {
   ) => {
     try {
       // Method doesent exist i must create it
+      setLoading(true);
       await signUp({
         email,
         name,
@@ -34,12 +37,14 @@ const SignUp: NextPage = () => {
         description: 'Vá ao seu email para confirmar a criação',
       });
       setSubmitting(false);
+      setLoading(false);
     } catch (error: any) {
       addToast({
         type: 'error',
         title: error.response.data.message,
       });
       setSubmitting(false);
+      setLoading(false);
     }
   };
 

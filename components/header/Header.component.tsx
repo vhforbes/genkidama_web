@@ -50,7 +50,7 @@ const HeaderComponent = () => {
           </a>
         </div>
         <div className="flex items-center justify-around">
-          <a href="none" className="m-4 hover:text-accent">
+          <a href="/live" className="m-4 hover:text-accent">
             Ao vivo
           </a>
           <a href="none" className="m-4 hover:text-accent">
