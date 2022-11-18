@@ -45,7 +45,7 @@ const SignUp: NextPage = () => {
 
   return (
     <div className="hero mt-24">
-      <div className="hero-content flex-col w-2/5">
+      <div className="hero-content flex-col w-auto md:w-2/5">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
           <Formik
             initialValues={{
