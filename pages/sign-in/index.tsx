@@ -44,6 +44,7 @@ const SignIn: NextPage = () => {
         title: 'An error has ocurred',
         description: 'Could not login',
       });
+      setLoading(false);
       setSubmitting(false);
     }
   };

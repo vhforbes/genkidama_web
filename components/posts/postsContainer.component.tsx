@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import routes from '../../enums/routes';
 import { useLoader } from '../../hooks/loader';
+import { useToast } from '../../hooks/toast';
 import privateApi from '../../services/privateApi';
 import PageButtonsComponent from './components/pageButtons';
 import PostComponent from './components/post.component';
@@ -25,6 +26,7 @@ interface Post {
 
 const PostsContainerComponent = () => {
   const { setLoading } = useLoader();
+  const { addToast } = useToast();
   const [postsList, setPostsList] = useState([] as Post[]);
   const [pagesInfo, setPagesInfo] = useState({} as Omit<PostsData, 'posts'>);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +51,12 @@ const PostsContainerComponent = () => {
       setPostsList(data.posts);
       setLoading(false);
     } catch (err) {
-      console.error(err);
+      setLoading(false);
+      addToast({
+        type: 'error',
+        title: 'Erro ao obter posts',
+        description: 'Não foi possivel obter as últimas postagens',
+      });
     }
   };
 
