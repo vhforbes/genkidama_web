@@ -1,7 +1,7 @@
 import axios from 'axios';
 import memoizedRefreshToken from './refreshToken';
 
-axios.defaults.baseURL = 'http://localhost:3333/';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 axios.interceptors.request.use(
   async config => {
