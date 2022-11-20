@@ -53,10 +53,10 @@ const HeaderComponent = () => {
           <a href="/live" className="m-4 hover:text-accent">
             Ao vivo
           </a>
-          <a href="none" className="m-4 hover:text-accent">
+          <a href="/seja-membro" className="m-4 hover:text-accent">
             Seja membro
           </a>
-          <a href="none" className="m-4 hover:text-accent">
+          <a href="/mentoria" className="m-4 hover:text-accent">
             Mentoria
           </a>
           <a href="/sobre-nos" className="m-4 hover:text-accent">
