@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/auth';
@@ -7,6 +8,7 @@ import { useAuth } from '../../hooks/auth';
 const Live: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
+  const zoomRef = useRef(null);
 
   if (!user) {
     router.push('/sign-in');
@@ -14,6 +16,49 @@ const Live: NextPage = () => {
   }
 
   const embedId = 'g_fJ5j_kg40';
+
+  const zoomDiv = document.createElement('div');
+
+  // const meetingSDKElement = document.getElementById('meetingSDKElement');
+  console.log(zoomDiv);
+
+  useEffect(() => {
+    const client = ZoomMtgEmbedded.createClient();
+
+    console.log(client);
+
+    // client.init({
+    //   debug: true,
+    //   zoomAppRoot: zoomDiv,
+    //   language: 'en-US',
+    //   customize: {
+    //     meetingInfo: [
+    //       'topic',
+    //       'host',
+    //       'mn',
+    //       'pwd',
+    //       'telPwd',
+    //       'invite',
+    //       'participant',
+    //       'dc',
+    //       'enctype',
+    //     ],
+    //     toolbar: {
+    //       buttons: [
+    //         {
+    //           text: 'Custom Button',
+    //           className: 'CustomButton',
+    //           onClick: () => {
+    //             console.log('custom button');
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   },
+    // });
+  }, []);
+
+  console.log(zoomRef);
 
   return (
     <div className="md:flex">
@@ -29,7 +74,7 @@ const Live: NextPage = () => {
           />
         </div>
       </div>
-      <div className="md:mt-20 m-5">ZOOM CALL API</div>
+      <div className="md:mt-20 m-5"></div>
     </div>
   );
 };
