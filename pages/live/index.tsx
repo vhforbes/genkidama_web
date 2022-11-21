@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
-import React, { useEffect, useRef } from 'react';
-import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
+import React from 'react';
 
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/auth';
@@ -8,7 +7,6 @@ import { useAuth } from '../../hooks/auth';
 const Live: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
-  const zoomRef = useRef(null);
 
   if (!user) {
     router.push('/sign-in');
@@ -16,49 +14,6 @@ const Live: NextPage = () => {
   }
 
   const embedId = 'g_fJ5j_kg40';
-
-  const zoomDiv = document.createElement('div');
-
-  // const meetingSDKElement = document.getElementById('meetingSDKElement');
-  console.log(zoomDiv);
-
-  useEffect(() => {
-    const client = ZoomMtgEmbedded.createClient();
-
-    console.log(client);
-
-    // client.init({
-    //   debug: true,
-    //   zoomAppRoot: zoomDiv,
-    //   language: 'en-US',
-    //   customize: {
-    //     meetingInfo: [
-    //       'topic',
-    //       'host',
-    //       'mn',
-    //       'pwd',
-    //       'telPwd',
-    //       'invite',
-    //       'participant',
-    //       'dc',
-    //       'enctype',
-    //     ],
-    //     toolbar: {
-    //       buttons: [
-    //         {
-    //           text: 'Custom Button',
-    //           className: 'CustomButton',
-    //           onClick: () => {
-    //             console.log('custom button');
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   },
-    // });
-  }, []);
-
-  console.log(zoomRef);
 
   return (
     <div className="md:flex">
@@ -74,7 +29,15 @@ const Live: NextPage = () => {
           />
         </div>
       </div>
-      <div className="md:mt-20 m-5"></div>
+      <div className="md:mt-20 m-5">
+        <iframe
+          width="450"
+          className="h-full"
+          title="meeting2"
+          src="https://genkidama.whereby.com/gnk-roomd6b72ac1-ecdb-4437-b9e9-4e694160378e"
+          allow="camera; microphone; fullscreen; speaker; display-capture; autoplay"
+        />
+      </div>
     </div>
   );
 };
