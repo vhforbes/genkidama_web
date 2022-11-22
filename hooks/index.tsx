@@ -1,4 +1,6 @@
 import React from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import initialOptions from '../configs/paypal';
 
 import { AuthProvider } from './auth';
 import { DrawerProvider } from './drawer';
@@ -9,7 +11,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
     <LoaderProvider>
       <AuthProvider>
-        <DrawerProvider>{children}</DrawerProvider>
+        <DrawerProvider>
+          <PayPalScriptProvider options={initialOptions}>
+            {children}
+          </PayPalScriptProvider>
+        </DrawerProvider>
       </AuthProvider>
     </LoaderProvider>
   </ToastProvider>
