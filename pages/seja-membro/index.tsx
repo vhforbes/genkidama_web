@@ -4,7 +4,7 @@ import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useTheme } from 'next-themes';
 
 const SejaMembro: NextPage = () => {
-  const [{ options }, dispatch] = usePayPalScriptReducer();
+  const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -59,21 +59,32 @@ const SejaMembro: NextPage = () => {
             Assine e cancele a qualquer momento através do PayPal:
           </p>
           <PayPalButtons
-            className="mt-10 "
+            className="mt-10"
             createSubscription={(data, actions) => {
               return actions.subscription
                 .create({
                   plan_id: 'P-55501210J8134335TMN5ZXXQ',
                 })
                 .then(orderId => {
-                  console.log('CREATED PLAN');
+                  console.log('INITIALIZED SUB');
 
                   return orderId;
                 });
             }}
+            onApprove={async (data, actions) => {
+              console.log('you created a fking sub');
+              console.log(data);
+            }}
             style={{
               label: 'subscribe',
             }}
+            // onApprove={function (data, actions) {
+            //   return actions.order.capture().then(function () {
+            //     // Your code here after capture the order
+
+            //     console.log('APPROVE');
+            //   });
+            // }}
           />
         </div>
       </div>
