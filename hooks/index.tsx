@@ -6,15 +6,18 @@ import { AuthProvider } from './auth';
 import { DrawerProvider } from './drawer';
 import { LoaderProvider } from './loader';
 import { ToastProvider } from './toast';
+import { SubscriptionProvider } from './subscription';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
     <LoaderProvider>
       <AuthProvider>
         <DrawerProvider>
-          <PayPalScriptProvider options={initialOptions}>
-            {children}
-          </PayPalScriptProvider>
+          <SubscriptionProvider>
+            <PayPalScriptProvider options={initialOptions}>
+              {children}
+            </PayPalScriptProvider>
+          </SubscriptionProvider>
         </DrawerProvider>
       </AuthProvider>
     </LoaderProvider>

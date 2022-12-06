@@ -4,6 +4,17 @@ import publicApi from '../services/api';
 import routes from '../enums/routes';
 import { useToast } from './toast';
 
+interface User {
+  avatar: string;
+  created_at: string;
+  email: string;
+  id: string;
+  name: string;
+  subscription_id: string;
+  updated_at: string;
+  verified: boolean;
+}
+
 interface AuthState {
   token: string;
   user: object;
@@ -22,12 +33,11 @@ interface SignUpCredentials {
 }
 
 interface AuthContextData {
-  user?: object | null;
+  user?: User | null;
   token?: string | null;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   signUp(credentials: SignUpCredentials): Promise<void>;
-  checkSession(): void;
 }
 
 interface Props {
@@ -55,11 +65,17 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await publicApi.post(routes.sessions, { email, password });
 
-    const { token, user, refreshToken } = response.data;
+    const { token, user, refreshToken, subscription } = response.data;
+
+    console.log(response.data);
 
     localStorage.setItem('@Genkidama:token', token);
     localStorage.setItem('@Genkidama:refreshToken', refreshToken);
     localStorage.setItem('@Genkidama:user', JSON.stringify(user));
+    localStorage.setItem(
+      '@Genkidama:subscription',
+      JSON.stringify(subscription),
+    );
 
     setData({ token, user });
 
@@ -95,24 +111,15 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     [],
   );
 
-  const checkSession = useCallback(() => {
-    const token = localStorage.getItem('@Genkidama:token');
-
-    if (!token) {
-      router.push('/sign-in');
-    }
-  }, []);
-
   return (
     <AuthContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        user: data?.user,
+        user: data?.user as User,
         token: data?.token,
         signIn,
         signOut,
         signUp,
-        checkSession,
       }}
     >
       {children}

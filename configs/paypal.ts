@@ -4,6 +4,7 @@ const initialOptions = {
   currency: 'BRL',
   components: 'buttons',
   intent: 'subscription',
+  vault: true,
 };
 
 export default initialOptions;
