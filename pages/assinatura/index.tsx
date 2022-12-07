@@ -1,34 +1,28 @@
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/auth';
 
-import privateApi from '../../services/privateApi';
-import { useLoader } from '../../hooks/loader';
 import { useToast } from '../../hooks/toast';
 import { useSubscription } from '../../hooks/subscription';
-import routes from '../../enums/routes';
 
 const SejaMembro: NextPage = () => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
-  const { checkSub, subscription } = useSubscription();
+  const { checkSub, activateSubscription, cancelSubscription, subscription } =
+    useSubscription();
   const { user } = useAuth();
   const { theme } = useTheme();
   const { addToast } = useToast();
-  const { setLoading } = useLoader();
+  const [cancelReason, setCancelReason] = useState('');
 
   const router = useRouter();
 
   if (!user) {
     router.push('/sign-in');
     return null;
-  }
-
-  if (subscription === 'ACTIVE') {
-    router.push('/');
   }
 
   useEffect(() => {
@@ -44,39 +38,70 @@ const SejaMembro: NextPage = () => {
     checkSub();
   }, []);
 
-  const onApproveHandler = async (data: any) => {
-    try {
-      setLoading(true);
-      await privateApi.post(`${routes.subscriptions}/create`, {
-        email: user.email,
-        subscriptionID: data.subscriptionID,
-      });
-
-      addToast({
-        type: 'success',
-        description: 'Seja bem-vindo!',
-        title: 'Você acaba de se tornar um Membro Genkidama!',
-      });
-
-      setLoading(false);
-      router.push('/');
-    } catch (error) {
-      addToast({
-        type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Favor entre em contato com nossa equipe de suporte.',
-      });
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
   if (!subscription) return null;
 
-  if (subscription !== 'ACTIVE')
+  if (subscription.status === 'ACTIVE') {
     return (
       <div className="flex flex-col items-center">
-        <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg">
+        <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg max-w-[500px]">
+          <div className="flex flex-col items-center mt-6 md:w-[300px]">
+            <p className="text-sm font-semibold self-start relative left-[5%]">
+              MEMBRO
+            </p>
+            {theme === 'dark' ? (
+              <img
+                className="w-auto"
+                alt="gnk text"
+                src="/genkidama-text.png"
+              />
+            ) : (
+              <img
+                className="w-auto"
+                alt="gnk text"
+                src="/genkidama-text-black.png"
+              />
+            )}
+          </div>
+
+          <p className="mt-8 text-center text-xl w-4/5 font-bold">
+            Você já é um membro Genkidama!
+          </p>
+
+          <div className="mt-4 text-center">
+            <p className="p-10">
+              Caso não esteja satisfeito com sua assinatura, basta cancelar
+              inserindo o motivo e clicando no botão abaixo. Vamos sentir sua
+              falta!
+            </p>
+            <textarea
+              className="textarea md:w-[80%] w-full"
+              placeholder="Motivo do cancelamento"
+              value={cancelReason}
+              onChange={e => setCancelReason(e.target.value)}
+            />
+            <br />
+            <button
+              type="button"
+              className="btn btn-accent m-6"
+              onClick={() =>
+                cancelSubscription(
+                  cancelReason,
+                  subscription.paypal_subscription_id,
+                )
+              }
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (subscription.status !== 'ACTIVE')
+    return (
+      <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg max-w-[500px]">
           <div className="flex flex-col items-center mt-6 md:w-[300px]">
             <p className="text-sm font-semibold self-start relative left-[5%]">
               MEMBRO
@@ -133,7 +158,7 @@ const SejaMembro: NextPage = () => {
                   });
               }}
               onApprove={async data => {
-                onApproveHandler(data);
+                activateSubscription(data);
               }}
               onCancel={async () => {
                 addToast({

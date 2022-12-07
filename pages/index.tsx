@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     checkSub();
   }, []);
 
-  if (subscription === 'ACTIVE')
+  if (subscription.status === 'ACTIVE')
     return (
       <div>
         <Head>

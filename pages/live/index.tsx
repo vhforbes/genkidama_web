@@ -19,9 +19,9 @@ const Live: NextPage = () => {
     checkSub();
   }, []);
 
-  if (subscription === 'ACTIVE')
+  if (subscription.status === 'ACTIVE')
     return (
-      <div className="md:w-[60%] md:m-20 m-5 border-orange border-4">
+      <div>
         <iframe
           className="absolute top-0 left-0 bottom-0 right-0 w-full h-full"
           title="meeting2"
