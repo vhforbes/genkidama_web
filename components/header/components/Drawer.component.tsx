@@ -39,16 +39,10 @@ const Drawer = () => {
             <a href="/live">Ao vivo</a>
           </li>
           <li>
-            <a href="/seja-membro">Seja membro</a>
-          </li>
-          <li>
             <a href="/mentoria">Mentoria</a>
           </li>
           <li>
             <a href="/sobre-nos">Sobre nós</a>
-          </li>
-          <li>
-            <a href="/seja-membro">Seja membro</a>
           </li>
         </ul>
       </div>
