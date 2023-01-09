@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import PostsContainerComponent from '../components/posts/postsContainer.component';
-import TradeOperationCard from '../components/tradeOperations/tradeOperationCard';
 import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAuth } from '../hooks/auth';
 import { useSubscription } from '../hooks/subscription';

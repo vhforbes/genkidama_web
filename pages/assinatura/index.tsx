@@ -151,8 +151,6 @@ const SejaMembro: NextPage = () => {
                     plan_id: 'P-55501210J8134335TMN5ZXXQ',
                   })
                   .then(orderId => {
-                    console.log('INITIALIZED SUB');
-
                     return orderId;
                   });
               }}
@@ -171,6 +169,7 @@ const SejaMembro: NextPage = () => {
                   type: 'error',
                   title: 'Sua transação falhou',
                 });
+                // eslint-disable-next-line no-console
                 console.error(data);
               }}
               style={{

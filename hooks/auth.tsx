@@ -67,8 +67,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const { token, user, refreshToken, subscription } = response.data;
 
-    console.log(response.data);
-
     localStorage.setItem('@Genkidama:token', token);
     localStorage.setItem('@Genkidama:refreshToken', refreshToken);
     localStorage.setItem('@Genkidama:user', JSON.stringify(user));
