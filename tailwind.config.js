@@ -22,6 +22,7 @@ module.exports = {
       // Colorful
       // white: colors.slate[50],
       orange: colors.orange[600],
+      green: colors.green[600],
     },
   },
   plugins: [require('daisyui')],

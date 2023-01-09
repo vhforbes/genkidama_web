@@ -40,7 +40,7 @@ const SejaMembro: NextPage = () => {
 
   if (!subscription) return null;
 
-  if (subscription.status === 'ACTIVE') {
+  if (subscription.status === 'ACTIVE')
     return (
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg max-w-[500px]">
@@ -96,7 +96,6 @@ const SejaMembro: NextPage = () => {
         </div>
       </div>
     );
-  }
 
   if (subscription.status !== 'ACTIVE')
     return (

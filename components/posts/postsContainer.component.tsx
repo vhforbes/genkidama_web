@@ -66,7 +66,7 @@ const PostsContainerComponent = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-row flex-wrap md:justify-start justify-center">
+      <div className="flex flex-row flex-wrap md:justify-center justify-center">
         {postsList?.map(post => {
           const { title, content } = post;
           return (

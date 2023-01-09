@@ -4,7 +4,6 @@ import { themeChange } from 'theme-change';
 import { useTheme } from 'next-themes';
 import { useDrawer } from '../../hooks/drawer';
 
-import UserSvg from '../../icons/misc/user';
 import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
 import InstagramSvg from '../../icons/social/instagram';
@@ -73,7 +72,7 @@ const HeaderComponent = () => {
           <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />
         </a>
         <div className="flex items-center justify-around w-20">
-          <UserSvg />
+          <UserDropdownComponent />
           <SunAndMoon switchTheme={switchTheme} />
         </div>
       </div>

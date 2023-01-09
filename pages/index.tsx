@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import PostsContainerComponent from '../components/posts/postsContainer.component';
+import TradeOperationCard from '../components/tradeOperations/tradeOperationCard';
+import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAuth } from '../hooks/auth';
 import { useSubscription } from '../hooks/subscription';
 
@@ -37,8 +39,7 @@ const Home: NextPage = () => {
               <PostsContainerComponent />
             </div>
             <div>
-              Some other content in here: grafico bitcoin? Gatilhos? Operacoes
-              abertas? Calendario de lives para membros? Give me more ideasss
+              <TradeOperationsContainer />
             </div>
           </div>
         </main>
