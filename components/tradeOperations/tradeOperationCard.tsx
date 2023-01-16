@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import { number } from 'yup/lib/locale';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface TradeOperation {
   id: string;
@@ -27,7 +33,6 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
   const {
     active,
     market,
-    created_at,
     updated_at,
     direction,
     entry_order_one,
@@ -52,20 +57,20 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
   };
 
   const gainOrLoss = () => {
-    if (result === 'gain') {
+    if (result === 'gain' || result === 'GAIN') {
       return (
         <span>
           {' | '}
-          <span className="text-green"> GAIN</span>
+          <span className="text-green">{result.toUpperCase()}</span>
         </span>
       );
     }
 
-    if (result === 'loss') {
+    if (result === 'loss' || result === 'LOSS') {
       return (
         <span>
           {' | '}
-          <span className="text-red"> LOSS</span>
+          <span className="text-red">{result.toUpperCase()}</span>
         </span>
       );
     }
@@ -73,29 +78,36 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
     return null;
   };
 
-  const updatedDate = dayjs(updated_at).format('HH:mm:ss - DD/MM/YYYY');
+  const updatedDate = dayjs(updated_at)
+    .tz('America/Sao_Paulo')
+    .format('HH:mm:ss - DD/MM/YYYY');
+
+  const formatBrl = (value: number) => {
+    const formatedValue = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+
+    return formatedValue;
+  };
 
   return (
     <div
-      className={`card w-max ${
+      className={`card md:w-max ${
         active
           ? 'bg-primary'
           : 'bg-base-200 border-2 border-primary text-secondary'
-      } text-primary-content mb-10`}
+      } text-primary-content mb-10 shadow-xl`}
     >
       <div className="card-body flex">
-        <div className="cardHead flex justify-between mb-6">
-          <div className="flex-col">
-            <p className="font-bold text-2xl mb-2">
-              {!active ? <s>{market}</s> : <span>{market}</span>}
-              {gainOrLoss()}
-            </p>
-            <p className="text-sm">Atualizado em: {updatedDate}</p>
-            {/* <p className="text-sm">Atualizado em: {updatedDate}</p> */}
-          </div>
-          <div className="flex">
+        <div className="cardHead flex md:flex-row flex-col justify-between mb-6">
+          <p className="font-bold text-2xl mb-2">
+            {!active ? <s>{market}</s> : <span>{market}</span>}
+            {gainOrLoss()}
+          </p>
+          <div className="flex w-max">
             {directionTitle()}
-            <div>
+            <div className="">
               <svg height="30" width="32" className="fill">
                 <circle
                   cx="20"
@@ -109,31 +121,39 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
             </div>
           </div>
         </div>
-        <div className="cardBody flex">
+        <p className="text-sm">Atualizado em: {updatedDate}</p>
+        <div className="cardBody flex md:flex-row flex-col">
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
             <ul className="list-disc ml-5">
-              <li>R$ {entry_order_one}</li>
-              <li>R$ {entry_order_two}</li>
-              {entry_order_three ? <li>R$ {entry_order_three}</li> : null}
+              <li>{formatBrl(entry_order_one)}</li>
+              <li>{formatBrl(entry_order_two)}</li>
+              {entry_order_three ? (
+                <li>{formatBrl(entry_order_three)}</li>
+              ) : null}
             </ul>
           </div>
-          <div className="stop&profit mr-10 flex flex-col">
+          <hr className="md:hidden mt-4 mb-4" />
+          <div className="stop&profit flex flex-row md:flex-col md:mr-10 justify-between">
             <div>
               <p className="font-bold">Take profit:</p>
               <ul className="list-disc ml-5">
-                <li>R$ {take_profit_one}</li>
-                {take_profit_two ? <li>R$ {take_profit_two}</li> : null}
+                <li>{formatBrl(take_profit_one)}</li>
+                {formatBrl(take_profit_two) ? (
+                  <li>{formatBrl(take_profit_two)}</li>
+                ) : null}
               </ul>
             </div>
-            <p>
-              <span className="font-bold">Stop:</span> R$ {stop}
-            </p>
+            <div className="flex flex-col">
+              <span className="font-bold">Stop:</span>{' '}
+              <span>{formatBrl(stop)}</span>
+            </div>
           </div>
+          <hr className="md:hidden mt-4 mb-4" />
           <button
             className={`btn  ${
               active ? 'btn-primary' : 'btn-disabled'
-            } bg-secondary self-end`}
+            } bg-secondary md:self-end self-center`}
             type="button"
           >
             BTCUSDT

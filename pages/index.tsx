@@ -34,7 +34,7 @@ const Home: NextPage = () => {
         <main className="h-full">
           {/* <Loader /> */}
           <div className="flex flex-col-reverse 2xl:flex-row p-10">
-            <div className="w-auto md:w-4/5 md:mr-16">
+            <div className="">
               <PostsContainerComponent />
             </div>
             <div>
