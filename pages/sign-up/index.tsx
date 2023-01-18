@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import * as Yup from 'yup';
 import React from 'react';
-import MyTextInput from '../../components/textInput.component';
+import MyTextInput from '../../components/shared/textInput.component';
 import { useToast } from '../../hooks/toast';
 import { useAuth } from '../../hooks/auth';
 import { useLoader } from '../../hooks/loader';

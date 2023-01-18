@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 
         <main className="h-full">
           {/* <Loader /> */}
-          <div className="flex flex-col-reverse 2xl:flex-row p-10">
+          <div className="flex flex-col-reverse 2xl:flex-row p-10 justify-around">
             <div className="">
               <PostsContainerComponent />
             </div>

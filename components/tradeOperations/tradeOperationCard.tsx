@@ -99,7 +99,7 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
       } text-primary-content mb-10 shadow-xl`}
     >
       <div className="card-body flex">
-        <div className="cardHead flex md:flex-row flex-col justify-between mb-6">
+        <div className="cardHead flex md:flex-row flex-col justify-between">
           <p className="font-bold text-2xl mb-2">
             {!active ? <s>{market}</s> : <span>{market}</span>}
             {gainOrLoss()}
@@ -120,7 +120,7 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
             </div>
           </div>
         </div>
-        <p className="text-sm">Atualizado em: {updatedDate}</p>
+        <p className="text-sm mb-6">Atualizado em: {updatedDate}</p>
         <div className="cardBody flex md:flex-row flex-col">
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
@@ -143,20 +143,22 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
                 ) : null}
               </ul>
             </div>
-            <div className="flex flex-col">
+          </div>
+          <hr className="md:hidden mt-4 mb-4" />
+          <div className="flex md:flex-col justify-between md:ml-0">
+            <div className="flex flex-col mb-6">
               <span className="font-bold">Stop:</span>{' '}
               <span>{formatBrl(stop)}</span>
             </div>
+            <button
+              className={`btn  ${
+                active ? 'btn-primary' : 'btn-disabled'
+              } bg-secondary md:self-end self-center`}
+              type="button"
+            >
+              BTCUSDT
+            </button>
           </div>
-          <hr className="md:hidden mt-4 mb-4" />
-          <button
-            className={`btn  ${
-              active ? 'btn-primary' : 'btn-disabled'
-            } bg-secondary md:self-end self-center`}
-            type="button"
-          >
-            BTCUSDT
-          </button>
         </div>
       </div>
     </div>

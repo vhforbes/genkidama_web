@@ -7,7 +7,7 @@ import { Form, Formik } from 'formik';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
-import MyTextInput from '../../components/textInput.component';
+import MyTextInput from '../../components/shared/textInput.component';
 import { useLoader } from '../../hooks/loader';
 
 interface SubmitLoginData {

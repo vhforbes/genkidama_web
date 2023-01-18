@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
 import routes from '../../enums/routes';
 import { useLoader } from '../../hooks/loader';
@@ -68,9 +69,14 @@ const PostsContainerComponent = () => {
     <div className="flex flex-col items-center">
       <div className="flex flex-row flex-wrap md:justify-center justify-center">
         {postsList?.map(post => {
-          const { title, content } = post;
+          const { title, content, video_link } = post;
           return (
-            <PostComponent title={title} content={content} key={post.id} />
+            <PostComponent
+              title={title}
+              content={content}
+              video_link={video_link}
+              key={post.id}
+            />
           );
         })}
       </div>
