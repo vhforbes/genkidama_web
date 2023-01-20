@@ -5,15 +5,15 @@ import MentoriaForm from '../../components/mentoriaForm/mentoriaForm';
 const MentoriaPage: NextPage = () => {
   return (
     <main className="flex flex-col justify-center lg:w-4/5 xxl:w-3/5 m-auto font-bold">
-      <h1 className="text-center max-w-lg mt-6 lg:mt-20 text-3xl lg:text-6xl leading-snug lg:max-w-5xl self-center font-extrabold">
+      <h1 className="text-center p-2 max-w-lg mt-6 lg:mt-20 text-3xl lg:text-6xl leading-snug lg:max-w-5xl self-center font-extrabold">
         Programa Genkidama de Mentoria Personalizada para Traders
       </h1>
       <div className="flex flex-col p-8 lg:p-14 lg:mt-14 justify-center">
-        <div className="flex flex-col lg:flex-row align-middle justify-between">
+        <div className="flex flex-col lg:flex-row self-center justify-start">
           <img
             src="/comendobitcoin.png"
             alt="caio comendo bitcoin"
-            className="max-w-sm lg:mr-10 self-center"
+            className="lg:mr-10 self-center max-w-[80%] lg:max-w-sm"
           />
           <div className="mt-12 text-lg max-w-2xl">
             <p className="font-bold text-3xl mb-5">
