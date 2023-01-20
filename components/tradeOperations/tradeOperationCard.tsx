@@ -161,7 +161,7 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
                 rel="noreferrer"
                 href={`https://www.bitget.com/en/mix/usdt/${market}_UMCBL`}
               >
-                BTCUSDT
+                {market}
               </a>
             </button>
           </div>
