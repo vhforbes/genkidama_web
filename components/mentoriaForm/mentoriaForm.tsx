@@ -6,7 +6,11 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 
 interface SubmitMentoriaFormData {
+  full_name: string;
   email: string;
+  phone_number: string;
+  telegram_name: string;
+  total_trading_time: string;
 }
 
 const MentoriaForm = () => {
@@ -14,16 +18,27 @@ const MentoriaForm = () => {
   const { setLoading } = useLoader();
 
   const submit = async (
-    { email }: SubmitMentoriaFormData,
+    {
+      full_name,
+      email,
+      phone_number,
+      telegram_name,
+      total_trading_time,
+    }: SubmitMentoriaFormData,
     setSubmitting: (bool: boolean) => void,
   ) => {
+    console.log('submit');
     try {
-      setLoading(true);
-      console.log(email);
-      //   await signIn({
-      //     email,
-      //     password,
-      //   });
+      // setLoading(true);
+
+      console.log(
+        full_name,
+        email,
+        phone_number,
+        telegram_name,
+        total_trading_time,
+      );
+
       setLoading(false);
       setSubmitting(false);
     } catch (error) {
@@ -40,38 +55,67 @@ const MentoriaForm = () => {
   return (
     <div>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{
+          full_name: '',
+          email: '',
+          phone_number: '',
+          telegram_name: '',
+          total_trading_time: '',
+        }}
         validationSchema={Yup.object({
           email: Yup.string()
             .email('Endereço de email inválido')
             .required('Campo obrigatório'),
-          password: Yup.string().required('Campo obrigatório'),
         })}
         onSubmit={(values, { setSubmitting }) => {
           submit(values, setSubmitting);
         }}
       >
         <Form>
-          <div className="card-body">
-            <div className="form-control">
+          <div className="">
+            <div className="form-control mt-4">
+              <MyTextInput
+                label="Nome completo:"
+                name="full_name"
+                type="text"
+                placeholder="João Silva"
+              />
+            </div>
+            <div className="form-control mt-4">
               <MyTextInput
                 label="Email:"
                 name="email"
                 type="text"
-                placeholder="email@gmail.com"
+                placeholder="joaosilva@email.com"
               />
             </div>
-            <div className="form-control">
+            <div className="form-control mt-4">
               <MyTextInput
-                label="Senha:"
-                name="password"
-                type="password"
-                placeholder="senha"
+                label="Numero do whatsapp:"
+                name="phone_number"
+                type="text"
+                placeholder="(11)963835105"
               />
             </div>
-            <div className="form-control mt-6">
+            <div className="form-control mt-4">
+              <MyTextInput
+                label="Nome no Telegram:"
+                name="telegram_name"
+                type="text"
+                placeholder="@JoaoSilva"
+              />
+            </div>
+            <div className="form-control mt-4">
+              <MyTextInput
+                label="Opera a quanto tempo?"
+                name="total_trading_time"
+                type="text"
+                placeholder="1 ano, 1 mês.."
+              />
+            </div>
+            <div className="form-control mt-4">
               <button type="submit" className="btn btn-secondary">
-                Login
+                ENVIAR
               </button>
             </div>
           </div>

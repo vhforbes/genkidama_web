@@ -2,18 +2,18 @@ import type { NextPage } from 'next';
 import React from 'react';
 import MentoriaForm from '../../components/mentoriaForm/mentoriaForm';
 
-const Mentoria: NextPage = () => {
+const MentoriaPage: NextPage = () => {
   return (
-    <main className="flex flex-col justify-center md:w-3/5 m-auto font-bold">
-      <h1 className="text-center mt-6 md:mt-20 text-3xl md:text-6xl leading-snug max-w-5xl self-center font-extrabold">
+    <main className="flex flex-col justify-center lg:w-4/5 xxl:w-3/5 m-auto font-bold">
+      <h1 className="text-center max-w-lg mt-6 lg:mt-20 text-3xl lg:text-6xl leading-snug lg:max-w-5xl self-center font-extrabold">
         Programa Genkidama de Mentoria Personalizada para Traders
       </h1>
-      <div className="flex flex-col p-8 md:p-14 md:mt-14 justify-center">
-        <div className="flex flex-col md:flex-row align-middle justify-between">
+      <div className="flex flex-col p-8 lg:p-14 lg:mt-14 justify-center">
+        <div className="flex flex-col lg:flex-row align-middle justify-between">
           <img
             src="/comendobitcoin.png"
             alt="caio comendo bitcoin"
-            className="max-w-sm md:mr-10"
+            className="max-w-sm lg:mr-10 self-center"
           />
           <div className="mt-12 text-lg max-w-2xl">
             <p className="font-bold text-3xl mb-5">
@@ -28,7 +28,8 @@ const Mentoria: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col mt-6 md:mt-14">
+
+        <div className="flex flex-col mt-6 lg:mt-14">
           <p className="text-5xl font-extrabold z-1 ml-12 relative top-4">
             Objetivo
           </p>
@@ -44,7 +45,8 @@ const Mentoria: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col mt-6 md:mt-14">
+
+        <div className="flex flex-col mt-6 lg:mt-14">
           <p className="text-5xl self-end font-extrabold z-1 mr-12 relative top-4">
             Processo
           </p>
@@ -62,11 +64,12 @@ const Mentoria: NextPage = () => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col mt-6 md:mt-14 w-full self-center justify-center text-center m-auto">
-          <p className="text-3xl md:text-6xl font-extrabold z-10 text-lightTeal bg-deepBlue rounded-xl md:p-8 p-6 md:mt-10">
+
+        <div className="flex flex-col mt-6 lg:mt-14 w-full self-center justify-center text-center m-auto">
+          <p className="text-3xl lg:text-6xl font-extrabold z-2 text-lightTeal bg-deepBlue rounded-xl lg:p-8 p-6 lg:mt-10">
             Voe mais longe!
           </p>
-          <div className="text-2xl mt-6 md:px-32">
+          <div className="text-2xl mt-6 lg:px-32">
             <p>
               Além de passar indicadores e montar um trade system que se adapte
               ao seu perfil, vamos lado alado alinhar seu horário de trabalho,
@@ -86,33 +89,44 @@ const Mentoria: NextPage = () => {
 
         <hr className="my-16 text-lightTeal" />
 
-        <div className="flex flex-col items-center md:flex-row md:justify-between ">
-          <div className="TEXT mr-1">
+        <div className="flex flex-col sm:flex-row lg:justify-between ">
+          <div className="self-start mr-24">
             <p className="text-2xl">
               Temas que serão abordados dentro da mentoria:
             </p>
-            <ul className="list-disc ml-4 mt-4 font-normal">
-              <li>Qual a sua rotina diária</li>
-              <li>Entendimento de gerenciamento de risco</li>
-              <li>Comprometimento com o ferenciamento de risco</li>
-              <li>Noções de liquidex</li>
-              <li>Gerenciamento de expectativa</li>
-              <li>Desenvolvimento do trade system próprio</li>
-              <li>Nível de conhecimento da análise técninca</li>
-              <li>Conhecimento em análise de posicionamento?</li>
-              <li>
+            <ul className="list-disc flex flex-col ml-6 mt-4 font-normal">
+              <li className="mt-2">Qual a sua rotina diária</li>
+              <li className="mt-2">Entendimento de gerenciamento de risco</li>
+              <li className="mt-2">
+                Comprometimento com o ferenciamento de risco
+              </li>
+              <li className="mt-2">Noções de liquidex</li>
+              <li className="mt-2">Gerenciamento de expectativa</li>
+              <li className="mt-2">Desenvolvimento do trade system próprio</li>
+              <li className="mt-2">
+                Nível de conhecimento da análise técninca
+              </li>
+              <li className="mt-2">
+                Conhecimento em análise de posicionamento?
+              </li>
+              <li className="mt-2">
                 Comprometimento com o preenchimento do controle financeiro
                 (planilha C%&LH@)
               </li>
-              <li>Autoconfiança X instabilidade emocional</li>
-              <li>Simplificar para operar sem sbjetividade</li>
-              <li>Tirando a emoção do jogo</li>
-              <li>Identificando o momento de stress</li>
-              <li>Por que é importante sacar seus lucros</li>
-              <li>Atividades fora do mercado, exercício físico / viagens</li>
+              <li className="mt-2">Autoconfiança X instabilidade emocional</li>
+              <li className="mt-2">Simplificar para operar sem sbjetividade</li>
+              <li className="mt-2">Tirando a emoção do jogo</li>
+              <li className="mt-2">Identificando o momento de stress</li>
+              <li className="mt-2">Por que é importante sacar seus lucros</li>
+              <li className="mt-2">
+                Atividades fora do mercado, exercício físico / viagens
+              </li>
             </ul>
           </div>
           <div className="FORM">
+            <p className="text-2xl self-start">
+              Preencha o formulário e entraremos em contato!
+            </p>
             <MentoriaForm />
           </div>
         </div>
@@ -121,4 +135,4 @@ const Mentoria: NextPage = () => {
   );
 };
 
-export default Mentoria;
+export default MentoriaPage;

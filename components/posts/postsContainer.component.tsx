@@ -35,7 +35,6 @@ const PostsContainerComponent = () => {
 
   const getPostsData = async (page: number, limit: number) => {
     try {
-      setLoading(true);
       const response = await privateApi.get(routes.posts, {
         params: {
           page,
@@ -52,7 +51,7 @@ const PostsContainerComponent = () => {
       setPostsList(data.posts);
       setLoading(false);
     } catch (err) {
-      setLoading(false);
+      // setLoading(false);
       addToast({
         type: 'error',
         title: 'Erro ao obter posts',
@@ -64,6 +63,11 @@ const PostsContainerComponent = () => {
   useEffect(() => {
     getPostsData(currentPage, postsLimit);
   }, [currentPage]);
+
+  useEffect(() => {
+    console.log('set loading');
+    setLoading(true);
+  }, []);
 
   return (
     <div className="flex flex-col items-center">

@@ -50,7 +50,7 @@ const ToastComponent: React.FC<ToastComponentProps> = () => {
   };
 
   return (
-    <div className="w-auto absolute top-24 right-10">
+    <div className="w-auto absolute top-24 right-10 z-10">
       {messages.map(message => (
         <div
           key={message.id}

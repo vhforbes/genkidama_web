@@ -47,6 +47,7 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
 
   const checkSub = useCallback(async () => {
     try {
+      setLoading(true);
       const { data } = await privateApi.get('/subscriptions/status');
 
       subscriptionData(data as SubscriptionState);
