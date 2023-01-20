@@ -156,7 +156,11 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
               } bg-secondary md:self-end self-center`}
               type="button"
             >
-              <a href={`https://www.bitget.com/en/mix/usdt/${market}_UMCBL`}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.bitget.com/en/mix/usdt/${market}_UMCBL`}
+              >
                 BTCUSDT
               </a>
             </button>
