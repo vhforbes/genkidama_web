@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import routes from '../../enums/routes';
 import privateApi from '../../services/privateApi';
 import TradeOperationCard from './tradeOperationCard';
 
@@ -23,7 +24,7 @@ const TradeOperationsContainer = () => {
   const [tradeOperations, setTradeOperations] = useState<TradeOperation[]>();
 
   const getTradeOperations = async () => {
-    const { data } = await privateApi.get('/trade-operations');
+    const { data } = await privateApi.get(routes.tradeOperations);
     setTradeOperations(data);
   };
 

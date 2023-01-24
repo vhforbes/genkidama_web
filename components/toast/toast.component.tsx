@@ -50,31 +50,35 @@ const ToastComponent: React.FC<ToastComponentProps> = () => {
   };
 
   return (
-    <div className="w-auto absolute top-24 right-10 z-10">
-      {messages.map(message => (
-        <div
-          key={message.id}
-          className={`alert shadow-lg mb-4 ${setToastType(message.type)}`}
-        >
-          <div>
-            {svgType(message.type)}
+    <div className="fixed right-4 mt-6 z-10">
+      <div className="">
+        {messages.map(message => (
+          <div
+            key={message.id}
+            className={`flex flex-row alert shadow-lg mb-4 ${setToastType(
+              message.type,
+            )}`}
+          >
             <div>
-              <h3 className="font-bold">{message.title}</h3>
-              <div className="text-xs">{message.description}</div>
+              {svgType(message.type)}
+              <div>
+                <h3 className="font-bold">{message.title}</h3>
+                <div className="text-xs">{message.description}</div>
+              </div>
+            </div>
+            <div className="flex-none">
+              <button
+                type="button"
+                className="btn bg-transparent relative border-0 text-neutral btn-sm bottom-3 left-3
+              hover:bg-transparent hover:text-"
+                onClick={() => removeToast(message.id)}
+              >
+                X
+              </button>
             </div>
           </div>
-          <div className="flex-none">
-            <button
-              type="button"
-              className="btn bg-transparent relative border-0 text-neutral btn-sm bottom-3 left-3
-              hover:bg-transparent hover:text-"
-              onClick={() => removeToast(message.id)}
-            >
-              X
-            </button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
