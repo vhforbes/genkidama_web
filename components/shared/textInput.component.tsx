@@ -21,7 +21,7 @@ const MyTextInput = ({ label, mask, ...props }: InputData) => {
       <label htmlFor={props.name}>{label}</label>
       {mask ? (
         <InputMask
-          className="input input-bordered bg-transparent"
+          className="input input-bordered"
           maskPlaceholder="11963835105"
           mask={mask}
           maskChar=" "
@@ -29,11 +29,7 @@ const MyTextInput = ({ label, mask, ...props }: InputData) => {
           {...props}
         />
       ) : (
-        <input
-          className="input input-bordered bg-transparent"
-          {...field}
-          {...props}
-        />
+        <input className="input input-bordered" {...field} {...props} />
       )}
 
       {meta.touched && meta.error ? (

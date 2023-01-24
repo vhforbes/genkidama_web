@@ -116,7 +116,7 @@ const MentoriaForm = () => {
                 label="Nome no Telegram:"
                 name="telegramName"
                 type="text"
-                mask="@aaaaaaaaaaaaaaaaaa"
+                mask="@***************************"
                 placeholder="@JoaoSilva"
               />
             </div>
