@@ -52,7 +52,7 @@ const MentoriaForm = () => {
       addToast({
         type: 'error',
         title: 'An error has ocurred',
-        description: error.response.data.message,
+        description: error?.response.data.message || 'Unknown error',
       });
       setLoading(false);
       setSubmitting(false);
