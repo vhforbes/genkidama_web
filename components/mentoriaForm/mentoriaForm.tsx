@@ -6,6 +6,7 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 import publicApi from '../../services/api';
 import routes from '../../enums/routes';
+import { AxiosError } from 'axios';
 
 interface SubmitMentoriaFormData {
   name: string;
@@ -47,11 +48,11 @@ const MentoriaForm = () => {
       });
       setLoading(false);
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any | AxiosError) {
       addToast({
         type: 'error',
         title: 'An error has ocurred',
-        description: 'Não foi possível enviar seu formulário.',
+        description: error.response.data.message,
       });
       setLoading(false);
       setSubmitting(false);
@@ -105,7 +106,7 @@ const MentoriaForm = () => {
                 name="phoneNumber"
                 type="text"
                 mask="(99)99999-9999"
-                placeholder="(11)963835105"
+                placeholder="(11)96383-5105"
               />
             </div>
             <div className="form-control mt-4">
@@ -113,6 +114,7 @@ const MentoriaForm = () => {
                 label="Nome no Telegram:"
                 name="telegramName"
                 type="text"
+                mask="@aaaaaaaaaaaaaaaaaa"
                 placeholder="@JoaoSilva"
               />
             </div>

@@ -22,12 +22,18 @@ const MyTextInput = ({ label, mask, ...props }: InputData) => {
       {mask ? (
         <InputMask
           className="input input-bordered"
-          maskPlaceholder=""
+          maskPlaceholder="11963835105"
           mask={mask}
           maskChar=" "
+          {...field}
+          {...props}
         />
       ) : (
-        <input className="input input-bordered" {...field} {...props} />
+        <input
+          className="input input-bordered bg-transparent"
+          {...field}
+          {...props}
+        />
       )}
 
       {meta.touched && meta.error ? (
