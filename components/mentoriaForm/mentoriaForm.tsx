@@ -1,12 +1,14 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AxiosError } from 'axios';
+
 import MyTextInput from '../shared/textInput.component';
 import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 import publicApi from '../../services/api';
 import routes from '../../enums/routes';
-import { AxiosError } from 'axios';
 
 interface SubmitMentoriaFormData {
   name: string;
@@ -48,7 +50,7 @@ const MentoriaForm = () => {
       });
       setLoading(false);
       setSubmitting(false);
-    } catch (error: any | AxiosError) {
+    } catch (error: AxiosError | any) {
       addToast({
         type: 'error',
         title: 'An error has ocurred',
