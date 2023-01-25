@@ -30,7 +30,7 @@ const MentoriaPage: NextPage = () => {
         </div>
 
         <div className="flex flex-col mt-6 lg:mt-14">
-          <p className="text-5xl font-extrabold z-1 ml-12 relative top-4">
+          <p className="text-5xl font-extrabold z-1 lg:ml-12 relative top-4 self-center lg:self-start">
             Objetivo
           </p>
           <div className="bg-[#22d3ee]/80 p-10 rounded-lg text-zinc900 text-xl">
@@ -47,7 +47,7 @@ const MentoriaPage: NextPage = () => {
         </div>
 
         <div className="flex flex-col mt-6 lg:mt-14">
-          <p className="text-5xl self-end font-extrabold z-1 mr-12 relative top-4">
+          <p className="text-5xl font-extrabold z-1 lg:mr-12 relative top-4 self-center lg:self-end">
             Processo
           </p>
           <div className="bg-[#22d3ee]/80 p-10 rounded-lg text-zinc900 text-xl">
@@ -80,7 +80,7 @@ const MentoriaPage: NextPage = () => {
               Aprenda com nossos erros e seus próprios.
               <br />
               <br />
-              <span className="text-orange font-extrabold text-4xl">
+              <span className="text-lightTeal font-extrabold text-4xl">
                 Juntos, voamos mais longe!
               </span>
             </p>
@@ -123,8 +123,9 @@ const MentoriaPage: NextPage = () => {
               </li>
             </ul>
           </div>
+          <img className="md:hidden" src="/meditando.png" alt="meditando" />
           <div className="FORM">
-            <p className="text-2xl self-start">
+            <p className="text-2xl self-start mt-8 lg:mt-0">
               Preencha o formulário e entraremos em contato!
             </p>
             <MentoriaForm />

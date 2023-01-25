@@ -55,6 +55,8 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
       if (data.status !== 'ACTIVE') {
         router.push('/assinatura');
       }
+
+      setLoading(false);
     } catch (error) {
       addToast({
         type: 'error',
