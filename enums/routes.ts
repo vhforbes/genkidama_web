@@ -7,6 +7,7 @@ const routes = {
   forms: {
     mentoria: '/forms/mentoria',
   },
+  recoverPassword: '/users/recover/',
 };
 
 export default routes;
