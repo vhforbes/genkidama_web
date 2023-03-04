@@ -54,62 +54,66 @@ const RecoverPassword: NextPage = () => {
 
     setToken(router.query.token as string);
 
-    if (!token) router.push('/sign-in');
+    if (!router.query.token) router.push('/sign-in');
   }, [router.isReady, router.query]);
 
   return (
-    <main className="">
-      <h1 className="text-center mt-20">Digite aqui sua nova senha</h1>
-      <Formik
-        initialValues={{ password: '', confirmPassword: '' }}
-        validationSchema={Yup.object({
-          password: Yup.string().required('Campo obrigatório'),
-          confirmPassword: Yup.string().required('Campo obrigatório'),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log('HEY');
+    <div className="hero mt-24">
+      <div className="hero-content flex-col w-auto md:w-2/5">
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
+          <p className="text-center mt-8 p-2 text-xl">
+            Digite aqui sua nova senha:
+          </p>
+          <Formik
+            initialValues={{ password: '', confirmPassword: '' }}
+            validationSchema={Yup.object({
+              password: Yup.string().required('Campo obrigatório'),
+              confirmPassword: Yup.string().required('Campo obrigatório'),
+            })}
+            onSubmit={(values, { setSubmitting }) => {
+              const { password, confirmPassword } = values;
 
-          const { password, confirmPassword } = values;
+              if (password !== confirmPassword) {
+                addToast({
+                  type: 'error',
+                  title: 'As senhas não são iguais',
+                  description: 'Verifique sua senha e tente novamente.',
+                });
+                return;
+              }
 
-          if (password !== confirmPassword) {
-            addToast({
-              type: 'error',
-              title: 'As senhas não são iguais',
-              description: 'Verifique sua senha e tente novamente.',
-            });
-            return;
-          }
-
-          submit({ password, token }, setSubmitting);
-        }}
-      >
-        <Form>
-          <div className="card-body">
-            <div className="form-control">
-              <MyTextInput
-                label="Senha:"
-                name="password"
-                type="password"
-                placeholder="Senha"
-              />
-            </div>
-            <div className="form-control">
-              <MyTextInput
-                label="Confirme a Senha:"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirme a senha"
-              />
-            </div>
-            <div className="form-control mt-6">
-              <button type="submit" className="btn btn-secondary">
-                Enviar
-              </button>
-            </div>
-          </div>
-        </Form>
-      </Formik>
-    </main>
+              submit({ password, token }, setSubmitting);
+            }}
+          >
+            <Form>
+              <div className="card-body">
+                <div className="form-control">
+                  <MyTextInput
+                    label="Senha:"
+                    name="password"
+                    type="password"
+                    placeholder="Senha"
+                  />
+                </div>
+                <div className="form-control">
+                  <MyTextInput
+                    label="Confirme a Senha:"
+                    name="confirmPassword"
+                    type="password"
+                    placeholder="Confirme a senha"
+                  />
+                </div>
+                <div className="form-control mt-6">
+                  <button type="submit" className="btn btn-secondary">
+                    Enviar
+                  </button>
+                </div>
+              </div>
+            </Form>
+          </Formik>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -87,6 +87,12 @@ const SignIn: NextPage = () => {
                   <button type="submit" className="btn btn-secondary">
                     Login
                   </button>
+                  <a
+                    href="/users/resetPassword"
+                    className="link-hover text-center mt-6"
+                  >
+                    Esqueceu sua senha?
+                  </a>
                 </div>
               </div>
             </Form>
