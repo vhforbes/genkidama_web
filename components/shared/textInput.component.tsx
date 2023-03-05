@@ -41,6 +41,7 @@ const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
           decimalsLimit={4}
           decimalSeparator=","
           groupSeparator="."
+          value={field.value}
           onValueChange={value => setFieldValue(field.name, value)}
           {...props}
         />

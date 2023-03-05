@@ -109,7 +109,9 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           <div>
             <button
               onClick={() =>
-                router.push(`/admin/operations/edit?id=${tradeOperation.id}`)
+                router.push(
+                  `/admin/operations/edit?operationId=${tradeOperation.id}`,
+                )
               }
               type="button"
               className="hover:underline"

@@ -1,36 +1,41 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 
+import { useRouter } from 'next/router';
 import { useToast } from '../../hooks/toast';
-
 import { useLoader } from '../../hooks/loader';
-import MyTextInput from '../shared/textInput.component';
+import { useTradeOperations } from '../../hooks/tradeOperations';
+
 import { TradeOperation } from '../../interfaces/tradeOperation';
+
+import MyTextInput from '../shared/textInput.component';
+
 import privateApi from '../../services/privateApi';
 import routes from '../../enums/routes';
 
-const TradeOperationForm = (tradeOperation: TradeOperation) => {
+const TradeOperationForm = () => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const { tradeOperations, getTradeOperations } = useTradeOperations();
+  const router = useRouter();
+  const [tradeOperation, setTradeOperation] = useState<TradeOperation>();
 
-  const {
-    id,
-    author_id,
-    active,
-    market,
-    created_at,
-    updated_at,
-    direction,
-    entry_order_one,
-    entry_order_two,
-    entry_order_three,
-    take_profit_one,
-    take_profit_two,
-    stop,
-    result,
-  } = tradeOperation;
+  useEffect(() => {
+    getTradeOperations();
+  }, []);
+
+  useEffect(() => {
+    const { operationId } = router.query;
+
+    tradeOperations.forEach(operation => {
+      if (operation.id === operationId) {
+        setTradeOperation(operation);
+        console.log(operation);
+      }
+    });
+  }, [tradeOperations]);
 
   const submit = async (
     tradeOperationDOT: TradeOperation,
@@ -41,7 +46,10 @@ const TradeOperationForm = (tradeOperation: TradeOperation) => {
     try {
       setLoading(true);
 
-      // await privateApi.post(routes.tradeOperations, tradeOperationDOT);
+      await privateApi.post(
+        `${routes.tradeOperations}/create`,
+        tradeOperationDOT,
+      );
 
       setLoading(false);
       setSubmitting(false);
@@ -61,22 +69,23 @@ const TradeOperationForm = (tradeOperation: TradeOperation) => {
       <div className="hero-content flex-col w-auto md:w-2/5">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
           <Formik
-            initialValues={{
-              id,
-              author_id,
-              active,
-              market,
-              created_at,
-              updated_at,
-              direction,
-              entry_order_one,
-              entry_order_two,
-              entry_order_three,
-              take_profit_one,
-              take_profit_two,
-              stop,
-              result,
-            }}
+            enableReinitialize
+            initialValues={
+              {
+                id: tradeOperation?.id || '',
+                author_id: tradeOperation?.author_id || '',
+                market: tradeOperation?.market || '',
+                active: tradeOperation?.active || true,
+                direction: tradeOperation?.direction || '',
+                entry_order_one: tradeOperation?.entry_order_one || 0,
+                entry_order_two: tradeOperation?.entry_order_two || '',
+                entry_order_three: tradeOperation?.entry_order_three || '',
+                take_profit_one: tradeOperation?.take_profit_one || '',
+                take_profit_two: tradeOperation?.take_profit_two || '',
+                stop: tradeOperation?.stop || '',
+                result: tradeOperation?.result || '',
+              } as TradeOperation
+            }
             // validationSchema={Yup.object({
             //   email: Yup.string()
             //     .email('Endereço de email inválido')
@@ -177,8 +186,8 @@ const TradeOperationForm = (tradeOperation: TradeOperation) => {
 
                 <div className="form-control">
                   <MyTextInput
-                    label="Stop:"
-                    name="stop"
+                    label="Result:"
+                    name="result"
                     type="text"
                     placeholder="GAIN / LOSS"
                     currency
