@@ -1,36 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import routes from '../../enums/routes';
-import privateApi from '../../services/privateApi';
+import React, { useEffect } from 'react';
+import { useTradeOperations } from '../../hooks/tradeOperations';
 import TradeOperationCard from './tradeOperationCard';
 
-interface TradeOperation {
-  id: string;
-  author_id: string;
-  market: string;
-  active: boolean;
-  direction: string;
-  entry_order_one: number;
-  entry_order_two: number;
-  entry_order_three: number;
-  take_profit_one: number;
-  take_profit_two: number;
-  stop: number;
-  created_at: string;
-  updated_at: string;
-  result: string;
-}
-
-const TradeOperationsContainer = () => {
-  const [tradeOperations, setTradeOperations] = useState<TradeOperation[]>();
-
-  const getTradeOperations = async () => {
-    const { data } = await privateApi.get(routes.tradeOperations);
-    setTradeOperations(data);
-  };
+const TradeOperationsContainer = ({ editable }: { editable: boolean }) => {
+  const { getTradeOperations, tradeOperations } = useTradeOperations();
 
   useEffect(() => {
     getTradeOperations();
-    // console.log(tradeOperations);
   }, []);
 
   return (
@@ -39,6 +15,7 @@ const TradeOperationsContainer = () => {
         <TradeOperationCard
           key={tradeOperation.id}
           tradeOperation={tradeOperation}
+          editable={editable}
         />
       ))}
     </div>

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { useTradeOperations } from '../../hooks/tradeOperations';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,9 +28,13 @@ interface TradeOperation {
 
 interface Props {
   tradeOperation: TradeOperation;
+  editable: boolean;
 }
 
-const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
+const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
+  const { deleteTradeOperation } = useTradeOperations();
+  const router = useRouter();
+
   const {
     active,
     market,
@@ -99,6 +105,27 @@ const ActiveTradeOperationCard = ({ tradeOperation }: Props) => {
       } text-primary-content mb-10 shadow-xl`}
     >
       <div className="card-body flex">
+        {editable ? (
+          <div>
+            <button
+              onClick={() =>
+                router.push(`/admin/operations/edit?id=${tradeOperation.id}`)
+              }
+              type="button"
+              className="hover:underline"
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => deleteTradeOperation(tradeOperation.id)}
+              type="button"
+              className="ml-8 hover:underline"
+            >
+              Apagar
+            </button>
+          </div>
+        ) : null}
+
         <div className="cardHead flex md:flex-row flex-col justify-between">
           <p className="font-bold text-2xl mb-2">
             {!active ? <s>{market}</s> : <span>{market}</span>}
