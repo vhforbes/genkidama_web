@@ -38,7 +38,7 @@ const Home: NextPage = () => {
               <PostsContainerComponent />
             </div>
             <div>
-              <TradeOperationsContainer />
+              <TradeOperationsContainer editable={false} />
             </div>
           </div>
         </main>

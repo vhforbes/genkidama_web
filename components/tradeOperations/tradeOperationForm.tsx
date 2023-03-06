@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 
 import { useRouter } from 'next/router';
@@ -15,7 +14,13 @@ import MyTextInput from '../shared/textInput.component';
 import privateApi from '../../services/privateApi';
 import routes from '../../enums/routes';
 
-const TradeOperationForm = () => {
+const TradeOperationForm = ({
+  edit,
+  create,
+}: {
+  edit?: boolean;
+  create?: boolean;
+}) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
   const { tradeOperations, getTradeOperations } = useTradeOperations();
@@ -32,7 +37,6 @@ const TradeOperationForm = () => {
     tradeOperations.forEach(operation => {
       if (operation.id === operationId) {
         setTradeOperation(operation);
-        console.log(operation);
       }
     });
   }, [tradeOperations]);
@@ -46,10 +50,25 @@ const TradeOperationForm = () => {
     try {
       setLoading(true);
 
-      await privateApi.post(
-        `${routes.tradeOperations}/create`,
-        tradeOperationDOT,
-      );
+      if (edit) {
+        await privateApi.put(
+          `${routes.tradeOperations}/update`,
+          tradeOperationDOT,
+        );
+      }
+
+      if (create) {
+        await privateApi.post(
+          `${routes.tradeOperations}/create`,
+          tradeOperationDOT,
+        );
+      }
+
+      addToast({
+        type: 'success',
+        title: 'Sucesso',
+        description: 'Operação atualizada :)',
+      });
 
       setLoading(false);
       setSubmitting(false);
@@ -93,7 +112,6 @@ const TradeOperationForm = () => {
             //   password: Yup.string().required('Campo obrigatório'),
             // })}
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
               submit(values, setSubmitting);
             }}
           >
@@ -190,7 +208,6 @@ const TradeOperationForm = () => {
                     name="result"
                     type="text"
                     placeholder="GAIN / LOSS"
-                    currency
                   />
                 </div>
 

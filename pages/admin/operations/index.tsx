@@ -5,6 +5,7 @@ import TradeOperationsContainer from '../../../components/tradeOperations/tradeO
 const Admin: NextPage = () => {
   return (
     <main className="">
+      <h1 className="text-center mt-20">Criar Operaçao</h1>
       <h1 className="text-center mt-20">Editar Operações</h1>
       <TradeOperationsContainer editable />
     </main>
