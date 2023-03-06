@@ -68,9 +68,15 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const deleteTradeOperation = useCallback(async (id: string) => {
-    console.log(id);
     try {
+      setLoading(true);
       await privateApi.delete(`${routes.tradeOperations}/${id}`);
+      setLoading(false);
+      addToast({
+        type: 'success',
+        description: 'Operação apagada com sucess',
+        title: '',
+      });
     } catch (error) {
       addToast({
         type: 'error',
