@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
@@ -41,14 +42,28 @@ const TradeOperationForm = ({
     });
   }, [tradeOperations]);
 
+  const deleteEmptyProps = (obj: any): any => {
+    console.log(obj);
+    return Object.keys(obj).forEach(key => {
+      if (
+        !obj[key] ||
+        obj[key] === undefined ||
+        (Array.isArray(obj[key]) && obj[key].length === 0)
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        delete obj[key];
+      }
+    });
+  };
+
   const submit = async (
     tradeOperationDOT: TradeOperation,
     setSubmitting: (bool: boolean) => void,
   ) => {
-    console.log(tradeOperationDOT);
-
     try {
       setLoading(true);
+
+      console.log(deleteEmptyProps(tradeOperationDOT));
 
       if (edit) {
         await privateApi.put(
@@ -96,7 +111,7 @@ const TradeOperationForm = ({
                 market: tradeOperation?.market || '',
                 active: tradeOperation?.active || true,
                 direction: tradeOperation?.direction || '',
-                entry_order_one: tradeOperation?.entry_order_one || 0,
+                entry_order_one: tradeOperation?.entry_order_one || '',
                 entry_order_two: tradeOperation?.entry_order_two || '',
                 entry_order_three: tradeOperation?.entry_order_three || '',
                 take_profit_one: tradeOperation?.take_profit_one || '',

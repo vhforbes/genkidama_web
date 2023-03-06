@@ -68,6 +68,7 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const deleteTradeOperation = useCallback(async (id: string) => {
+    console.log(id);
     try {
       await privateApi.delete(`${routes.tradeOperations}/${id}`);
     } catch (error) {
