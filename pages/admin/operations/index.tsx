@@ -8,7 +8,7 @@ const Admin: NextPage = () => {
       <h1 className="text-center mt-20 text-3xl">Gerenciamento de operações</h1>
 
       <a
-        className="btn btn-secondary w-full mt-10"
+        className="btn btn-secondary w-1/2 mt-10"
         href="/admin/operations/create"
       >
         Criar Operaçao
