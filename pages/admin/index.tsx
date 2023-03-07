@@ -10,8 +10,8 @@ const Admin: NextPage = () => {
         Operações
       </a>
       <br />
-      <a className="btn btn-secondary w-1/2" href="/admin/videos">
-        Postagem Video
+      <a className="btn btn-secondary w-1/2" href="/admin/exclusive-video">
+        Vídeos Exclusivos
       </a>
     </main>
   );

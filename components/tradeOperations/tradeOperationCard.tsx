@@ -50,7 +50,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   } = tradeOperation;
 
   const [colorHex] = useState(() => {
-    return direction === 'long' ? '#16a34a' : '#b91c1c';
+    if (active) return direction === 'long' ? '#16a34a' : '#b91c1c';
+    return '#6b7280';
   });
 
   const directionTitle = () => {
@@ -61,7 +62,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     return <p className="font-bold text-2xl ">{direction.toUpperCase()}</p>;
   };
 
-  const gainOrLoss = () => {
+  const gainLossEven = () => {
     if (result === 'gain' || result === 'GAIN') {
       return (
         <span>
@@ -76,6 +77,15 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
         <span>
           {' | '}
           <span className="text-red">{result.toUpperCase()}</span>
+        </span>
+      );
+    }
+
+    if (result === 'even' || result === 'EVEN') {
+      return (
+        <span>
+          {' | '}
+          <span className="text-[#fff]">{result.toUpperCase()}</span>
         </span>
       );
     }
@@ -98,7 +108,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
 
   return (
     <div
-      className={`card md:w-max ${
+      className={`card md:w-full ${
         active
           ? 'bg-primary'
           : 'bg-base-200 border-2 border-primary text-secondary'
@@ -131,11 +141,11 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
         <div className="cardHead flex md:flex-row flex-col justify-between">
           <p className="font-bold text-2xl mb-2">
             {!active ? <s>{market}</s> : <span>{market}</span>}
-            {gainOrLoss()}
+            {gainLossEven()}
           </p>
           <div className="flex w-max">
             {directionTitle()}
-            <div className="">
+            <div className={`${active ? 'animate-pulse' : ''}`}>
               <svg height="30" width="32" className="fill">
                 <circle
                   cx="20"

@@ -25,7 +25,7 @@ interface Post {
   video_link: string;
 }
 
-const PostsContainerComponent = () => {
+const PostsContainerComponent = ({ editable }: { editable: boolean }) => {
   const { setLoading } = useLoader();
   const { addToast } = useToast();
   const [postsList, setPostsList] = useState([] as Post[]);
@@ -72,13 +72,16 @@ const PostsContainerComponent = () => {
     <div className="flex flex-col items-center">
       <div className="flex flex-row flex-wrap md:justify-center justify-center">
         {postsList?.map(post => {
-          const { title, content, video_link } = post;
+          console.log(post);
+          const { id, title, content, video_link } = post;
           return (
             <PostComponent
+              id={id}
               title={title}
               content={content}
               video_link={video_link}
               key={post.id}
+              editable={editable}
             />
           );
         })}
