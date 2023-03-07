@@ -8,12 +8,11 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 import { useTradeOperations } from '../../hooks/tradeOperations';
 
-import { TradeOperation } from '../../interfaces/TradeOperation';
-
 import MyTextInput from '../shared/textInput.component';
 
 import privateApi from '../../services/privateApi';
 import routes from '../../enums/routes';
+import { TradeOperation } from '../../interfaces/TradeOperation';
 
 const TradeOperationForm = ({
   edit,
