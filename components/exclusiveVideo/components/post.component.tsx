@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
+import { useExclusiveVideos } from '../../../hooks/exclusiveVideos';
 
 interface PostProps {
   id: string;
@@ -18,6 +19,7 @@ const PostComponent = ({
 }: PostProps) => {
   const videoId = video_link.split('v=')[1];
   const router = useRouter();
+  const { deleteExclusiveVideo } = useExclusiveVideos();
 
   return (
     <div className="card card-compact mb-4 mr-4 max-w-xs bg-primary shadow-xl">
@@ -31,7 +33,7 @@ const PostComponent = ({
             Editar
           </button>
           <button
-            onClick={() => deleteTradeOperation(id)}
+            onClick={() => deleteExclusiveVideo(id)}
             type="button"
             className="ml-8 hover:underline"
           >

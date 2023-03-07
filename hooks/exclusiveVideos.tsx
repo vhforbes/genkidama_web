@@ -3,26 +3,10 @@ import privateApi from '../services/privateApi';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 import routes from '../enums/routes';
-
-interface ExclusiveVideoState {
-  id: string;
-  author_id: string;
-  market: string;
-  active: boolean;
-  direction: string;
-  entry_order_one: number;
-  entry_order_two: number;
-  entry_order_three: number;
-  take_profit_one: number;
-  take_profit_two: number;
-  stop: number;
-  created_at: string;
-  updated_at: string;
-  result: string;
-}
+import { ExclusiveVideo } from '../interfaces/ExclusiveVideo';
 
 interface ExclusiveVideoContextData {
-  tradeOperations: ExclusiveVideoState[];
+  exclusiveVideos: ExclusiveVideo[];
   getExclusiveVideos(): Promise<void>;
   deleteExclusiveVideo(id: string): Promise<void>;
   // CRUDS FOR THE TRADE OPERATION
@@ -45,17 +29,17 @@ const ExclusiveVideosContext = createContext<ExclusiveVideoContextData>(
 const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
-  const [tradeOperations, setExclusiveVideos] = useState<ExclusiveVideoState[]>(
-    [] as ExclusiveVideoState[],
+  const [exclusiveVideos, setExclusiveVideos] = useState<ExclusiveVideo[]>(
+    [] as ExclusiveVideo[],
   );
 
   const getExclusiveVideos = useCallback(async () => {
     try {
       setLoading(true);
 
-      const { data } = await privateApi.get(routes.tradeOperations);
+      const { data } = await privateApi.get(routes.posts);
 
-      setExclusiveVideos(data as ExclusiveVideoState[]);
+      setExclusiveVideos(data.response as ExclusiveVideo[]);
 
       setLoading(false);
     } catch (error) {
@@ -70,7 +54,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
   const deleteExclusiveVideo = useCallback(async (id: string) => {
     try {
       setLoading(true);
-      await privateApi.delete(`${routes.tradeOperations}/${id}`);
+      await privateApi.delete(`${routes.posts}/${id}`);
       setLoading(false);
       addToast({
         type: 'success',
@@ -90,7 +74,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
     <ExclusiveVideosContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        tradeOperations,
+        exclusiveVideos,
         getExclusiveVideos,
         deleteExclusiveVideo,
       }}

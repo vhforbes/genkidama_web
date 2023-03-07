@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import React from 'react';
-import PostsContainerComponent from '../../../components/posts/postsContainer.component';
+import PostsContainerComponent from '../../../components/exclusiveVideo/postsContainer.component';
 
 const Admin: NextPage = () => {
   return (
@@ -11,7 +11,7 @@ const Admin: NextPage = () => {
 
       <a
         className="btn btn-secondary w-1/2 mt-10"
-        href="/admin/operations/create"
+        href="/admin/exclusive-video/create"
       >
         Criar Video Exclusivo
       </a>
