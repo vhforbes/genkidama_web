@@ -8,6 +8,7 @@ import { LoaderProvider } from './loader';
 import { ToastProvider } from './toast';
 import { SubscriptionProvider } from './subscription';
 import { TradeOperationsProvider } from './tradeOperations';
+import { AccessControlProvider } from './accessControl';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -15,9 +16,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
       <AuthProvider>
         <DrawerProvider>
           <SubscriptionProvider>
-            <PayPalScriptProvider options={initialOptions}>
-              <TradeOperationsProvider>{children}</TradeOperationsProvider>
-            </PayPalScriptProvider>
+            <AccessControlProvider>
+              <PayPalScriptProvider options={initialOptions}>
+                <TradeOperationsProvider>{children}</TradeOperationsProvider>
+              </PayPalScriptProvider>
+            </AccessControlProvider>
           </SubscriptionProvider>
         </DrawerProvider>
       </AuthProvider>

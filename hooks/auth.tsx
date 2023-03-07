@@ -13,6 +13,7 @@ interface User {
   subscription_id: string;
   updated_at: string;
   verified: boolean;
+  role: string;
 }
 
 interface AuthState {

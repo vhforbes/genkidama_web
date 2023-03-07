@@ -7,8 +7,6 @@ interface PostProps {
 }
 
 const PostComponent = ({ title, content, video_link }: PostProps) => {
-  console.log(title, content, video_link);
-
   const videoId = video_link.split('v=')[1];
 
   return (

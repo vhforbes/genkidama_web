@@ -8,7 +8,7 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 import { useTradeOperations } from '../../hooks/tradeOperations';
 
-import { TradeOperation } from '../../interfaces/tradeOperation';
+import { TradeOperation } from '../../interfaces/TradeOperation';
 
 import MyTextInput from '../shared/textInput.component';
 
@@ -42,28 +42,12 @@ const TradeOperationForm = ({
     });
   }, [tradeOperations]);
 
-  const deleteEmptyProps = (obj: any): any => {
-    console.log(obj);
-    return Object.keys(obj).forEach(key => {
-      if (
-        !obj[key] ||
-        obj[key] === undefined ||
-        (Array.isArray(obj[key]) && obj[key].length === 0)
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        delete obj[key];
-      }
-    });
-  };
-
   const submit = async (
     tradeOperationDOT: TradeOperation,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
       setLoading(true);
-
-      console.log(deleteEmptyProps(tradeOperationDOT));
 
       if (edit) {
         await privateApi.put(

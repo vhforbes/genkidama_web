@@ -65,7 +65,6 @@ const PostsContainerComponent = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    console.log('set loading');
     setLoading(true);
   }, []);
 

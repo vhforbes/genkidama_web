@@ -5,24 +5,27 @@ import React, { useEffect } from 'react';
 
 import PostsContainerComponent from '../components/posts/postsContainer.component';
 import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
+import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
-import { useSubscription } from '../hooks/subscription';
 
 const Home: NextPage = () => {
-  const { user } = useAuth();
   const router = useRouter();
-  const { checkSub, subscription } = useSubscription();
+  const { user } = useAuth();
+  const { getUserAccess, currentAccess } = useAccessControl();
+
+  useEffect(() => {
+    getUserAccess();
+  }, []);
 
   if (!user) {
     router.push('/sign-in');
     return null;
   }
 
-  useEffect(() => {
-    checkSub();
-  }, []);
-
-  if (subscription.status === 'ACTIVE')
+  if (
+    currentAccess?.caio?.hasFullAccess ||
+    currentAccess?.caio?.hasLimitedAccess
+  )
     return (
       <div>
         <Head>

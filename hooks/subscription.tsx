@@ -20,7 +20,7 @@ interface SubscriptionState {
 
 interface SubscriptionContextData {
   subscription: SubscriptionState;
-  checkSub(): Promise<void>;
+  checkSub(): Promise<boolean>;
   activateSubscription(paypalData: any): Promise<void>;
   cancelSubscription(
     cancelationReason: string,
@@ -50,19 +50,24 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
       setLoading(true);
       const { data } = await privateApi.get('/subscriptions/status');
 
+      setLoading(false);
+
       subscriptionData(data as SubscriptionState);
 
       if (data.status !== 'ACTIVE') {
-        router.push('/assinatura');
+        // router.push('/assinatura');
+        return false;
       }
 
-      setLoading(false);
+      return true;
     } catch (error) {
       addToast({
         type: 'error',
         description: 'Ops, tivemos um erro.',
         title: 'Favor entre em contato com nossa equipe de suporte.',
       });
+
+      return false;
     }
   }, []);
 

@@ -3,12 +3,13 @@ import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/auth';
-import { useSubscription } from '../../hooks/subscription';
+import { useAccessControl } from '../../hooks/accessControl';
+import NoAccessCompnent from '../../components/noAccess/noAccessComponent';
 
 const Live: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
-  const { checkSub, subscription } = useSubscription();
+  const { getUserAccess, currentAccess } = useAccessControl();
 
   if (!user) {
     router.push('/sign-in');
@@ -16,10 +17,10 @@ const Live: NextPage = () => {
   }
 
   useEffect(() => {
-    checkSub();
+    getUserAccess();
   }, []);
 
-  if (subscription.status === 'ACTIVE')
+  if (currentAccess?.caio?.hasFullAccess)
     return (
       <div>
         <iframe
@@ -31,7 +32,7 @@ const Live: NextPage = () => {
       </div>
     );
 
-  return null;
+  return <NoAccessCompnent />;
 };
 
 export default Live;
