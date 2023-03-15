@@ -5,26 +5,10 @@ import { useRouter } from 'next/router';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { useTradeOperations } from '../../hooks/tradeOperations';
+import { TradeOperation } from '../../interfaces/TradeOperation';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-
-interface TradeOperation {
-  id: string;
-  author_id: string;
-  market: string;
-  active: boolean;
-  direction: string;
-  entry_order_one: number;
-  entry_order_two: number;
-  entry_order_three: number;
-  take_profit_one: number;
-  take_profit_two: number;
-  stop: number;
-  created_at: string;
-  updated_at: string;
-  result: string;
-}
 
 interface Props {
   tradeOperation: TradeOperation;
@@ -38,16 +22,16 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   const {
     active,
     market,
-    updated_at,
+    updatedAt,
     direction,
-    entry_order_one,
-    entry_order_two,
-    entry_order_three,
-    take_profit_one,
-    take_profit_two,
+    entryOrderOne,
+    entryOrderTwo,
+    entryOrderThree,
+    takeProfitOne,
+    takeProfitTwo,
     stop,
     result,
-  } = tradeOperation;
+  } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
     if (active) return direction === 'long' ? '#16a34a' : '#b91c1c';
@@ -93,7 +77,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     return null;
   };
 
-  const updatedDate = dayjs(updated_at)
+  const updatedDate = dayjs(updatedAt)
     .tz('America/Sao_Paulo')
     .format('HH:mm:ss - DD/MM/YYYY');
 
@@ -164,11 +148,9 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
             <ul className="list-disc ml-5">
-              <li>{formatBrl(entry_order_one)}</li>
-              <li>{formatBrl(entry_order_two)}</li>
-              {entry_order_three ? (
-                <li>{formatBrl(entry_order_three)}</li>
-              ) : null}
+              <li>{formatBrl(entryOrderOne)}</li>
+              {entryOrderTwo ? <li>{formatBrl(entryOrderTwo)}</li> : null}
+              {entryOrderThree ? <li>{formatBrl(entryOrderThree)}</li> : null}
             </ul>
           </div>
           <hr className="md:hidden mt-4 mb-4" />
@@ -176,10 +158,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
             <div>
               <p className="font-bold">Take profit:</p>
               <ul className="list-disc ml-5">
-                <li>{formatBrl(take_profit_one)}</li>
-                {formatBrl(take_profit_two) ? (
-                  <li>{formatBrl(take_profit_two)}</li>
-                ) : null}
+                <li>{formatBrl(takeProfitOne)}</li>
+                {takeProfitTwo ? <li>{formatBrl(takeProfitTwo)}</li> : null}
               </ul>
             </div>
           </div>

@@ -1,10 +1,8 @@
 export interface ExclusiveVideo {
-  author_id: string;
-  content?: string;
-  created_at: string;
   id: string;
-  image?: string;
+  authorId: string;
   title: string;
-  updated_at: string;
-  video_link: string;
+  content: string;
+  image: string;
+  videoLink: string;
 }

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
-import PostsContainerComponent from '../components/exclusiveVideo/postsContainer.component';
+import PostsContainerComponent from '../components/exclusiveVideo/exclusiveVideosContainer.component';
 import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           {/* <Loader /> */}
           <div className="flex flex-col-reverse 2xl:flex-row p-10 justify-around">
             <div className="">
-              <PostsContainerComponent editable={!false} />
+              <PostsContainerComponent editable={false} />
             </div>
             <div>
               <TradeOperationsContainer editable={false} />

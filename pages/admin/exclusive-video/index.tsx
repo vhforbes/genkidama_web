@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import React from 'react';
-import PostsContainerComponent from '../../../components/exclusiveVideo/postsContainer.component';
+import PostsContainerComponent from '../../../components/exclusiveVideo/exclusiveVideosContainer.component';
 
 const Admin: NextPage = () => {
   return (

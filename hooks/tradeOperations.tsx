@@ -1,30 +1,22 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import privateApi from '../services/privateApi';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 import routes from '../enums/routes';
-
-interface TradeOperationState {
-  id: string;
-  author_id: string;
-  market: string;
-  active: boolean;
-  direction: string;
-  entry_order_one: number;
-  entry_order_two: number;
-  entry_order_three: number;
-  take_profit_one: number;
-  take_profit_two: number;
-  stop: number;
-  created_at: string;
-  updated_at: string;
-  result: string;
-}
+import { TradeOperation } from '../interfaces/TradeOperation';
 
 interface TradeOperationContextData {
-  tradeOperations: TradeOperationState[];
+  tradeOperations: TradeOperation[];
   getTradeOperations(): Promise<void>;
   deleteTradeOperation(id: string): Promise<void>;
+  createTradeOperation(tradeOperation: TradeOperation): Promise<void>;
+  editTradeOperation(tradeOperation: TradeOperation): Promise<void>;
   // CRUDS FOR THE TRADE OPERATION
   //   checkSub(): Promise<void>;
   //   activateSubscription(paypalData: any): Promise<void>;
@@ -45,19 +37,16 @@ const TradeOperationsContext = createContext<TradeOperationContextData>(
 const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
-  const [tradeOperations, setTradeOperations] = useState<TradeOperationState[]>(
-    [] as TradeOperationState[],
+  const [tradeOperations, setTradeOperations] = useState<TradeOperation[]>(
+    [] as TradeOperation[],
   );
 
   const getTradeOperations = useCallback(async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-
       const { data } = await privateApi.get(routes.tradeOperations);
 
-      setTradeOperations(data as TradeOperationState[]);
-
-      setLoading(false);
+      setTradeOperations(data as TradeOperation[]);
     } catch (error) {
       addToast({
         type: 'error',
@@ -65,18 +54,73 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
         title: 'Não foi possível obter as operações',
       });
     }
+    setLoading(false);
   }, []);
 
-  const deleteTradeOperation = useCallback(async (id: string) => {
-    try {
+  const createTradeOperation = useCallback(
+    async (tradeOperation: TradeOperation) => {
+      try {
+        await privateApi.post(routes.tradeOperations, tradeOperation);
+
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'Operação criada com sucesso :)',
+        });
+      } catch (error) {
+        addToast({
+          type: 'error',
+          description: 'Ops, tivemos um erro.',
+          title: 'Não foi possível criar a operação',
+        });
+      }
+    },
+    [],
+  );
+
+  const editTradeOperation = useCallback(
+    async (tradeOperation: TradeOperation) => {
       setLoading(true);
-      await privateApi.delete(`${routes.tradeOperations}/${id}`);
+      try {
+        const { data } = await privateApi.put(
+          routes.tradeOperations,
+          tradeOperation,
+        );
+
+        const updatedTradeOperations = tradeOperations as Array<TradeOperation>;
+        updatedTradeOperations.push(data);
+
+        setTradeOperations(updatedTradeOperations);
+
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'Operação editada com sucesso :)',
+        });
+      } catch (error) {
+        addToast({
+          type: 'error',
+          description: 'Ops, tivemos um erro.',
+          title: 'Não foi possível editar a operação',
+        });
+      }
       setLoading(false);
+    },
+    [],
+  );
+
+  const deleteTradeOperation = useCallback(async (id: string) => {
+    setLoading(true);
+    try {
+      await privateApi.delete(`${routes.tradeOperations}?id=${id}`);
+
       addToast({
         type: 'success',
         description: 'Operação apagada com sucess',
         title: '',
       });
+
+      getTradeOperations();
     } catch (error) {
       addToast({
         type: 'error',
@@ -84,6 +128,11 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
         title: 'Não foi possível deletar a operação',
       });
     }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    getTradeOperations();
   }, []);
 
   return (
@@ -93,6 +142,8 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
         tradeOperations,
         getTradeOperations,
         deleteTradeOperation,
+        createTradeOperation,
+        editTradeOperation,
       }}
     >
       {children}

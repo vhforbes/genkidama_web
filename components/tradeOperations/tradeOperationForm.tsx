@@ -10,8 +10,6 @@ import { useTradeOperations } from '../../hooks/tradeOperations';
 
 import MyTextInput from '../shared/textInput.component';
 
-import privateApi from '../../services/privateApi';
-import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
 
 const TradeOperationForm = ({
@@ -23,12 +21,17 @@ const TradeOperationForm = ({
 }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
-  const { tradeOperations, getTradeOperations } = useTradeOperations();
+  const {
+    tradeOperations,
+    // getTradeOperations,
+    createTradeOperation,
+    editTradeOperation,
+  } = useTradeOperations();
   const router = useRouter();
   const [tradeOperation, setTradeOperation] = useState<TradeOperation>();
 
   useEffect(() => {
-    getTradeOperations();
+    // getTradeOperations();
   }, []);
 
   useEffect(() => {
@@ -46,29 +49,14 @@ const TradeOperationForm = ({
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      setLoading(true);
-
       if (edit) {
-        await privateApi.put(
-          `${routes.tradeOperations}/update`,
-          tradeOperationDOT,
-        );
+        editTradeOperation(tradeOperationDOT);
       }
 
       if (create) {
-        await privateApi.post(
-          `${routes.tradeOperations}/create`,
-          tradeOperationDOT,
-        );
+        createTradeOperation(tradeOperationDOT);
       }
 
-      addToast({
-        type: 'success',
-        title: 'Sucesso',
-        description: 'Operação atualizada :)',
-      });
-
-      setLoading(false);
       setSubmitting(false);
     } catch (error) {
       addToast({
@@ -90,15 +78,15 @@ const TradeOperationForm = ({
             initialValues={
               {
                 id: tradeOperation?.id || '',
-                author_id: tradeOperation?.author_id || '',
+                authorId: tradeOperation?.authorId || '',
                 market: tradeOperation?.market || '',
                 active: tradeOperation?.active || true,
                 direction: tradeOperation?.direction || '',
-                entry_order_one: tradeOperation?.entry_order_one || '',
-                entry_order_two: tradeOperation?.entry_order_two || '',
-                entry_order_three: tradeOperation?.entry_order_three || '',
-                take_profit_one: tradeOperation?.take_profit_one || '',
-                take_profit_two: tradeOperation?.take_profit_two || '',
+                entryOrderOne: tradeOperation?.entryOrderOne || '',
+                entryOrderTwo: tradeOperation?.entryOrderTwo || '',
+                entryOrderThree: tradeOperation?.entryOrderThree || '',
+                takeProfitOne: tradeOperation?.takeProfitOne || '',
+                takeProfitTwo: tradeOperation?.takeProfitTwo || '',
                 stop: tradeOperation?.stop || '',
                 result: tradeOperation?.result || '',
               } as TradeOperation
@@ -143,7 +131,7 @@ const TradeOperationForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Entry Order One:"
-                    name="entry_order_one"
+                    name="entryOrderOne"
                     type="text"
                     placeholder=""
                     currency
@@ -153,7 +141,7 @@ const TradeOperationForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Entry Order Two:"
-                    name="entry_order_two"
+                    name="entryOrderTwo"
                     type="text"
                     placeholder=""
                     currency
@@ -163,7 +151,7 @@ const TradeOperationForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Entry Order Three:"
-                    name="entry_order_three"
+                    name="entryOrderThree"
                     type="text"
                     placeholder=""
                     currency
@@ -173,7 +161,7 @@ const TradeOperationForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Take Profit One:"
-                    name="take_profit_one"
+                    name="takeProfitOne"
                     type="text"
                     placeholder=""
                     currency
@@ -183,7 +171,7 @@ const TradeOperationForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Take Profit Two:"
-                    name="take_profit_two"
+                    name="takeProfitTwo"
                     type="text"
                     placeholder=""
                     currency

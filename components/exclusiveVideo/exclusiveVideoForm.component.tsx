@@ -8,11 +8,9 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 import { useExclusiveVideos } from '../../hooks/exclusiveVideos';
 
-import MyTextInput from '../shared/textInput.component';
-
-import privateApi from '../../services/privateApi';
-import routes from '../../enums/routes';
 import { ExclusiveVideo } from '../../interfaces/ExclusiveVideo';
+
+import MyTextInput from '../shared/textInput.component';
 
 const ExclusiveVideoForm = ({
   edit,
@@ -23,12 +21,17 @@ const ExclusiveVideoForm = ({
 }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
-  const { getExclusiveVideos, exclusiveVideos } = useExclusiveVideos();
+  const {
+    getAllExclusiveVideos,
+    exclusiveVideos,
+    createExclusiveVideo,
+    editExclusiveVideo,
+  } = useExclusiveVideos();
   const router = useRouter();
   const [exclusiveVideo, setExclusiveVideo] = useState<ExclusiveVideo>();
 
   useEffect(() => {
-    getExclusiveVideos();
+    getAllExclusiveVideos();
   }, []);
 
   useEffect(() => {
@@ -46,23 +49,14 @@ const ExclusiveVideoForm = ({
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      setLoading(true);
-
       if (edit) {
-        await privateApi.put(`${routes.posts}`, exclusiveVideoDOT);
+        editExclusiveVideo(exclusiveVideoDOT);
       }
 
       if (create) {
-        await privateApi.post(`${routes.posts}`, exclusiveVideoDOT);
+        createExclusiveVideo(exclusiveVideoDOT);
       }
 
-      addToast({
-        type: 'success',
-        title: 'Sucesso',
-        description: 'Operação atualizada :)',
-      });
-
-      setLoading(false);
       setSubmitting(false);
     } catch (error) {
       addToast({
@@ -86,7 +80,7 @@ const ExclusiveVideoForm = ({
                 id: exclusiveVideo?.id,
                 title: exclusiveVideo?.title,
                 content: exclusiveVideo?.content,
-                video_link: exclusiveVideo?.video_link,
+                videoLink: exclusiveVideo?.videoLink,
               } as ExclusiveVideo
             }
             onSubmit={(values, { setSubmitting }) => {
@@ -97,7 +91,7 @@ const ExclusiveVideoForm = ({
               <div className="card-body">
                 <div className="form-control">
                   <MyTextInput
-                    label="Market:"
+                    label="Title:"
                     name="title"
                     type="text"
                     placeholder="Titulo video"
@@ -116,7 +110,7 @@ const ExclusiveVideoForm = ({
                 <div className="form-control">
                   <MyTextInput
                     label="Video Link:"
-                    name="video_link"
+                    name="videoLink"
                     type="text"
                     placeholder="video link"
                   />

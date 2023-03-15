@@ -1,39 +1,35 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import { useExclusiveVideos } from '../../../hooks/exclusiveVideos';
+import { ExclusiveVideo } from '../../../interfaces/ExclusiveVideo';
 
 interface PostProps {
-  id: string;
-  title: string;
-  content: string;
-  video_link: string;
+  exclusiveVideo: ExclusiveVideo;
   editable: boolean;
 }
 
-const PostComponent = ({
-  id,
-  title,
-  content,
-  video_link,
-  editable,
-}: PostProps) => {
-  const videoId = video_link.split('v=')[1];
+const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
+  const videoId = exclusiveVideo.videoLink.split('v=')[1];
   const router = useRouter();
   const { deleteExclusiveVideo } = useExclusiveVideos();
+
+  console.log(exclusiveVideo.id);
 
   return (
     <div className="card card-compact mb-4 mr-4 max-w-xs bg-primary shadow-xl">
       {editable ? (
         <div>
           <button
-            onClick={() => router.push(`/admin/exclusive-video/edit?id=${id}`)}
+            onClick={() =>
+              router.push(`/admin/exclusive-video/edit?id=${exclusiveVideo.id}`)
+            }
             type="button"
             className="hover:underline"
           >
             Editar
           </button>
           <button
-            onClick={() => deleteExclusiveVideo(id)}
+            onClick={() => deleteExclusiveVideo(exclusiveVideo.id)}
             type="button"
             className="ml-8 hover:underline"
           >
@@ -48,11 +44,11 @@ const PostComponent = ({
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <p>{content}</p>
+        <h2 className="card-title">{exclusiveVideo.title}</h2>
+        <p>{exclusiveVideo.content}</p>
         <div className="card-actions justify-center mt-4">
           <button type="button" className="btn btn-secondary">
-            <a href={video_link} target="_blank" rel="noreferrer">
+            <a href={exclusiveVideo.videoLink} target="_blank" rel="noreferrer">
               ACESSE O VÍDEO
             </a>
           </button>

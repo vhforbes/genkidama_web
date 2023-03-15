@@ -1,7 +1,7 @@
 const routes = {
   sessions: '/sessions',
   users: '/users',
-  posts: '/posts',
+  exclusiveVideos: '/exclusive-videos',
   subscriptions: '/subscriptions',
   tradeOperations: '/trade-operations',
   forms: {
