@@ -53,7 +53,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
       addToast({
         type: 'error',
         description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter as operações',
+        title: 'Não foi possível obter os últimos videos',
       });
     }
   }, []);
