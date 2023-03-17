@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import MyTextInput from '../../components/shared/textInput.component';
 import routes from '../../enums/routes';
@@ -10,9 +11,15 @@ import { User } from '../../interfaces/User';
 import privateApi from '../../services/privateApi';
 
 const Account: NextPage = () => {
+  const router = useRouter();
   const { user, refreshUser } = useAuth();
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+
+  if (!user) {
+    router.push('/sign-in');
+    return null;
+  }
 
   const submit = async (
     userDOT: User,
