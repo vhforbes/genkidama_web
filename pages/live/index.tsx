@@ -20,7 +20,7 @@ const Live: NextPage = () => {
     getUserAccess();
   }, []);
 
-  if (currentAccess?.caio?.hasFullAccess)
+  if (currentAccess?.hasFullAccess)
     return (
       <div>
         <iframe

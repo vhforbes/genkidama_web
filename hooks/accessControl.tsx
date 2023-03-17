@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 
@@ -10,10 +9,8 @@ import routes from '../enums/routes';
 
 interface AccessControlState {
   id: string;
-  caio: {
-    hasFullAccess: boolean;
-    hasLimitedAccess: boolean;
-  };
+  hasFullAccess: boolean;
+  hasLimitedAccess: boolean;
 }
 
 interface AccessControlContextData {
@@ -34,7 +31,6 @@ const AccessControlContext = createContext<AccessControlContextData>(
 // principalmente, pensando em usar um redis como cache
 
 const AccessControlProvider: React.FC<Props> = ({ children }) => {
-  const router = useRouter();
   const { addToast } = useToast();
   const { setLoading } = useLoader();
 
@@ -49,35 +45,27 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
       const { data } = await privateApi.get(routes.users);
       const user = data.user as User;
 
+      // WTF? CAIO?
       const accessControl = {
         id: user.id,
-        caio: {
-          hasFullAccess: false,
-          hasLimitedAccess: false,
-        },
+        hasFullAccess: false,
+        hasLimitedAccess: false,
       } as AccessControlState;
 
       if (user.subscription?.status === 'ACTIVE') {
-        accessControl.caio.hasFullAccess = true;
+        accessControl.hasFullAccess = true;
       }
 
       if (user.role === 'ADMIN' || user.role === 'MEMBER') {
-        accessControl.caio.hasFullAccess = true;
+        accessControl.hasFullAccess = true;
       }
 
       if (user.role === 'BITGET') {
-        accessControl.caio.hasLimitedAccess = true;
+        accessControl.hasLimitedAccess = true;
       }
 
-      setLoading(false);
       setCurrentAccess(accessControl);
-
-      if (
-        !accessControl.caio.hasFullAccess &&
-        !accessControl.caio.hasLimitedAccess
-      ) {
-        router.push('/assinatura');
-      }
+      setLoading(false);
     } catch (error) {
       addToast({
         type: 'error',

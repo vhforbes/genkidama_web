@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
+import { useAccessControl } from '../../hooks/accessControl';
 
 const NoAccessCompnent = () => {
+  const { currentAccess } = useAccessControl();
   useEffect(() => {}, []);
+
+  if (currentAccess?.hasLimitedAccess) {
+    return <p>ops</p>;
+  }
 
   return (
     <div className="flex flex-col items-center mt-10 p-6 md:max-w-3xl m-auto text-center">
@@ -12,6 +18,8 @@ const NoAccessCompnent = () => {
         <a
           className="hover:text-accent underline"
           href="https://partner.bitget.com/bg/GENKIDAMA"
+          rel="noreferrer"
+          target="_blank"
         >
           link de parceiro.
         </a>{' '}
