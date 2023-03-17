@@ -3,18 +3,8 @@ import { useRouter } from 'next/router';
 import publicApi from '../services/api';
 import routes from '../enums/routes';
 import { useToast } from './toast';
-
-interface User {
-  avatar: string;
-  created_at: string;
-  email: string;
-  id: string;
-  name: string;
-  subscription_id: string;
-  updated_at: string;
-  verified: boolean;
-  role: string;
-}
+import { User } from '../interfaces/User';
+import privateApi from '../services/privateApi';
 
 interface AuthState {
   token: string;
@@ -39,6 +29,7 @@ interface AuthContextData {
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   signUp(credentials: SignUpCredentials): Promise<void>;
+  refreshUser(): Promise<void>;
 }
 
 interface Props {
@@ -110,6 +101,20 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     [],
   );
 
+  const refreshUser = useCallback(async () => {
+    const response = await privateApi.get(routes.users);
+
+    const { token, user, subscription } = response.data;
+
+    localStorage.setItem('@Genkidama:user', JSON.stringify(user));
+    localStorage.setItem(
+      '@Genkidama:subscription',
+      JSON.stringify(subscription),
+    );
+
+    setData({ token, user });
+  }, []);
+
   return (
     <AuthContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -119,6 +124,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         signIn,
         signOut,
         signUp,
+        refreshUser,
       }}
     >
       {children}

@@ -13,8 +13,6 @@ const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
   const router = useRouter();
   const { deleteExclusiveVideo } = useExclusiveVideos();
 
-  console.log(exclusiveVideo.id);
-
   return (
     <div className="card card-compact mb-4 mr-4 max-w-xs bg-primary shadow-xl">
       {editable ? (

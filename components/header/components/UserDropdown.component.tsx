@@ -21,7 +21,8 @@ const UserDropdownComponent = () => {
       >
         {user ? (
           <li>
-            <a href="/assinatura">Minha assinatura</a>
+            <a href="/account">Minha conta</a>
+            <a href="/assinatura">Assinatura</a>
           </li>
         ) : null}
 

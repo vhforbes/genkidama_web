@@ -10,6 +10,7 @@ interface InputData {
   currency?: boolean;
   type: string;
   placeholder: string;
+  disabled?: boolean;
 }
 
 const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {

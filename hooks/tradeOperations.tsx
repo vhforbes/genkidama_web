@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import privateApi from '../services/privateApi';
 import { useToast } from './toast';
 import { useLoader } from './loader';
@@ -17,13 +11,6 @@ interface TradeOperationContextData {
   deleteTradeOperation(id: string): Promise<void>;
   createTradeOperation(tradeOperation: TradeOperation): Promise<void>;
   editTradeOperation(tradeOperation: TradeOperation): Promise<void>;
-  // CRUDS FOR THE TRADE OPERATION
-  //   checkSub(): Promise<void>;
-  //   activateSubscription(paypalData: any): Promise<void>;
-  //   cancelSubscription(
-  //     cancelationReason: string,
-  //     paypalSubscriptionId: string,
-  //   ): Promise<void>;
 }
 
 interface Props {
@@ -129,10 +116,6 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
       });
     }
     setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    getTradeOperations();
   }, []);
 
   return (

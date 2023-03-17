@@ -3,10 +3,10 @@ import { useTradeOperations } from '../../hooks/tradeOperations';
 import TradeOperationCard from './tradeOperationCard';
 
 const TradeOperationsContainer = ({ editable }: { editable: boolean }) => {
-  const { tradeOperations } = useTradeOperations();
+  const { tradeOperations, getTradeOperations } = useTradeOperations();
 
   useEffect(() => {
-    // getTradeOperations();
+    getTradeOperations();
   }, []);
 
   return (
