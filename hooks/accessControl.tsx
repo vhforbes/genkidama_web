@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 
@@ -16,6 +17,7 @@ interface AccessControlState {
 interface AccessControlContextData {
   currentAccess: AccessControlState;
   getUserAccess(): Promise<void>;
+  checkFullAccess(): Promise<void>;
 }
 
 interface Props {
@@ -33,19 +35,19 @@ const AccessControlContext = createContext<AccessControlContextData>(
 const AccessControlProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const router = useRouter();
 
   const [currentAccess, setCurrentAccess] = useState<AccessControlState>(
     {} as AccessControlState,
   );
 
   const getUserAccess = useCallback(async () => {
-    try {
-      setLoading(true);
+    setLoading(true);
 
+    try {
       const { data } = await privateApi.get(routes.users);
       const user = data.user as User;
 
-      // WTF? CAIO?
       const accessControl = {
         id: user.id,
         hasFullAccess: false,
@@ -75,12 +77,22 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
+  const checkFullAccess = useCallback(async () => {
+    setLoading(true);
+
+    await getUserAccess();
+
+    if (!currentAccess.hasFullAccess) router.push('/sem-acesso');
+    setLoading(false);
+  }, []);
+
   return (
     <AccessControlContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         currentAccess,
         getUserAccess,
+        checkFullAccess,
       }}
     >
       {children}

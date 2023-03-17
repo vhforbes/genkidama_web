@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import PostsContainerComponent from '../components/exclusiveVideo/exclusiveVideosContainer.component';
-import NoAccessCompnent from '../components/noAccess/noAccessComponent';
 import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
@@ -12,10 +11,10 @@ import { useAuth } from '../hooks/auth';
 const Home: NextPage = () => {
   const router = useRouter();
   const { user } = useAuth();
-  const { getUserAccess, currentAccess } = useAccessControl();
+  const { checkFullAccess, currentAccess } = useAccessControl();
 
   useEffect(() => {
-    getUserAccess();
+    checkFullAccess();
   }, []);
 
   if (!user) {
@@ -23,7 +22,7 @@ const Home: NextPage = () => {
     return null;
   }
 
-  if (currentAccess?.hasFullAccess || currentAccess?.hasLimitedAccess)
+  if (currentAccess)
     return (
       <div>
         <Head>
@@ -46,7 +45,7 @@ const Home: NextPage = () => {
       </div>
     );
 
-  return <NoAccessCompnent />;
+  return null;
 };
 
 export default Home;
