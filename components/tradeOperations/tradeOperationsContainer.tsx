@@ -16,17 +16,13 @@ const TradeOperationsContainer = ({
     setCurrentPage,
     currentPage,
   } = useTradeOperations();
-  const { currentAccess, checkLimitedAccess } = useAccessControl();
+  const { currentAccess } = useAccessControl();
 
   useEffect(() => {
     if (currentAccess.hasLimitedAccess) {
       getPaginatedTradeOperations();
     }
   }, [currentAccess, currentPage]);
-
-  useEffect(() => {
-    checkLimitedAccess();
-  }, []);
 
   return (
     <div>
