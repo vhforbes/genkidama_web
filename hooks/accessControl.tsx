@@ -12,12 +12,15 @@ interface AccessControlState {
   id: string;
   hasFullAccess: boolean;
   hasLimitedAccess: boolean;
+  isAdmin: boolean;
 }
 
 interface AccessControlContextData {
   currentAccess: AccessControlState;
-  getUserAccess(): Promise<void>;
+  getUserAccess(): Promise<AccessControlState>;
   checkFullAccess(): Promise<void>;
+  checkLimitedAccess(): Promise<void>;
+  checkAdmin(): Promise<void>;
 }
 
 interface Props {
@@ -44,22 +47,31 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
   const getUserAccess = useCallback(async () => {
     setLoading(true);
 
+    const accessControl = {
+      id: '',
+      hasFullAccess: false,
+      hasLimitedAccess: false,
+      isAdmin: false,
+    } as AccessControlState;
+
     try {
       const { data } = await privateApi.get(routes.users);
       const user = data.user as User;
 
-      const accessControl = {
-        id: user.id,
-        hasFullAccess: false,
-        hasLimitedAccess: false,
-      } as AccessControlState;
+      accessControl.id = user.id;
 
       if (user.subscription?.status === 'ACTIVE') {
         accessControl.hasFullAccess = true;
+        accessControl.hasLimitedAccess = true;
+      }
+
+      if (user.role === 'ADMIN') {
+        accessControl.isAdmin = true;
       }
 
       if (user.role === 'ADMIN' || user.role === 'MEMBER') {
         accessControl.hasFullAccess = true;
+        accessControl.hasLimitedAccess = true;
       }
 
       if (user.role === 'BITGET') {
@@ -68,21 +80,43 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
 
       setCurrentAccess(accessControl);
       setLoading(false);
+
+      return accessControl;
     } catch (error) {
       addToast({
         type: 'error',
         description: 'Ops, tivemos um erro.',
         title: 'Não foi verificar as permissões do seu usuário',
       });
+      return accessControl;
     }
   }, []);
 
   const checkFullAccess = useCallback(async () => {
     setLoading(true);
 
-    await getUserAccess();
+    const accessControl = await getUserAccess();
 
-    if (!currentAccess.hasFullAccess) router.push('/sem-acesso');
+    if (!accessControl.hasFullAccess) router.push('/assinatura');
+    setLoading(false);
+  }, []);
+
+  const checkLimitedAccess = useCallback(async () => {
+    setLoading(true);
+
+    const accessControl = await getUserAccess();
+
+    if (!accessControl.hasLimitedAccess && !accessControl.hasFullAccess)
+      router.push('/sem-acesso');
+    setLoading(false);
+  }, []);
+
+  const checkAdmin = useCallback(async () => {
+    setLoading(true);
+
+    const accessControl = await getUserAccess();
+
+    if (!accessControl.isAdmin) router.push('/');
     setLoading(false);
   }, []);
 
@@ -93,6 +127,8 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
         currentAccess,
         getUserAccess,
         checkFullAccess,
+        checkLimitedAccess,
+        checkAdmin,
       }}
     >
       {children}

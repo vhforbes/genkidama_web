@@ -1,7 +1,13 @@
 import type { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAccessControl } from '../../hooks/accessControl';
 
 const Admin: NextPage = () => {
+  const { checkAdmin } = useAccessControl();
+  useEffect(() => {
+    checkAdmin();
+  }, []);
+
   return (
     <main className="flex flex-col items-center max-w-4xl m-auto">
       <h1 className="text-center mt-10 text-3xl">Pagina administador</h1>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect } from 'react';
+import { useAccessControl } from '../../hooks/accessControl';
 import { useExclusiveVideos } from '../../hooks/exclusiveVideos';
-import { useLoader } from '../../hooks/loader';
 import { ExclusiveVideo } from '../../interfaces/ExclusiveVideo';
 import PageButtonsComponent from './components/pageButtons';
 import PostComponent from './components/post.component';
@@ -25,7 +25,7 @@ interface Post {
 }
 
 const ExclusiveVideosContainer = ({ editable }: { editable: boolean }) => {
-  const { setLoading } = useLoader();
+  const { currentAccess } = useAccessControl();
   const {
     exclusiveVideos,
     pagesInfo,
@@ -35,12 +35,10 @@ const ExclusiveVideosContainer = ({ editable }: { editable: boolean }) => {
   } = useExclusiveVideos();
 
   useEffect(() => {
-    getPaginatedExclusiveVideos();
-  }, [currentPage]);
-
-  useEffect(() => {
-    setLoading(true);
-  }, []);
+    if (currentAccess.hasLimitedAccess) {
+      getPaginatedExclusiveVideos();
+    }
+  }, [currentPage, currentAccess]);
 
   return (
     <div className="flex flex-col items-center">

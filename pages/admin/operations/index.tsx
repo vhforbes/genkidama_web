@@ -1,8 +1,14 @@
 import type { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TradeOperationsContainer from '../../../components/tradeOperations/tradeOperationsContainer';
+import { useAccessControl } from '../../../hooks/accessControl';
 
 const Admin: NextPage = () => {
+  const { checkAdmin } = useAccessControl();
+  useEffect(() => {
+    checkAdmin();
+  }, []);
+
   return (
     <main className="flex flex-col items-center max-w-4xl m-auto">
       <h1 className="text-center mt-20 text-3xl">Gerenciamento de operações</h1>

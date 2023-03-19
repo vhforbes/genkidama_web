@@ -9,7 +9,7 @@ import NoAccessCompnent from '../../components/noAccess/noAccessComponent';
 const Live: NextPage = () => {
   const { user } = useAuth();
   const router = useRouter();
-  const { getUserAccess, currentAccess } = useAccessControl();
+  const { checkFullAccess, currentAccess } = useAccessControl();
 
   if (!user) {
     router.push('/sign-in');
@@ -17,10 +17,10 @@ const Live: NextPage = () => {
   }
 
   useEffect(() => {
-    getUserAccess();
+    checkFullAccess();
   }, []);
 
-  if (currentAccess?.hasFullAccess)
+  if (currentAccess)
     return (
       <div>
         <iframe

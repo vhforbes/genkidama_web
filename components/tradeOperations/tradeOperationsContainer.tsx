@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
+import { useAccessControl } from '../../hooks/accessControl';
 import { useTradeOperations } from '../../hooks/tradeOperations';
 import TradeOperationCard from './tradeOperationCard';
 
 const TradeOperationsContainer = ({ editable }: { editable: boolean }) => {
   const { tradeOperations, getTradeOperations } = useTradeOperations();
+  const { currentAccess } = useAccessControl();
 
   useEffect(() => {
-    getTradeOperations();
-  }, []);
+    if (currentAccess.hasLimitedAccess) {
+      getTradeOperations();
+    }
+  }, [currentAccess]);
 
   return (
     <div>

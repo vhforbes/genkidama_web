@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
-import PostsContainerComponent from '../components/exclusiveVideo/exclusiveVideosContainer.component';
+import ExclusiveVideosContainer from '../components/exclusiveVideo/exclusiveVideosContainer.component';
 import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
@@ -11,10 +11,10 @@ import { useAuth } from '../hooks/auth';
 const Home: NextPage = () => {
   const router = useRouter();
   const { user } = useAuth();
-  const { checkFullAccess, currentAccess } = useAccessControl();
+  const { checkLimitedAccess, currentAccess } = useAccessControl();
 
   useEffect(() => {
-    checkFullAccess();
+    checkLimitedAccess();
   }, []);
 
   if (!user) {
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           {/* <Loader /> */}
           <div className="flex flex-col-reverse 2xl:flex-row p-10 justify-around">
             <div className="">
-              <PostsContainerComponent editable={false} />
+              <ExclusiveVideosContainer editable={false} />
             </div>
             <div>
               <TradeOperationsContainer editable={false} />

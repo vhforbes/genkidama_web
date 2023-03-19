@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import routes from '../../../enums/routes';
+import { useAccessControl } from '../../../hooks/accessControl';
 import { useToast } from '../../../hooks/toast';
 import privateApi from '../../../services/privateApi';
 
@@ -11,6 +12,11 @@ interface BitgetUIDReponse {
 
 const BitgetAssociated: NextPage = () => {
   const { addToast } = useToast();
+  const { checkAdmin } = useAccessControl();
+
+  useEffect(() => {
+    checkAdmin();
+  }, []);
 
   const [associatedList, setAssociatedList] = useState([]);
   const [newUidsList, setNewUidsList] = useState('');
