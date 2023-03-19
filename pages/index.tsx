@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="h-full">
+        <main className="h-full hidden md:block">
           {/* <Loader /> */}
           <div className="flex flex-col-reverse xl:flex-row p-10 justify-around">
             <div className="">
@@ -41,6 +41,15 @@ const Home: NextPage = () => {
               <TradeOperationsContainer editable={false} />
             </div>
           </div>
+        </main>
+
+        <main className="md:hidden flex flex-col justify-evenly p-4 mt-4">
+          <button type="submit" className="btn btn-secondary">
+            <a href="/operations">Operações</a>
+          </button>
+          <button type="submit" className="btn btn-secondary mt-10">
+            <a href="/exclusive-videos">Videos Exclusivos</a>
+          </button>
         </main>
       </div>
     );
