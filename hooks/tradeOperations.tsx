@@ -7,7 +7,11 @@ import { TradeOperation } from '../interfaces/TradeOperation';
 
 interface TradeOperationContextData {
   tradeOperations: TradeOperation[];
-  getTradeOperations(): Promise<void>;
+  currentPage: number;
+  pagesInfo: PagesInfo;
+  setCurrentPage(currentPage: number): void;
+  getAllTradeOperations(): Promise<void>;
+  getPaginatedTradeOperations(): Promise<void>;
   deleteTradeOperation(id: string): Promise<void>;
   createTradeOperation(tradeOperation: TradeOperation): Promise<void>;
   editTradeOperation(tradeOperation: TradeOperation): Promise<void>;
@@ -17,6 +21,12 @@ interface Props {
   children: React.ReactNode;
 }
 
+interface PagesInfo {
+  next: number;
+  previous: number;
+  totalPages: number;
+}
+
 const TradeOperationsContext = createContext<TradeOperationContextData>(
   {} as TradeOperationContextData,
 );
@@ -24,11 +34,13 @@ const TradeOperationsContext = createContext<TradeOperationContextData>(
 const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagesInfo, setPagesInfo] = useState({} as PagesInfo);
   const [tradeOperations, setTradeOperations] = useState<TradeOperation[]>(
     [] as TradeOperation[],
   );
 
-  const getTradeOperations = useCallback(async () => {
+  const getAllTradeOperations = useCallback(async () => {
     setLoading(true);
     try {
       const { data } = await privateApi.get(routes.tradeOperations);
@@ -43,6 +55,32 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
     }
     setLoading(false);
   }, []);
+
+  const getPaginatedTradeOperations = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await privateApi.get(routes.tradeOperations, {
+        params: {
+          page: currentPage,
+          limit: 4,
+        },
+      });
+
+      setTradeOperations(data.tradeOperations as TradeOperation[]);
+      setPagesInfo({
+        next: data.next as number,
+        previous: data.previous as number,
+        totalPages: data.totalPages as number,
+      });
+      setLoading(false);
+    } catch (error) {
+      addToast({
+        type: 'error',
+        description: 'Ops, tivemos um erro.',
+        title: 'Não foi possível obter as operações',
+      });
+    }
+  }, [currentPage]);
 
   const createTradeOperation = useCallback(
     async (tradeOperation: TradeOperation) => {
@@ -107,7 +145,7 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
         title: '',
       });
 
-      getTradeOperations();
+      getAllTradeOperations();
     } catch (error) {
       addToast({
         type: 'error',
@@ -123,7 +161,11 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         tradeOperations,
-        getTradeOperations,
+        currentPage,
+        pagesInfo,
+        setCurrentPage,
+        getAllTradeOperations,
+        getPaginatedTradeOperations,
         deleteTradeOperation,
         createTradeOperation,
         editTradeOperation,

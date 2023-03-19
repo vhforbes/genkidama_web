@@ -24,7 +24,11 @@ interface Post {
   video_link: string;
 }
 
-const ExclusiveVideosContainer = ({ editable }: { editable: boolean }) => {
+const ExclusiveVideosContainer = ({
+  editable = false,
+}: {
+  editable?: boolean;
+}) => {
   const { currentAccess } = useAccessControl();
   const {
     exclusiveVideos,

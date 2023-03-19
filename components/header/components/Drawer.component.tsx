@@ -36,6 +36,12 @@ const Drawer = () => {
             <a href="/">Home</a>
           </li>
           <li>
+            <a href="/operations">Operações</a>
+          </li>
+          <li>
+            <a href="/exclusive-videos">Vídeos Exclusivos</a>
+          </li>
+          <li>
             <a href="/live">Ao vivo</a>
           </li>
           <li>

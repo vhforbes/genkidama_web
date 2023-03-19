@@ -59,9 +59,8 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const getPaginatedExclusiveVideos = useCallback(async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-
       const { data } = await privateApi.get(routes.exclusiveVideos, {
         params: {
           page: currentPage,
@@ -162,12 +161,12 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
         exclusiveVideos,
         currentPage,
         pagesInfo,
+        setCurrentPage,
         getAllExclusiveVideos,
         getPaginatedExclusiveVideos,
         createExclusiveVideo,
         editExclusiveVideo,
         deleteExclusiveVideo,
-        setCurrentPage,
       }}
     >
       {children}
