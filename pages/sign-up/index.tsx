@@ -12,6 +12,7 @@ interface SubmitSignUpData {
   name: string;
   password: string;
   confirmedPassword: string;
+  bitgetUID?: string;
 }
 const SignUp: NextPage = () => {
   const { addToast } = useToast();
@@ -19,7 +20,7 @@ const SignUp: NextPage = () => {
   const { signUp } = useAuth();
 
   const submit = async (
-    { email, password, confirmedPassword, name }: SubmitSignUpData,
+    { email, password, confirmedPassword, name, bitgetUID }: SubmitSignUpData,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
@@ -30,6 +31,7 @@ const SignUp: NextPage = () => {
         name,
         password,
         confirmedPassword,
+        bitgetUID,
       });
       addToast({
         type: 'success',
@@ -58,6 +60,7 @@ const SignUp: NextPage = () => {
               name: '',
               password: '',
               confirmedPassword: '',
+              a: '',
             }}
             validationSchema={Yup.object({
               email: Yup.string()
@@ -87,6 +90,14 @@ const SignUp: NextPage = () => {
                     name="name"
                     type="text"
                     placeholder="Seu Nome"
+                  />
+                </div>
+                <div className="form-control">
+                  <MyTextInput
+                    label="Bitget UID:"
+                    name="bitgetUID"
+                    type="text"
+                    placeholder="Seu UID na Bitget"
                   />
                 </div>
                 <div className="form-control">

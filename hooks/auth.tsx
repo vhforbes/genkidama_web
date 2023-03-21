@@ -21,6 +21,7 @@ interface SignUpCredentials {
   name: string;
   password: string;
   confirmedPassword: string;
+  bitgetUID?: string;
 }
 
 interface AuthContextData {
@@ -59,6 +60,16 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const { token, user, refreshToken, subscription } = response.data;
 
+    if (!user.verified) {
+      addToast({
+        type: 'error',
+        title: 'Por favor verifique seu email',
+        description:
+          'Caso não tenha recebido o email de confirmação, entre em contato com nossa equipe.',
+      });
+      return;
+    }
+
     localStorage.setItem('@Genkidama:token', token);
     localStorage.setItem('@Genkidama:refreshToken', refreshToken);
     localStorage.setItem('@Genkidama:user', JSON.stringify(user));
@@ -80,7 +91,13 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const signUp = useCallback(
-    async ({ email, password, confirmedPassword, name }: SignUpCredentials) => {
+    async ({
+      email,
+      password,
+      confirmedPassword,
+      name,
+      bitgetUID,
+    }: SignUpCredentials) => {
       if (password !== confirmedPassword) {
         addToast({
           title: 'Passwords don`t match',
@@ -94,6 +111,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         email,
         name,
         password,
+        bitgetUID,
       });
 
       router.push('/sign-in');

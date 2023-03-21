@@ -17,6 +17,7 @@ const SejaMembro: NextPage = () => {
   const { theme } = useTheme();
   const { addToast } = useToast();
   const [cancelReason, setCancelReason] = useState('');
+  const [planID, setPlanID] = useState('P-55501210J8134335TMN5ZXXQ');
 
   const router = useRouter();
 
@@ -26,6 +27,10 @@ const SejaMembro: NextPage = () => {
   }
 
   useEffect(() => {
+    if (user.role === 'BITGET') {
+      setPlanID('bitgezera');
+    }
+
     dispatch({
       type: 'resetOptions',
       value: {
@@ -124,20 +129,40 @@ const SejaMembro: NextPage = () => {
             Seja membro da plataforma Genkidama!
           </p>
 
-          <div className="mt-4 text-center">
-            <span className="text-xl  line-through">R$150,00</span>
-            <span className="text-2xl font-semibold"> R$80,00 </span>
-            <span>por mês!*</span>
-            <p className="text-xs">
-              *Preço promocional de lançamento da plataforma
-            </p>
-          </div>
-          <div className="mt-6">
-            <li>Conteúdos exclusivos</li>
-            <li>Lives interativas</li>
-            <li>Acesso à pool de investimentos</li>
-            <li>Grupo exclusivo no telegram</li>
-          </div>
+          {user.role === 'BITGET' ? (
+            <div>
+              <div className="mt-4 text-center">
+                <span className="text-xl  line-through">R$80,00</span>
+                <span className="text-2xl font-semibold"> R$40,00 </span>
+                <span>por mês!*</span>
+                <p className="text-xs">
+                  *Preço exclusivo para associados na BitGet
+                </p>
+              </div>
+              <div className="mt-6">
+                <li>Lives interativas</li>
+                <li>Acesso à pool de investimentos</li>
+                <li>Grupo exclusivo no telegram</li>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className="mt-4 text-center">
+                <span className="text-2xl">R$80,00</span>
+                {/* <span className="text-2xl font-semibold"> R$80,00 </span>
+              <span>por mês!*</span> */}
+                <p className="text-xs mt-4 font-bold">
+                  *Seja um associado BitGet e pague apenas R$40,00
+                </p>
+              </div>
+              <div className="mt-6">
+                <li>Acesso completo à plataforma</li>
+                <li>Lives interativas</li>
+                <li>Acesso à pool de investimentos</li>
+                <li>Grupo exclusivo no telegram</li>
+              </div>
+            </div>
+          )}
 
           <div className="mt-10 mb-10 pl-8 pr-8 bg-[#fff] rounded-2xl max-w-sm z-0">
             <p className="text-slate900 text-center relative top-[20px]">
@@ -148,7 +173,7 @@ const SejaMembro: NextPage = () => {
               createSubscription={(data, actions) => {
                 return actions.subscription
                   .create({
-                    plan_id: 'P-55501210J8134335TMN5ZXXQ',
+                    plan_id: planID,
                   })
                   .then(orderId => {
                     return orderId;

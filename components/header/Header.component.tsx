@@ -10,9 +10,11 @@ import InstagramSvg from '../../icons/social/instagram';
 import SunAndMoon from './components/SunAndMoon.component';
 import HambuerguerSvg from '../../icons/misc/hambuerguer';
 import UserDropdownComponent from './components/UserDropdown.component';
+import { useAuth } from '../../hooks/auth';
 
 const HeaderComponent = () => {
   const { theme, setTheme } = useTheme();
+  const { user } = useAuth();
   const { openClose } = useDrawer();
 
   const switchTheme = () => {
@@ -48,6 +50,11 @@ const HeaderComponent = () => {
           </a>
         </div>
         <div className="flex items-center justify-around">
+          {user?.role === 'ADMIN' ? (
+            <a href="/admin" className="m-4 hover:text-accent">
+              PAINEL ADMINISTRADOR
+            </a>
+          ) : null}
           <a href="/live" className="m-4 hover:text-accent">
             Ao vivo
           </a>
