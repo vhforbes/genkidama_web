@@ -12,7 +12,7 @@ const ExclusiveVideos: NextPage = () => {
 
   return (
     <div>
-      <p className="text-center text-4xl font-bold mt-10">Videos Exclusivos</p>
+      <p className="text-center text-4xl font-bold mt-10">Vídeos Exclusivos</p>
       <div className="flex flex-col-reverse xl:flex-row p-10 justify-around">
         <ExclusiveVideosContainer />
       </div>

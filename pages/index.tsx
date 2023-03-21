@@ -37,12 +37,12 @@ const Home: NextPage = () => {
           </div>
         </main>
         <main className="md:hidden flex flex-col justify-evenly p-4 mt-4">
-          <button type="submit" className="btn btn-secondary">
-            <a href="/operations">Operações</a>
-          </button>
-          <button type="submit" className="btn btn-secondary mt-10">
-            <a href="/exclusive-videos">Videos Exclusivos</a>
-          </button>
+          <a href="/operations" className="btn btn-secondary">
+            Operações
+          </a>
+          <a href="/exclusive-videos" className="btn btn-secondary mt-10">
+            Videos Exclusivos
+          </a>
         </main>
       </div>
     );
