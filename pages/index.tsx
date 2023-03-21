@@ -14,13 +14,14 @@ const Home: NextPage = () => {
   const { checkLimitedAccess, currentAccess } = useAccessControl();
 
   useEffect(() => {
-    checkLimitedAccess();
-  }, []);
+    if (user) {
+      checkLimitedAccess();
+    }
 
-  if (!user) {
-    router.push('/sign-in');
-    return null;
-  }
+    if (!user) {
+      router.push('/sign-in');
+    }
+  }, []);
 
   if (currentAccess)
     return (
