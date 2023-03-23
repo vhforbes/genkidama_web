@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-bodyy {
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  overflow: hidden;
 }
 
 a {
@@ -17,4 +27,38 @@ a {
 
 * {
   box-sizing: border-box;
+  /* transition: all 0.1s ease-in; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.gradient {
+  --size: 500px;
+  --speed: 100s;
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+
+  width: 80%;
+  height: 80%;
+  filter: blur(calc(var(--size) / 5));
+  background: linear-gradient(#00e5ef, #feba00);
+  animation: rotate var(--speed) var(--easing) alternate infinite;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  position: fixed;
+  top: 60%;
+  left: 40%;
+  opacity: 30%;
+  z-index: -20;
+}
+
+@media (min-width: 720px) {
+  .gradient {
+    --size: 1000px;
+  }
 }
