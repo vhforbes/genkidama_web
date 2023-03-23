@@ -47,7 +47,7 @@ a {
   width: 80%;
   height: 80%;
   filter: blur(calc(var(--size) / 5));
-  background: linear-gradient(#00e5ef, #feba00);
+  background: linear-gradient(#00e5ef, #0f1729);
   animation: rotate var(--speed) var(--easing) alternate infinite;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   position: fixed;
