@@ -36,6 +36,8 @@ const ParceriaBitget: NextPage = () => {
             <a
               className="hover:text-accent underline"
               href="https://t.me/genkidamaskillschat"
+              target="_blank"
+              rel="noreferrer"
             >
               grupo do telegram.
             </a>

@@ -178,7 +178,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
               <a
                 target="_blank"
                 rel="noreferrer"
-                href={`https://www.bitget.com/en/mix/usdt/${market}_UMCBL`}
+                href={`https://www.bitget.com/mix/usdt/${market}_UMCBL`}
               >
                 {market}
               </a>

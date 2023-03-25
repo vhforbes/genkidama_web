@@ -20,11 +20,15 @@ const MentoriaPage: NextPage = () => {
               Oi, eu sou o Caio Agusto:{' '}
             </p>
             <p>
-              Conheça seu mentor lorem ipsum dolor lorem ipsum dolor lorem ipsum
-              dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem
-              ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor
-              lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum
-              dolor lorem ipsum dolor lorem ipsum dolor
+              Fazem 5 anos que entrei no criptomercado, graças e ela, tive a
+              oportunidade de mudar a minha vida. Foram muitos altos e baixos,
+              erros e aprendizados que me fizeram crescer como trader e entender
+              cada vez melhor esse mercado.
+            </p>
+            <p>
+              Hoje, busco retribuir ensinando pessoas a se tornarem traders
+              lucrativos em um mercado onde a cada esquina encontramos
+              vendedores de sonhos e ilusões.
             </p>
           </div>
         </div>

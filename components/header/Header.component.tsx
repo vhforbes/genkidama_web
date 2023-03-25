@@ -6,7 +6,7 @@ import { useDrawer } from '../../hooks/drawer';
 
 import YoutubeSvg from '../../icons/social/youtube';
 import TelegramSvg from '../../icons/social/telegram';
-import InstagramSvg from '../../icons/social/instagram';
+// import InstagramSvg from '../../icons/social/instagram';
 import SunAndMoon from './components/SunAndMoon.component';
 import HambuerguerSvg from '../../icons/misc/hambuerguer';
 import UserDropdownComponent from './components/UserDropdown.component';
@@ -39,15 +39,25 @@ const HeaderComponent = () => {
           <a href="/">
             <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />
           </a>
-          <a className="ml-6" href="/">
+          <a
+            className="ml-6"
+            href="https://www.youtube.com/@GENKIDAMAcriptoskills"
+            target="_blank"
+            rel="noreferrer"
+          >
             <YoutubeSvg />
           </a>
-          <a className="ml-6" href="/">
+          <a
+            className="ml-6"
+            href="https://t.me/genkidamaskillschat"
+            target="_blank"
+            rel="noreferrer"
+          >
             <TelegramSvg />
           </a>
-          <a className="ml-6" href="/">
+          {/* <a className="ml-6" href="/">
             <InstagramSvg />
-          </a>
+          </a> */}
         </div>
         <div className="flex items-center justify-around">
           {user?.role === 'ADMIN' ? (

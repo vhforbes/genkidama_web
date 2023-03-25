@@ -25,7 +25,7 @@ const NoAccessCompnent = () => {
         </a>{' '}
         Caso você ja tenha criado sua conta com nosso link, veja como obter
         acesso aos seus benefícios{' '}
-        <a className="hover:text-accent underline" href="/parceria-bitget">
+        <a className="hover:text-accent underline" href="/parceiro-bitget">
           clicando aqui
         </a>
       </p>
