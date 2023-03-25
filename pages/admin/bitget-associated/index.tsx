@@ -54,7 +54,7 @@ const BitgetAssociated: NextPage = () => {
 
   return (
     <main className="flex flex-col items-center max-w-4xl m-auto">
-      <h1 className="text-center mt-10 text-3x">Atualizar associados BitGet</h1>
+      <h1 className="text-center mt-10 text-3x">Atualizar associados Bitget</h1>
       <br />
       <textarea
         className="w-full h-60 p-4 bg-deepBlue border-none outline-none rounded-lg"

@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../../hooks/auth';
 import { useDrawer } from '../../../hooks/drawer';
 
 const Drawer = () => {
   const { open, openClose } = useDrawer();
   const [hide, setHide] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     if (open) {
@@ -32,6 +34,14 @@ const Drawer = () => {
           onKeyDown={() => openClose()}
         />
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+          {!user ? (
+            <a
+              href="/parceiro-bitget"
+              className="m-4 hover:text-lightTeal font-bold"
+            >
+              Seja um parceiro Bitget
+            </a>
+          ) : null}
           <li>
             <a href="/">Home</a>
           </li>

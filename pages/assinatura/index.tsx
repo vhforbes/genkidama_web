@@ -136,7 +136,7 @@ const SejaMembro: NextPage = () => {
                 <span className="text-2xl font-semibold"> R$40,00 </span>
                 <span>por mês!*</span>
                 <p className="text-xs">
-                  *Preço exclusivo para associados na BitGet
+                  *Preço exclusivo para associados na Bitget
                 </p>
               </div>
               <div className="mt-6">
@@ -152,7 +152,7 @@ const SejaMembro: NextPage = () => {
                 {/* <span className="text-2xl font-semibold"> R$80,00 </span>
               <span>por mês!*</span> */}
                 <p className="text-xs mt-4 font-bold">
-                  *Seja um associado BitGet e pague apenas R$40,00
+                  *Seja um associado Bitget e pague apenas R$40,00
                 </p>
               </div>
               <div className="mt-6">

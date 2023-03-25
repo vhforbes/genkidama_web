@@ -67,7 +67,9 @@ const SignUp: NextPage = () => {
                 .email('Endereço de email inválido')
                 .required('Campo obrigatório'),
               name: Yup.string().required('Campo obrigatório'),
-              password: Yup.string().required('Campo obrigatório'),
+              password: Yup.string()
+                .required('Campo obrigatório')
+                .min(8, 'Mínimo de 8 digitos'),
               confirmedPassword: Yup.string().required('Campo obrigatório'),
             })}
             onSubmit={(values, { setSubmitting }) => {

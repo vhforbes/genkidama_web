@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
 import { useTradeOperations } from '../../hooks/tradeOperations';
-import PageButtonsComponent from '../exclusiveVideo/components/pageButtons';
+import PageButtonsComponent from '../shared/pageButtons';
 import TradeOperationCard from './tradeOperationCard';
 
 const TradeOperationsContainer = ({

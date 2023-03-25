@@ -23,7 +23,7 @@ const PageButtonsComponent = ({
         <button
           key={pageNumber}
           type="button"
-          className={`btn btn-secondary m-1 ${
+          className={`btn btn-secondary m-1 border-2 border-neutral border-opacity-30 ${
             pageNumber === currentPage ? 'bg-primary btn-disabled' : null
           }`}
           onClick={() => changePage(pageNumber)}

@@ -91,10 +91,10 @@ const Account: NextPage = () => {
 
                 <div className="form-control">
                   <MyTextInput
-                    label="BitGet UID:"
+                    label="Bitget UID:"
                     name="bitgetUID"
                     type="text"
-                    placeholder="Seu UID da BitGet"
+                    placeholder="Seu UID da Bitget"
                   />
                 </div>
 

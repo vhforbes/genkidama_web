@@ -88,7 +88,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.removeItem('@Genkidama:user');
 
     setData({} as AuthState);
-    router.push('/');
+    router.push('/sign-in');
   }, []);
 
   const signUp = useCallback(

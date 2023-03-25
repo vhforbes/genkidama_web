@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
 import { useExclusiveVideos } from '../../hooks/exclusiveVideos';
 import { ExclusiveVideo } from '../../interfaces/ExclusiveVideo';
-import PageButtonsComponent from './components/pageButtons';
+import PageButtonsComponent from '../shared/pageButtons';
 import PostComponent from './components/post.component';
 
 export interface PostsData {

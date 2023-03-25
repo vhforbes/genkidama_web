@@ -55,6 +55,14 @@ const HeaderComponent = () => {
               PAINEL ADMINISTRADOR
             </a>
           ) : null}
+          {!user ? (
+            <a
+              href="/parceiro-bitget"
+              className="m-4 hover:text-lightTeal font-bold"
+            >
+              Seja um parceiro Bitget
+            </a>
+          ) : null}
           <a href="/live" className="m-4 hover:text-accent">
             Ao vivo
           </a>
