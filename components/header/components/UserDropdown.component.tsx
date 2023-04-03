@@ -26,15 +26,16 @@ const UserDropdownComponent = () => {
           </li>
         ) : null}
 
-        <li>
-          {user ? (
-            <button type="button" onClick={signOut}>
-              Sair
-            </button>
-          ) : (
+        {user ? (
+          <button type="button" onClick={signOut}>
+            Sair
+          </button>
+        ) : (
+          <li>
             <a href="/sign-in">Entrar</a>
-          )}
-        </li>
+            <a href="/sign-up">Criar conta</a>
+          </li>
+        )}
       </ul>
     </div>
   );

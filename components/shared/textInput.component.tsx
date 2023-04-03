@@ -56,18 +56,6 @@ const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
     <>
       <label htmlFor={props.name}>{label}</label>
       {inputType()}
-      {/* {mask ? (
-        <InputMask
-          className="input input-bordered"
-          mask={mask}
-          maskChar=" "
-          {...field}
-          {...props}
-        />
-      ) : (
-        <input className="input input-bordered" {...field} {...props} />
-      )} */}
-
       {meta.touched && meta.error ? (
         <div className="text-red">{meta.error}</div>
       ) : null}

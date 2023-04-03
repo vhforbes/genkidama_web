@@ -20,14 +20,13 @@ const MentoriaPage: NextPage = () => {
               Oi, eu sou o Caio Agusto:{' '}
             </p>
             <p>
-              Fazem 5 anos que entrei no criptomercado, graças e ela, tive a
+              Fazem 5 anos que entrei no criptomercado, graças a ele, tive a
               oportunidade de mudar a minha vida. Foram muitos altos e baixos,
               erros e aprendizados que me fizeram crescer como trader e entender
               cada vez melhor esse mercado.
-            </p>
-            <p>
+              <br />
               Hoje, busco retribuir ensinando pessoas a se tornarem traders
-              lucrativos em um mercado onde a cada esquina encontramos
+              lucrativos em um mercado onde a cada esquina encontramos golpes,
               vendedores de sonhos e ilusões.
             </p>
           </div>
@@ -56,15 +55,18 @@ const MentoriaPage: NextPage = () => {
           </p>
           <div className="bg-[#22d3ee]/80 p-10 rounded-lg text-zinc900 text-xl">
             <p>
-              O processo de mentoria irá acontecer uma vez por semana, por 2 ou
-              3 horas. Tudo será gravado para que você possa refletir sobre suas
-              operações e continuar evoluindo. Após cada aula iremos colcoar
-              métricas a serem seguidas para o próximo encontro, por exemplo:
+              O processo de mentoria irá acontecer uma vez por semana, por 1 ou
+              2 horas durante aproximadamente 4 meses. Tudo será gravado para
+              que você possa refletir sobre suas operações e continuar
+              evoluindo. Após cada aula iremos colocar métricas a serem seguidas
+              para o próximo encontro, por exemplo:
             </p>
             <ul className="list-disc ml-6 mt-4">
               <li>Anotar todas as operações</li>
               <li>Ajustar tamanho das posições</li>
               <li>Deixar operações correrem</li>
+              <li>Retirar risco sempre que possível</li>
+              <li>Estar atento aos gatilhos</li>
             </ul>
           </div>
         </div>
@@ -76,10 +78,11 @@ const MentoriaPage: NextPage = () => {
           <div className="text-2xl mt-6 lg:px-32">
             <p>
               Além de passar indicadores e montar um trade system que se adapte
-              ao seu perfil, vamos lado alado alinhar seu horário de trabalho,
+              ao seu perfil, vamos lado a lado alinhar seu horário de trabalho,
               seu setup de operações e tudo exatamente de acordo com o estudo do
               seu perfil como trader.
             </p>
+            <br />
             <p>
               Aprenda com nossos erros e seus próprios.
               <br />
