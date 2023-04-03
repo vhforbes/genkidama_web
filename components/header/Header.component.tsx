@@ -79,9 +79,9 @@ const HeaderComponent = () => {
           <a href="/mentoria" className="m-4 hover:text-accent">
             Mentoria
           </a>
-          <a href="/sobre-nos" className="m-4 hover:text-accent">
+          {/* <a href="/sobre-nos" className="m-4 hover:text-accent">
             Sobre nós
-          </a>
+          </a> */}
           <SunAndMoon switchTheme={switchTheme} />
           <UserDropdownComponent />
         </div>

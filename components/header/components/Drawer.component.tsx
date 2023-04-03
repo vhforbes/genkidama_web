@@ -34,6 +34,11 @@ const Drawer = () => {
           onKeyDown={() => openClose()}
         />
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+          {user?.role === 'ADMIN' ? (
+            <a href="/admin" className="m-4 hover:text-accent">
+              PAINEL ADMINISTRADOR
+            </a>
+          ) : null}
           {!user ? (
             <a
               href="/parceiro-bitget"
@@ -57,9 +62,9 @@ const Drawer = () => {
           <li>
             <a href="/mentoria">Mentoria</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/sobre-nos">Sobre nós</a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
