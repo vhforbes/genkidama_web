@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import {
+  ClipboardIcon,
+  ClipboardDocumentCheckIcon,
+} from '@heroicons/react/24/outline';
 
 interface Props {
   value: number;
@@ -24,30 +28,22 @@ const CopyableValue: React.FC<Props> = ({ value }) => {
   return (
     <div className="flex justify-between">
       <span>${formatUSD(value)}</span>
-      <svg
-        onClick={handleCopyClick}
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 cursor-pointer ml-2"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        {copied ? (
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 13l4 4L19 7"
-          />
-        ) : (
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
-        )}
-      </svg>
+      <span className="flex-shrink-0">
+        <div className="relative">
+          {!copied && (
+            <ClipboardIcon
+              className="h-5 w-5 cursor-pointer"
+              onClick={handleCopyClick}
+            />
+          )}
+          {copied && (
+            <ClipboardDocumentCheckIcon
+              className="h-5 w-5 cursor-pointer"
+              onClick={handleCopyClick}
+            />
+          )}
+        </div>
+      </span>
     </div>
   );
 };
