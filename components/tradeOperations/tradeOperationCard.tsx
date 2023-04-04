@@ -6,6 +6,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { useTradeOperations } from '../../hooks/tradeOperations';
 import { TradeOperation } from '../../interfaces/TradeOperation';
+import CopyableValue from './components/copyableValue';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -38,6 +39,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
       return direction.toLocaleLowerCase() === 'long' ? '#16a34a' : '#b91c1c';
     return '#6b7280';
   });
+
+  console.log(market);
 
   const directionTitle = () => {
     if (direction === 'long') {
@@ -81,16 +84,6 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   const updatedDate = dayjs(updatedAt)
     .tz('America/Sao_Paulo')
     .format('HH:mm:ss - DD/MM/YYYY');
-
-  const formatUSD = (value: number) => {
-    const formatedValue = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 6,
-    }).format(value);
-
-    return formatedValue;
-  };
 
   return (
     <div
@@ -149,27 +142,31 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
         <div className="cardBody flex md:flex-row flex-col">
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
-            <ul className="list-disc ml-5">
-              <li>{formatUSD(entryOrderOne)}</li>
-              {entryOrderTwo ? <li>{formatUSD(entryOrderTwo)}</li> : null}
-              {entryOrderThree ? <li>{formatUSD(entryOrderThree)}</li> : null}
-            </ul>
+            <div>
+              <CopyableValue value={entryOrderOne} />
+              {entryOrderTwo ? <CopyableValue value={entryOrderTwo} /> : null}
+              {entryOrderThree ? (
+                <CopyableValue value={entryOrderThree} />
+              ) : null}
+            </div>
           </div>
           <hr className="md:hidden mt-4 mb-4" />
           <div className="stop&profit flex flex-row md:flex-col md:mr-10 justify-between">
             <div>
               <p className="font-bold">Take profit:</p>
-              <ul className="list-disc ml-5">
-                <li>{formatUSD(takeProfitOne)}</li>
-                {takeProfitTwo ? <li>{formatUSD(takeProfitTwo)}</li> : null}
-              </ul>
+              <div>
+                <CopyableValue value={takeProfitOne} />
+                {takeProfitTwo ? <CopyableValue value={takeProfitTwo} /> : null}
+              </div>
             </div>
           </div>
           <hr className="md:hidden mt-4 mb-4" />
           <div className="flex md:flex-col justify-between md:ml-0">
             <div className="flex flex-col mb-6">
               <span className="font-bold">Stop:</span>{' '}
-              <span>{formatUSD(stop)}</span>
+              <span>
+                <CopyableValue value={stop} />
+              </span>
             </div>
             <button
               className={`btn  ${
@@ -180,7 +177,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
               <a
                 target="_blank"
                 rel="noreferrer"
-                href={`https://www.bitget.com/mix/usdt/${market}_UMCBL`}
+                href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
               >
                 {market}
               </a>

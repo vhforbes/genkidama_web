@@ -25,7 +25,7 @@ const TradeOperationsContainer = ({
   }, [currentAccess, currentPage]);
 
   return (
-    <div>
+    <div className="md:min-w-max">
       {tradeOperations?.map(tradeOperation => (
         <TradeOperationCard
           key={tradeOperation.id}
