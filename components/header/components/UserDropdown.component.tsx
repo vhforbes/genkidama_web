@@ -23,13 +23,10 @@ const UserDropdownComponent = () => {
           <li>
             <a href="/account">Minha conta</a>
             <a href="/assinatura">Assinatura</a>
+            <button type="button" onClick={signOut}>
+              Sair
+            </button>
           </li>
-        ) : null}
-
-        {user ? (
-          <button type="button" onClick={signOut}>
-            Sair
-          </button>
         ) : (
           <li>
             <a href="/sign-in">Entrar</a>
