@@ -81,10 +81,11 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     .tz('America/Sao_Paulo')
     .format('HH:mm:ss - DD/MM/YYYY');
 
-  const formatBrl = (value: number) => {
-    const formatedValue = new Intl.NumberFormat('pt-BR', {
+  const formatUSD = (value: number) => {
+    const formatedValue = new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL',
+      currency: 'USD',
+      maximumFractionDigits: 6,
     }).format(value);
 
     return formatedValue;
@@ -148,9 +149,9 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
             <ul className="list-disc ml-5">
-              <li>{formatBrl(entryOrderOne)}</li>
-              {entryOrderTwo ? <li>{formatBrl(entryOrderTwo)}</li> : null}
-              {entryOrderThree ? <li>{formatBrl(entryOrderThree)}</li> : null}
+              <li>{formatUSD(entryOrderOne)}</li>
+              {entryOrderTwo ? <li>{formatUSD(entryOrderTwo)}</li> : null}
+              {entryOrderThree ? <li>{formatUSD(entryOrderThree)}</li> : null}
             </ul>
           </div>
           <hr className="md:hidden mt-4 mb-4" />
@@ -158,8 +159,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
             <div>
               <p className="font-bold">Take profit:</p>
               <ul className="list-disc ml-5">
-                <li>{formatBrl(takeProfitOne)}</li>
-                {takeProfitTwo ? <li>{formatBrl(takeProfitTwo)}</li> : null}
+                <li>{formatUSD(takeProfitOne)}</li>
+                {takeProfitTwo ? <li>{formatUSD(takeProfitTwo)}</li> : null}
               </ul>
             </div>
           </div>
@@ -167,7 +168,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           <div className="flex md:flex-col justify-between md:ml-0">
             <div className="flex flex-col mb-6">
               <span className="font-bold">Stop:</span>{' '}
-              <span>{formatBrl(stop)}</span>
+              <span>{formatUSD(stop)}</span>
             </div>
             <button
               className={`btn  ${

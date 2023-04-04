@@ -37,7 +37,7 @@ const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
       return (
         <CurrencyInput
           className="input input-bordered"
-          prefix="R$ "
+          prefix="$ "
           id="input-example"
           decimalsLimit={4}
           decimalSeparator=","
