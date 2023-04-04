@@ -40,8 +40,6 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     return '#6b7280';
   });
 
-  console.log(market);
-
   const directionTitle = () => {
     if (direction === 'long') {
       return <p className="font-bold text-2xl ">{direction.toUpperCase()}</p>;
