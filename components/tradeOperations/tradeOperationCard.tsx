@@ -34,7 +34,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
-    if (active) return direction === 'long' ? '#16a34a' : '#b91c1c';
+    if (active)
+      return direction.toLocaleLowerCase() === 'long' ? '#16a34a' : '#b91c1c';
     return '#6b7280';
   });
 
