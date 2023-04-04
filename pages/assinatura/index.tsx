@@ -26,8 +26,6 @@ const SejaMembro: NextPage = () => {
     return null;
   }
 
-  return null;
-
   useEffect(() => {
     if (user.role === 'BITGET') {
       setPlanID('bitgezera');
@@ -44,6 +42,8 @@ const SejaMembro: NextPage = () => {
 
     checkSub();
   }, []);
+
+  return null;
 
   if (!subscription) return null;
 
