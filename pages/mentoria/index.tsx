@@ -105,9 +105,9 @@ const MentoriaPage: NextPage = () => {
               <li className="mt-2">Qual a sua rotina diária</li>
               <li className="mt-2">Entendimento de gerenciamento de risco</li>
               <li className="mt-2">
-                Comprometimento com o ferenciamento de risco
+                Comprometimento com o gerenciamento de risco
               </li>
-              <li className="mt-2">Noções de liquidex</li>
+              <li className="mt-2">Noções de liquidez</li>
               <li className="mt-2">Gerenciamento de expectativa</li>
               <li className="mt-2">Desenvolvimento do trade system próprio</li>
               <li className="mt-2">
@@ -121,7 +121,9 @@ const MentoriaPage: NextPage = () => {
                 (planilha C%&LH@)
               </li>
               <li className="mt-2">Autoconfiança X instabilidade emocional</li>
-              <li className="mt-2">Simplificar para operar sem sbjetividade</li>
+              <li className="mt-2">
+                Simplificar para operar sem subjetividade
+              </li>
               <li className="mt-2">Tirando a emoção do jogo</li>
               <li className="mt-2">Identificando o momento de stress</li>
               <li className="mt-2">Por que é importante sacar seus lucros</li>

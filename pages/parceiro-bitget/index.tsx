@@ -6,7 +6,7 @@ const ParceriaBitget: NextPage = () => {
     <div className="flex flex-col items-center mt-10 p-6 m-auto text-center">
       <h1 className="text-3xl md:max-w-2xl">
         Graças a parceria <strong>Genkidama - Bitget</strong>, tenha acesso a
-        conteúdos exclusivos e participe do crescimeto dessa plataforma!
+        conteúdos exclusivos e participe do crescimento dessa plataforma!
       </h1>
       <div>
         <h1 className="text-2xl mt-10 text-red font-bold">
