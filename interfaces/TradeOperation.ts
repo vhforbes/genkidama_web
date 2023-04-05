@@ -13,4 +13,5 @@ export interface TradeOperation {
   createdAt?: string;
   updatedAt?: string;
   result?: string;
+  observation?: string;
 }

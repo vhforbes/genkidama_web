@@ -89,6 +89,7 @@ const TradeOperationForm = ({
                 takeProfitTwo: tradeOperation?.takeProfitTwo || '',
                 stop: tradeOperation?.stop || '',
                 result: tradeOperation?.result || '',
+                observation: tradeOperation?.observation || '',
               } as TradeOperation
             }
             // validationSchema={Yup.object({
@@ -110,6 +111,15 @@ const TradeOperationForm = ({
                     type="text"
                     placeholder="BTCUSDT"
                     mask="**********"
+                  />
+                </div>
+
+                <div className="form-control">
+                  <MyTextInput
+                    label="Observação:"
+                    name="observation"
+                    type="text"
+                    placeholder=""
                   />
                 </div>
 

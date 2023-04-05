@@ -32,6 +32,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     takeProfitTwo,
     stop,
     result,
+    observation,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
@@ -136,7 +137,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
             </div>
           </div>
         </div>
-        <p className="text-sm mb-6">Atualizado em: {updatedDate}</p>
+        <p className="text-sm">Atualizado em: {updatedDate}</p>
+        {observation && <p>Obs: {observation}</p>}
         <div className="cardBody flex md:flex-row flex-col">
           <div className="entryZone mr-10">
             <p className="font-bold">Ordens:</p>
