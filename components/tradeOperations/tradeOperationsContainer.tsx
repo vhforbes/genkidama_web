@@ -25,15 +25,17 @@ const TradeOperationsContainer = ({
   }, [currentAccess, currentPage]);
 
   return (
-    <div className="md:min-w-max">
-      {tradeOperations?.map(tradeOperation => (
-        <TradeOperationCard
-          key={tradeOperation.id}
-          tradeOperation={tradeOperation}
-          editable={editable}
-        />
-      ))}
-      <div className="flex flex-col items-center mb-10">
+    <div className="flex flex-col items-center mb-10">
+      <div>
+        {tradeOperations?.map(tradeOperation => (
+          <TradeOperationCard
+            key={tradeOperation.id}
+            tradeOperation={tradeOperation}
+            editable={editable}
+          />
+        ))}
+      </div>
+      <div>
         <PageButtonsComponent
           totalPages={pagesInfo.totalPages}
           changePage={setCurrentPage}

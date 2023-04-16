@@ -2,7 +2,7 @@ export interface TradeOperation {
   id: string;
   authorId: string;
   market: string;
-  active: boolean;
+  status: 'aguardando' | 'ativa' | 'fechada';
   direction: string;
   entryOrderOne: number;
   entryOrderTwo?: number;

@@ -80,7 +80,7 @@ const TradeOperationForm = ({
                 id: tradeOperation?.id || '',
                 authorId: tradeOperation?.authorId || '',
                 market: tradeOperation?.market || '',
-                active: tradeOperation?.active || true,
+                status: tradeOperation?.status || 'ativa',
                 direction: tradeOperation?.direction || '',
                 entryOrderOne: tradeOperation?.entryOrderOne || '',
                 entryOrderTwo: tradeOperation?.entryOrderTwo || '',
@@ -123,16 +123,24 @@ const TradeOperationForm = ({
                   />
                 </div>
 
-                <div className="form-control">
-                  <label>
-                    Active:
-                    <br />
-                    <Field
-                      className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      type="checkbox"
-                      name="active"
-                    />
+                <div className="w-48">
+                  <label
+                    htmlFor="fruits"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Select a fruit:
                   </label>
+                  <Field
+                    id="fruits"
+                    name="fruits"
+                    as="select"
+                    className="input input-bordered"
+                  >
+                    <option value="">Status da operação:</option>
+                    <option value="aguardando">Aguardando</option>
+                    <option value="ativa">Ativa</option>
+                    <option value="fechada">Fechada</option>
+                  </Field>
                 </div>
 
                 <div className="form-control">

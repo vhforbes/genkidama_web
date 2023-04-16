@@ -21,7 +21,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   const router = useRouter();
 
   const {
-    active,
+    status,
     market,
     updatedAt,
     direction,
@@ -35,6 +35,8 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     observation,
   } = tradeOperation as TradeOperation;
 
+  const active = true;
+
   const [colorHex] = useState(() => {
     if (active)
       return direction.toLocaleLowerCase() === 'long' ? '#16a34a' : '#b91c1c';
@@ -43,41 +45,16 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
 
   const directionTitle = () => {
     if (direction === 'long') {
-      return <p className="font-bold text-2xl ">{direction.toUpperCase()}</p>;
-    }
-
-    return <p className="font-bold text-2xl ">{direction.toUpperCase()}</p>;
-  };
-
-  const gainLossEven = () => {
-    if (result === 'gain' || result === 'GAIN') {
       return (
-        <span>
-          {' | '}
-          <span className="text-green">{result.toUpperCase()}</span>
-        </span>
+        <p className="font-bold text-2xl text-green">
+          {direction.toUpperCase()}
+        </p>
       );
     }
 
-    if (result === 'loss' || result === 'LOSS') {
-      return (
-        <span>
-          {' | '}
-          <span className="text-red">{result.toUpperCase()}</span>
-        </span>
-      );
-    }
-
-    if (result === 'even' || result === 'EVEN') {
-      return (
-        <span>
-          {' | '}
-          <span className="text-[#fff]">{result.toUpperCase()}</span>
-        </span>
-      );
-    }
-
-    return null;
+    return (
+      <p className="font-bold text-2xl text-red">{direction.toUpperCase()}</p>
+    );
   };
 
   const updatedDate = dayjs(updatedAt)
@@ -86,13 +63,14 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
 
   return (
     <div
-      className={`card md:w-full ${
+      className={`card ${
         active
           ? 'bg-primary'
           : 'bg-base-200 border-2 border-primary text-secondary'
       } text-primary-content mb-10 shadow-xl`}
     >
       <div className="card-body flex">
+        {/* EDITABLE CONDITONAL */}
         {editable ? (
           <div>
             <button
@@ -116,75 +94,104 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           </div>
         ) : null}
 
-        <div className="cardHead flex md:flex-row flex-col justify-between">
-          <p className="font-bold text-2xl mb-2">
-            {!active ? <s>{market}</s> : <span>{market}</span>}
-            {gainLossEven()}
-          </p>
-          <div className="flex w-max">
-            {directionTitle()}
-            <div className={`${active ? 'animate-pulse' : ''}`}>
-              <svg height="30" width="32" className="fill">
-                <circle
-                  cx="20"
-                  cy="18"
-                  r="10"
-                  stroke="black"
-                  strokeWidth="3"
-                  fill={`${colorHex}`}
-                />
-              </svg>
-            </div>
-          </div>
+        <div className="text-sm bg-gray p-2 rounded-md">
+          <p>Atualizado em: {updatedDate}</p>
+          {observation && <p className="break-words">Obs: {observation}</p>}
         </div>
-        <p className="text-sm">Atualizado em: {updatedDate}</p>
-        {observation && <p>Obs: {observation}</p>}
-        <div className="cardBody flex md:flex-row flex-col">
-          <div className="entryZone mr-10">
-            <p className="font-bold">Ordens:</p>
-            <div>
-              <CopyableValue value={entryOrderOne} />
-              {entryOrderTwo ? <CopyableValue value={entryOrderTwo} /> : null}
-              {entryOrderThree ? (
-                <CopyableValue value={entryOrderThree} />
-              ) : null}
+
+        <div className="flex flex-row justify-between">
+          {/* LEFT ROW */}
+          <div className="leftRow flex flex-col justify-between mr-10">
+            <div className="mb-4 w-fit flex flex-col">
+              <p className="font-bold text-2xl">
+                {!active ? <s>{market}</s> : <span>{market}</span>}
+              </p>
+
+              <p className="self-end">{directionTitle()}</p>
             </div>
+
+            <p className="font-bold mb-4">
+              STATUS: {status.toLocaleUpperCase()}
+            </p>
+
+            <div className="mb-4">
+              <p>Seguidores:</p>
+              <p className="font-bold"> 25/30</p>
+            </div>
+
+            {result ? (
+              <div className={result === 'gain' ? 'text-green' : 'text-red'}>
+                <span className="text-xl font-bold">GAIN: </span>
+                <span className="text-xl font-bold">20%</span>
+              </div>
+            ) : null}
+
+            {!result ? (
+              <button type="button" className="btn btn-secondary">
+                Seguir
+              </button>
+            ) : null}
           </div>
-          <hr className="md:hidden mt-4 mb-4" />
-          <div className="stop&profit flex flex-row md:flex-col md:mr-10 justify-between">
-            <div>
-              <p className="font-bold">Take profit:</p>
+
+          <div className="rightRow flex flex-col justify-between">
+            <div className="entryZone mr-10">
+              <p className="font-bold">Ordens:</p>
               <div>
-                <CopyableValue value={takeProfitOne} />
-                {takeProfitTwo ? <CopyableValue value={takeProfitTwo} /> : null}
+                <CopyableValue value={entryOrderOne} />
+                {entryOrderTwo ? <CopyableValue value={entryOrderTwo} /> : null}
+                {entryOrderThree ? (
+                  <CopyableValue value={entryOrderThree} />
+                ) : null}
+              </div>
+            </div>
+
+            <div className="stopZone mr-10">
+              <p className="font-bold">Stop:</p>
+              <CopyableValue value={stop} />
+            </div>
+
+            <div className="stop&profit flex flex-row md:flex-col md:mr-10 justify-between">
+              <div>
+                <p className="font-bold">Take profit:</p>
+                <div>
+                  <CopyableValue value={takeProfitOne} />
+                  {takeProfitTwo ? (
+                    <CopyableValue value={takeProfitTwo} />
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
-          <hr className="md:hidden mt-4 mb-4" />
-          <div className="flex md:flex-col justify-between md:ml-0">
-            <div className="flex flex-col mb-6">
-              <span className="font-bold">Stop:</span>{' '}
-              <span>
-                <CopyableValue value={stop} />
-              </span>
-            </div>
-            <button
-              className={`btn  ${
-                active ? 'btn-primary' : 'btn-disabled'
-              } bg-secondary md:self-end self-center`}
-              type="button"
-            >
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
-              >
-                {market}
-              </a>
-            </button>
-          </div>
         </div>
       </div>
+
+      {/* <button
+        className={`btn  ${
+          active ? 'btn-primary' : 'btn-disabled'
+        } bg-secondary md:self-end self-center`}
+        type="button"
+      >
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
+        >
+          {market}
+        </a>
+      </button> */}
+
+      {/* <div className={`${active ? 'animate-pulse' : ''}`}>
+                <svg height="30" width="32" className="fill">
+                  <circle
+                    cx="20"
+                    cy="18"
+                    r="10"
+                    stroke="black"
+                    strokeWidth="3"
+                    fill={`${colorHex}`}
+                  />
+                </svg>
+              </div> */}
     </div>
   );
 };
