@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
-import { useTradeOperations } from '../../hooks/tradeOperations';
 import PageButtonsComponent from '../shared/pageButtons';
 import TradeOperationCard from './tradeOperationCard';
+import { useTradeOperations } from '../../hooks/tradeOperations/tradeOperations';
 
 const TradeOperationsContainer = ({
   editable = false,

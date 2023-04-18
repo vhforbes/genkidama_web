@@ -6,7 +6,7 @@ import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
-import { useTradeOperations } from '../../hooks/tradeOperations';
+import { useTradeOperations } from '../../hooks/tradeOperations/tradeOperations';
 
 import MyTextInput from '../shared/textInput.component';
 

@@ -7,9 +7,9 @@ import { DrawerProvider } from './drawer';
 import { LoaderProvider } from './loader';
 import { ToastProvider } from './toast';
 import { SubscriptionProvider } from './subscription';
-import { TradeOperationsProvider } from './tradeOperations';
 import { AccessControlProvider } from './accessControl';
 import { ExclusiveVideosProvider } from './exclusiveVideos';
+import GeneralTradeOperationsProvider from './tradeOperations/_index';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -20,7 +20,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
             <AccessControlProvider>
               <ExclusiveVideosProvider>
                 <PayPalScriptProvider options={initialOptions}>
-                  <TradeOperationsProvider>{children}</TradeOperationsProvider>
+                  <GeneralTradeOperationsProvider>
+                    {children}
+                  </GeneralTradeOperationsProvider>
                 </PayPalScriptProvider>
               </ExclusiveVideosProvider>
             </AccessControlProvider>
