@@ -156,8 +156,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
             </div>
 
             <p className=" mb-4">
-              Status:{' '}
-              <span className="font-bold">{status.toLocaleUpperCase()}</span>
+              Status: <span className="font-bold">{status.toUpperCase()}</span>
             </p>
 
             <div className="mb-8">
