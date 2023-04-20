@@ -13,5 +13,9 @@ export interface TradeOperation {
   createdAt?: string;
   updatedAt?: string;
   result?: string;
+  percentual?: number;
+  version: string;
+  maxFollowers: number;
+  tradingViewLink?: string;
   observation?: string;
 }

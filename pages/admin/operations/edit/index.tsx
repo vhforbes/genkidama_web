@@ -10,7 +10,7 @@ const EditOperationPage: NextPage = () => {
   }, []);
   return (
     <main className="">
-      <h1 className="text-center mt-20">Editar Operação</h1>
+      <h1 className="text-center mt-20 text-2xl">Editar Operação</h1>
       <EditTradeOperation edit />
     </main>
   );

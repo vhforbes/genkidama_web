@@ -14,10 +14,15 @@ dayjs.extend(timezone);
 
 interface Props {
   tradeOperation: TradeOperation;
-  editable: boolean;
+  editable?: boolean;
+  history?: boolean;
 }
 
-const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
+const TradeOperationCard = ({
+  tradeOperation,
+  editable = false,
+  history = false,
+}: Props) => {
   const { deleteTradeOperation } = useTradeOperations();
   const router = useRouter();
 
@@ -34,12 +39,14 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     stop,
     result,
     observation,
+    percentual,
+    maxFollowers,
   } = tradeOperation as TradeOperation;
 
   const active = true;
 
   const [colorHex] = useState(() => {
-    if (status !== tradeStatus.closed)
+    if (status === tradeStatus.active)
       return direction.toLocaleLowerCase() === 'long' ? '#16a34a' : '#b91c1c';
     return '#6b7280';
   });
@@ -63,7 +70,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
     <p className="font-bold text-2xl">
       {tradeOperation.status === tradeStatus.closed ? (
         <a
-          className="hover:text-accent"
+          className="hover:text-lightTeal"
           target="_blank"
           rel="noreferrer"
           href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
@@ -72,7 +79,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
         </a>
       ) : (
         <a
-          className="hover:text-accent"
+          className="hover:text-lightTeal"
           target="_blank"
           rel="noreferrer"
           href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
@@ -140,7 +147,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
 
         <div className="text-sm dark:bg-gray p-2 rounded-md mb-4">
           <p>Atualizado em: {updatedDate}</p>
-          {observation && <p className="break-words">Obs: {observation}</p>}
+          <p className="break-words">Obs: {observation}</p>
         </div>
 
         <div className="flex flex-row justify-between">
@@ -155,19 +162,25 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
               <p className="self-end">{directionTitle()}</p>
             </div>
 
-            <p className=" mb-4">
+            <p className="mb-4 w-full min-h-[48px]">
               Status: <span className="font-bold">{status.toUpperCase()}</span>
             </p>
 
             <div className="mb-8">
               <span>Seguidores:</span>
-              <span className="font-bold"> 25/30</span>
+              <span className="font-bold"> x/{maxFollowers}</span>
             </div>
 
             {result ? (
-              <div className={result === 'gain' ? 'text-green' : 'text-red'}>
+              <div
+                className={
+                  result === 'gain'
+                    ? 'text-green h-[48px]'
+                    : 'text-red h-[48px]'
+                }
+              >
                 <span className="text-xl font-bold">GAIN: </span>
-                <span className="text-xl font-bold">20%</span>
+                <span className="text-xl font-bold">{percentual}%</span>
               </div>
             ) : null}
 
@@ -179,7 +192,7 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
           </div>
 
           <div className="rightRow flex flex-col justify-between">
-            <div className="entryZone mr-10">
+            <div className="entryZon w-full">
               <p className="font-bold">Ordens:</p>
               <div>
                 <CopyableValue value={entryOrderOne} />
@@ -190,12 +203,12 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
               </div>
             </div>
 
-            <div className="stopZone mr-10">
+            <div className="stopZone w-full">
               <p className="font-bold">Stop:</p>
               <CopyableValue value={stop} />
             </div>
 
-            <div className="stop&profit flex flex-row md:flex-col md:mr-10 justify-between">
+            <div className="stop&profit w-full flex flex-row md:flex-col justify-between">
               <div>
                 <p className="font-bold">Take profit:</p>
                 <div>
@@ -208,6 +221,14 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
             </div>
           </div>
         </div>
+        {!history ? (
+          <a
+            href={`/operations/${tradeOperation.id}`}
+            className="text-center mt-4 italic hover:text-lightTeal underline"
+          >
+            Histórico da operação
+          </a>
+        ) : null}
       </div>
 
       {/* <button
@@ -228,4 +249,4 @@ const ActiveTradeOperationCard = ({ tradeOperation, editable }: Props) => {
   );
 };
 
-export default ActiveTradeOperationCard;
+export default TradeOperationCard;

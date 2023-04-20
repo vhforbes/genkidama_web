@@ -1,7 +1,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+
+import * as Yup from 'yup';
 
 import { useRouter } from 'next/router';
 import { useToast } from '../../hooks/toast';
@@ -71,8 +73,8 @@ const TradeOperationForm = ({
 
   return (
     <div className="hero mt-24">
-      <div className="hero-content flex-col w-auto md:w-2/5">
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
+      <div className="hero-content flex-col">
+        <div className="card shadow-xl bg-base-100 dark:bg-primary">
           <Formik
             enableReinitialize
             initialValues={
@@ -80,165 +82,212 @@ const TradeOperationForm = ({
                 id: tradeOperation?.id || '',
                 authorId: tradeOperation?.authorId || '',
                 market: tradeOperation?.market || '',
-                status: tradeOperation?.status || 'ativa',
+                status: tradeOperation?.status || 'aguardando',
                 direction: tradeOperation?.direction || '',
+                maxFollowers: tradeOperation?.maxFollowers || 30,
+                tradingViewLink: tradeOperation?.tradingViewLink || '',
+
                 entryOrderOne: tradeOperation?.entryOrderOne || '',
                 entryOrderTwo: tradeOperation?.entryOrderTwo || '',
                 entryOrderThree: tradeOperation?.entryOrderThree || '',
                 takeProfitOne: tradeOperation?.takeProfitOne || '',
                 takeProfitTwo: tradeOperation?.takeProfitTwo || '',
                 stop: tradeOperation?.stop || '',
+
                 result: tradeOperation?.result || '',
+                percentual: tradeOperation?.percentual || '',
                 observation: tradeOperation?.observation || '',
               } as TradeOperation
             }
-            // validationSchema={Yup.object({
-            //   email: Yup.string()
-            //     .email('Endereço de email inválido')
-            //     .required('Campo obrigatório'),
-            //   password: Yup.string().required('Campo obrigatório'),
-            // })}
+            validationSchema={Yup.object({
+              market: Yup.string().required('Campo obrigatório'),
+              direction: Yup.string().required('Campo obrigatório'),
+              entryOrderOne: Yup.string().required('Campo obrigatório'),
+              takeProfitOne: Yup.string().required('Campo obrigatório'),
+              stop: Yup.string().required('Campo obrigatório'),
+            })}
             onSubmit={(values, { setSubmitting }) => {
               submit(values, setSubmitting);
             }}
           >
             <Form>
-              <div className="card-body">
-                <div className="form-control">
-                  <MyTextInput
-                    label="Market:"
-                    name="market"
-                    type="text"
-                    placeholder="BTCUSDT"
-                    mask="**********"
-                  />
+              <div className="card-body flex flex-row flex-wrap">
+                {/* INFOS */}
+                <div className="w-fit">
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Market:"
+                      name="market"
+                      type="text"
+                      placeholder="BTCUSDT"
+                      mask="**********"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label htmlFor="status" className="">
+                      Status da operação:
+                    </label>
+                    <Field
+                      id="status"
+                      name="status"
+                      as="select"
+                      className="input input-bordered w-full"
+                    >
+                      <option value="aguardando">Aguardando</option>
+                      <option value="ativa">Ativa</option>
+                      <option value="fechada">Fechada</option>
+                    </Field>
+                  </div>
+
+                  <div className="form-control">
+                    <label htmlFor="direction" className="">
+                      Direção:
+                    </label>
+                    <Field
+                      id="direction"
+                      name="direction"
+                      as="select"
+                      className="input input-bordered w-full"
+                    >
+                      <option value=""> - </option>
+                      <option value="long">Long</option>
+                      <option value="short">Short</option>
+                    </Field>
+                    <div className="text-red">
+                      <ErrorMessage name="direction" />
+                    </div>
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Seguidores:"
+                      name="maxFollowers"
+                      type="number"
+                      placeholder="30"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="TradingView Link:"
+                      name="tradingViewLink"
+                      type="text"
+                      placeholder="link"
+                    />
+                  </div>
                 </div>
 
-                <div className="form-control">
-                  <MyTextInput
-                    label="Observação:"
-                    name="observation"
-                    type="text"
-                    placeholder=""
-                  />
+                {/* ORDENS */}
+                <div className="w-fit">
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Entry Order One:"
+                      name="entryOrderOne"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Entry Order Two:"
+                      name="entryOrderTwo"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Entry Order Three:"
+                      name="entryOrderThree"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Take Profit One:"
+                      name="takeProfitOne"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Take Profit Two:"
+                      name="takeProfitTwo"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Stop:"
+                      name="stop"
+                      type="text"
+                      placeholder=""
+                      currency
+                    />
+                  </div>
                 </div>
 
-                <div className="w-48">
-                  <label
-                    htmlFor="fruits"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Select a fruit:
-                  </label>
-                  <Field
-                    id="fruits"
-                    name="fruits"
-                    as="select"
-                    className="input input-bordered"
-                  >
-                    <option value="">Status da operação:</option>
-                    <option value="aguardando">Aguardando</option>
-                    <option value="ativa">Ativa</option>
-                    <option value="fechada">Fechada</option>
-                  </Field>
-                </div>
+                {/* RESULTS */}
 
-                <div className="form-control">
-                  <MyTextInput
-                    label="Direction:"
-                    name="direction"
-                    type="text"
-                    placeholder="short / long"
-                  />
-                </div>
+                <div className="w-fit">
+                  <div className="form-control">
+                    <label htmlFor="result" className="">
+                      Resultado da operação:
+                    </label>
+                    <Field
+                      id="result"
+                      name="result"
+                      as="select"
+                      className="input input-bordered w-full"
+                    >
+                      <option value=""> - </option>
+                      <option value="gain">gain</option>
+                      <option value="loss">loss</option>
+                      <option value="even">even</option>
+                    </Field>
+                  </div>
 
-                <div className="form-control">
-                  <MyTextInput
-                    label="Entry Order One:"
-                    name="entryOrderOne"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Percentual:"
+                      name="percentual"
+                      type="text"
+                      placeholder="XX"
+                      mask="***"
+                    />
+                  </div>
                 </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Entry Order Two:"
-                    name="entryOrderTwo"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
-                </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Entry Order Three:"
-                    name="entryOrderThree"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
-                </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Take Profit One:"
-                    name="takeProfitOne"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
-                </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Take Profit Two:"
-                    name="takeProfitTwo"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
-                </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Stop:"
-                    name="stop"
-                    type="text"
-                    placeholder=""
-                    currency
-                  />
-                </div>
-
-                <div className="form-control">
-                  <MyTextInput
-                    label="Result:"
-                    name="result"
-                    type="text"
-                    placeholder="GAIN / LOSS"
-                    mask="****"
-                  />
-                </div>
-
-                <div className="form-control mt-6">
-                  <button type="submit" className="btn btn-secondary">
-                    Enviar
-                  </button>
-                </div>
+              </div>
+              <div className="form-control px-8">
+                <MyTextInput
+                  label="Observação:"
+                  name="observation"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-secondary">
+                  Enviar
+                </button>
               </div>
             </Form>
           </Formik>
         </div>
-        <h1 className="text-lg text-center">
-          Ainda não tem conta?
-          <br />
-          <a href="/sign-up" className="link-hover">
-            {' '}
-            Crie agora a sua, <i>clique aqui!</i>
-          </a>
-        </h1>
       </div>
     </div>
   );

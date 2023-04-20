@@ -4,6 +4,7 @@ const routes = {
   exclusiveVideos: '/exclusive-videos',
   subscriptions: '/subscriptions',
   tradeOperations: '/trade-operations',
+
   forms: {
     mentoria: '/forms/mentoria',
   },
