@@ -184,7 +184,7 @@ const TradeOperationCard = ({
               </div>
             ) : null}
 
-            {!result ? (
+            {status !== tradeStatus.closed ? (
               <button type="button" className="btn btn-secondary max-w-[100px]">
                 Seguir
               </button>

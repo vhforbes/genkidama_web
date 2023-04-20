@@ -52,10 +52,10 @@ const FilteredTradeOperationsContainer = ({
   ]);
 
   return (
-    <div className="flex xl:flex-row flex-col justify-between m-auto">
-      <div className="aguardando flex flex-col items-center mb-10 flex-1 bg-zinc900 pt-8 bg-opacity-40 rounded-xl mx-3">
-        <p className="text-2xl font-bold mb-8">AGUARDANDO:</p>
-        <div className="w-fit h-full px-6">
+    <div className="flex flex-col justify-around 2xl:flex-row">
+      <div className="aguardando flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+        <p className="text-2xl font-bold mb-4">AGUARDANDO:</p>
+        <div>
           {awaitingTradeOperations?.map(tradeOperation => (
             <TradeOperationCard
               key={tradeOperation.id}
@@ -64,7 +64,7 @@ const FilteredTradeOperationsContainer = ({
             />
           ))}
         </div>
-        <div className="mb-6">
+        <div className="mt-auto">
           <PageButtonsComponent
             totalPages={awaitingPagesInfo.totalPages}
             changePage={setAwaitingCurrentPage}
@@ -73,9 +73,9 @@ const FilteredTradeOperationsContainer = ({
         </div>
       </div>
 
-      <div className="ativa flex flex-col items-center mb-10 flex-1 bg-zinc900 pt-8 bg-opacity-40 rounded-xl mx-3">
-        <p className="text-2xl font-bold mb-8">ATIVA:</p>
-        <div className="w-full h-full px-6">
+      <div className="ativa flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+        <p className="text-2xl font-bold mb-4">ATIVA:</p>
+        <div className="cards-container">
           {activeTradeOperations?.map(tradeOperation => (
             <TradeOperationCard
               key={tradeOperation.id}
@@ -84,7 +84,7 @@ const FilteredTradeOperationsContainer = ({
             />
           ))}
         </div>
-        <div className="mb-6">
+        <div className="mt-auto">
           <PageButtonsComponent
             totalPages={activePagesInfo.totalPages}
             changePage={setActiveCurrentPage}
@@ -93,10 +93,10 @@ const FilteredTradeOperationsContainer = ({
         </div>
       </div>
 
-      <div className="fechada flex flex-col items-center mb-10 flex-1 bg-zinc900 pt-8 bg-opacity-40 rounded-xl mx-3">
-        <p className="text-2xl font-bold mb-8">FECHADA:</p>
+      <div className="fechada flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+        <p className="text-2xl font-bold mb-4">FECHADA:</p>
 
-        <div className="w-full h-full px-6">
+        <div className="cards-container">
           {closedTradeOperations?.map(tradeOperation => (
             <TradeOperationCard
               key={tradeOperation.id}
@@ -105,7 +105,7 @@ const FilteredTradeOperationsContainer = ({
             />
           ))}
         </div>
-        <div className="mb-6">
+        <div className="mt-auto">
           <PageButtonsComponent
             totalPages={closedPagesInfo.totalPages}
             changePage={setClosedCurrentPage}
