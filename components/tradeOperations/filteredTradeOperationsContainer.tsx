@@ -53,7 +53,7 @@ const FilteredTradeOperationsContainer = ({
 
   return (
     <div className="flex flex-col justify-around xl:flex-row">
-      <div className="aguardando flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+      <div className="aguardando flex flex-1 flex-col items-center mx-4 p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
         <p className="text-2xl font-bold mb-4">AGUARDANDO:</p>
         <div>
           {awaitingTradeOperations?.map(tradeOperation => (
@@ -73,7 +73,7 @@ const FilteredTradeOperationsContainer = ({
         </div>
       </div>
 
-      <div className="ativa flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+      <div className="ativa flex flex-1 flex-col items-center mx-4 p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
         <p className="text-2xl font-bold mb-4">ATIVA:</p>
         <div className="cards-container">
           {activeTradeOperations?.map(tradeOperation => (
@@ -93,7 +93,7 @@ const FilteredTradeOperationsContainer = ({
         </div>
       </div>
 
-      <div className="fechada flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
+      <div className="fechada flex flex-1 flex-col items-center mx-4 p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
         <p className="text-2xl font-bold mb-4">FECHADA:</p>
 
         <div className="cards-container">
