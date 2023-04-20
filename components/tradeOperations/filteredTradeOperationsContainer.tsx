@@ -52,7 +52,7 @@ const FilteredTradeOperationsContainer = ({
   ]);
 
   return (
-    <div className="flex flex-col justify-around 2xl:flex-row">
+    <div className="flex flex-col justify-around xl:flex-row">
       <div className="aguardando flex flex-col items-center p-4 mb-4 bg-zinc900 pt-8 bg-opacity-40 rounded-xl">
         <p className="text-2xl font-bold mb-4">AGUARDANDO:</p>
         <div>

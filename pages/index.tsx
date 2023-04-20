@@ -27,12 +27,12 @@ const Home: NextPage = () => {
       <div>
         <main className="h-full hidden md:block">
           {/* <Loader /> */}
-          <div className="flex flex-col 2xl:flex-row p-10 justify-around">
-            <div className="w-full 2xl:w-4/6">
+          <div className="flex flex-col xl:flex-row p-10 justify-around">
+            <div className="w-full xl:w-5/6">
               <p className="text-2xl font-bold mb-8 text-center">OPERAÇÕES:</p>
               <FilteredTradeOperationsContainer editable={false} />
             </div>
-            <div className="2xl:ml-8 2xl:w-2/6 h-full ">
+            <div className="2xl:ml-8 xl:w-1/6 h-full ">
               <p className="text-2xl font-bold mb-8 text-center">
                 VÍDEOS EXCLUSIVOS:
               </p>
