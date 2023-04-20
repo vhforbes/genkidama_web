@@ -64,7 +64,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
       const { data } = await privateApi.get(routes.exclusiveVideos, {
         params: {
           page: currentPage,
-          limit: 8,
+          limit: 5,
         },
       });
 

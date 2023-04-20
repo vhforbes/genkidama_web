@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import HeaderComponent from '../components/header/Header.component';
-import AppProvider from '../hooks';
+import AppProvider from '../hooks/_index';
 import ToastComponent from '../components/toast/toast.component';
 import { useToast } from '../hooks/toast';
 import Drawer from '../components/header/components/Drawer.component';

@@ -46,7 +46,7 @@ const ExclusiveVideosContainer = ({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-row flex-wrap md:justify-center justify-center">
+      <div className="flex flex-col md:justify-center justify-center">
         {exclusiveVideos?.map((exclusiveVideo: ExclusiveVideo) => {
           return (
             <PostComponent

@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import ExclusiveVideosContainer from '../components/exclusiveVideo/exclusiveVideosContainer.component';
-import TradeOperationsContainer from '../components/tradeOperations/tradeOperationsContainer';
 import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
+import FilteredTradeOperationsContainer from '../components/tradeOperations/filteredTradeOperationsContainer';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -27,15 +27,25 @@ const Home: NextPage = () => {
       <div>
         <main className="h-full hidden md:block">
           {/* <Loader /> */}
-          <div className="flex flex-col-reverse xl:flex-row p-10 justify-around">
-            <div className="">
-              <ExclusiveVideosContainer editable={false} />
+          <div className="flex flex-col xl:flex-row p-10 justify-around">
+            <div className="w-full xl:w-5/6">
+              <p className="text-2xl font-bold mb-8 text-center">OPERAÇÕES:</p>
+              <FilteredTradeOperationsContainer editable={false} />
             </div>
-            <div>
-              <TradeOperationsContainer editable={false} />
+            <div className="2xl:ml-8 xl:w-1/6 h-full ">
+              <p className="text-2xl font-bold mb-8 text-center">
+                VÍDEOS EXCLUSIVOS:
+              </p>
+              <ExclusiveVideosContainer editable={false} />
             </div>
           </div>
         </main>
+
+        {/* 
+        
+        ------ MOBILE MENU -----
+        
+        */}
         <main className="md:hidden flex flex-col justify-evenly p-4 mt-4">
           <a href="/operations" className="btn btn-secondary">
             Operações

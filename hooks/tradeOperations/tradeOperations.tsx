@@ -1,9 +1,9 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import privateApi from '../services/privateApi';
-import { useToast } from './toast';
-import { useLoader } from './loader';
-import routes from '../enums/routes';
-import { TradeOperation } from '../interfaces/TradeOperation';
+import privateApi from '../../services/privateApi';
+import { useToast } from '../toast';
+import { useLoader } from '../loader';
+import routes from '../../enums/routes';
+import { TradeOperation } from '../../interfaces/TradeOperation';
 
 interface TradeOperationContextData {
   tradeOperations: TradeOperation[];
@@ -21,7 +21,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface PagesInfo {
+export interface PagesInfo {
   next: number;
   previous: number;
   totalPages: number;
@@ -34,8 +34,11 @@ const TradeOperationsContext = createContext<TradeOperationContextData>(
 const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+
+  // GENERAL
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesInfo, setPagesInfo] = useState({} as PagesInfo);
+
   const [tradeOperations, setTradeOperations] = useState<TradeOperation[]>(
     [] as TradeOperation[],
   );

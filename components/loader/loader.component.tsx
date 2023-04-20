@@ -10,7 +10,7 @@ const Loader = () => {
   }
 
   return (
-    <div className="flex justify-center items-center absolute w-full h-full z-10 dark:bg-base-100">
+    <div className="flex justify-center items-center absolute w-full h-full z-10 dark:bg-transparent">
       <Triangle
         height="80"
         width="80"
