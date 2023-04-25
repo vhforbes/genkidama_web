@@ -119,6 +119,10 @@ const TradeOperationCard = ({
   };
 
   const followButton = () => {
+    if (history) {
+      return null;
+    }
+
     if (isFollowing) {
       return (
         <button
@@ -184,7 +188,12 @@ const TradeOperationCard = ({
   }
 
   // CHEGA SE A OPERAÇÃO ESTÁ COM ESPAÇO OU SE O USER ESTÁ SEGUINDO
-  if (maxFollowers > currentFollowers || isFollowing || currentAccess.isAdmin)
+  if (
+    maxFollowers > currentFollowers ||
+    isFollowing ||
+    currentAccess.isAdmin ||
+    history
+  )
     return (
       <div
         className={`card ${
@@ -327,7 +336,7 @@ const TradeOperationCard = ({
       </div>
     );
 
-  return null;
+  return <h1>batata</h1>;
 };
 
 export default TradeOperationCard;
