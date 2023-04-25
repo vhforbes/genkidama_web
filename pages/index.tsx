@@ -26,7 +26,12 @@ const Home: NextPage = () => {
     return (
       <div>
         <main className="h-full hidden md:block">
-          {/* <Loader /> */}
+          {!user?.telegramId ? (
+            <h1 className="text-center">
+              Você não falou com o Mestre Kame, assim não irá receber as
+              atualizações no seu telegram :(
+            </h1>
+          ) : null}
           <div className="flex flex-col xl:flex-row p-10 justify-around">
             <div className="w-full xl:w-5/6">
               <p className="text-2xl font-bold mb-8 text-center">OPERAÇÕES:</p>
