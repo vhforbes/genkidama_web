@@ -267,8 +267,7 @@ const TradeOperationForm = ({
                       name="percentual"
                       type="text"
                       placeholder="XX"
-                      currency
-                      mask="% 99.99"
+                      percentual
                     />
                   </div>
                 </div>

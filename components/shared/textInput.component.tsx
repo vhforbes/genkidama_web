@@ -8,12 +8,19 @@ interface InputData {
   name: string;
   mask?: string;
   currency?: boolean;
+  percentual?: boolean;
   type: string;
   placeholder: string;
   disabled?: boolean;
 }
 
-const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
+const MyTextInput = ({
+  label,
+  mask,
+  currency,
+  percentual,
+  ...props
+}: InputData) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input>. We can use field meta to show an error
   // message if the field is invalid and it has been touched (i.e. visited)
@@ -38,6 +45,22 @@ const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
         <CurrencyInput
           className="input input-bordered"
           prefix="$ "
+          id="input-example"
+          decimalsLimit={8}
+          decimalSeparator=","
+          groupSeparator="."
+          value={field.value}
+          onValueChange={value => setFieldValue(field.name, value)}
+          {...props}
+        />
+      );
+    }
+
+    if (percentual) {
+      return (
+        <CurrencyInput
+          className="input input-bordered"
+          prefix="% "
           id="input-example"
           decimalsLimit={8}
           decimalSeparator=","
