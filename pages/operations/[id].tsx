@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTradeOperationHistory } from '../../hooks/tradeOperations/tradeOperationHistory';
 import TradeOperationCard from '../../components/tradeOperations/tradeOperationCard';
+import { useFollowTradeOperations } from '../../hooks/tradeOperations/followingTradeOperations';
 
 const OperationPage = () => {
   const router = useRouter();
@@ -11,10 +12,14 @@ const OperationPage = () => {
   const { getTradeOperationHistory, tradeOperationWithHistory } =
     useTradeOperationHistory();
 
+  const { getFollowingTradeOperations } = useFollowTradeOperations();
+
   useEffect(() => {
     if (id) {
       getTradeOperationHistory(id as string);
     }
+
+    getFollowingTradeOperations();
   }, [id]);
 
   if (Object.keys(tradeOperationWithHistory).length === 0) return null;
