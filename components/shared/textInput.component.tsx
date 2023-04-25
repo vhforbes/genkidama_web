@@ -39,7 +39,7 @@ const MyTextInput = ({ label, mask, currency, ...props }: InputData) => {
           className="input input-bordered"
           prefix="$ "
           id="input-example"
-          decimalsLimit={4}
+          decimalsLimit={8}
           decimalSeparator=","
           groupSeparator="."
           value={field.value}
