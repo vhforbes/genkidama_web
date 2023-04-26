@@ -39,11 +39,13 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
       setFollowingTradeOperations(
         data.user.tradeOperations as TradeOperation[],
       );
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter toadas as operações ativas',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter as operações que você está seguindo',
       });
     }
     setLoading(false);

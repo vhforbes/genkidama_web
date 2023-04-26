@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import privateApi from '../../services/privateApi';
 import { useToast } from '../toast';
 import { useLoader } from '../loader';
 import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
 import tradeStatus from '../../enums/tradeStatus';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 interface ClosedTradeOperationContextData {
   closedTradeOperations: TradeOperation[];
@@ -48,11 +50,13 @@ const ClosedTradeOperationsProvider: React.FC<Props> = ({ children }) => {
       const { data } = await privateApi.get(routes.tradeOperations);
 
       setClosedTradeOperations(data as TradeOperation[]);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter toadas as operações fechadas',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter as operações: fechadas',
       });
     }
     setLoading(false);
@@ -76,11 +80,13 @@ const ClosedTradeOperationsProvider: React.FC<Props> = ({ children }) => {
         totalPages: data.totalPages as number,
       });
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter as operações fechadas',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter as operações: fechadas',
       });
     }
   }, [closedCurrentPage]);

@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useToast } from './toast';
 import { useLoader } from './loader';
@@ -7,6 +8,7 @@ import { User } from '../interfaces/User';
 
 import privateApi from '../services/privateApi';
 import routes from '../enums/routes';
+import { ErrorResponse } from '../interfaces/ErrorResponse';
 
 interface AccessControlState {
   id: string;
@@ -82,12 +84,15 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
       setLoading(false);
 
       return accessControl;
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi verificar as permissões do seu usuário',
+        description: e.response?.data.message,
+        title: 'Ops, tivemos um erro.',
       });
+
       return accessControl;
     }
   }, []);

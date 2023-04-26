@@ -1,9 +1,11 @@
 import type { NextPage } from 'next';
+import { AxiosError } from 'axios';
 import React, { useEffect, useState } from 'react';
 import routes from '../../../enums/routes';
 import { useAccessControl } from '../../../hooks/accessControl';
 import { useToast } from '../../../hooks/toast';
 import privateApi from '../../../services/privateApi';
+import { ErrorResponse } from '../../../interfaces/ErrorResponse';
 
 interface BitgetUIDReponse {
   id: string;
@@ -39,11 +41,13 @@ const BitgetAssociated: NextPage = () => {
         title: 'Sucesso',
         description: 'Lista atualizada com sucesso :)',
       });
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'erro',
-        description: 'Erro em atualizar a lista',
+        description: e.response?.data.message,
+        title: 'Não foi possível atualizar a lista de associados bitget',
       });
     }
   };

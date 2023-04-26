@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { AxiosError } from 'axios';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -8,6 +9,7 @@ import { useLoader } from '../../../hooks/loader';
 import { useToast } from '../../../hooks/toast';
 import MyTextInput from '../../../components/shared/textInput.component';
 import privateApi from '../../../services/privateApi';
+import { ErrorResponse } from '../../../interfaces/ErrorResponse';
 
 interface SumitResetPasswordData {
   email: string;
@@ -27,23 +29,25 @@ const ResetPassword: NextPage = () => {
       await privateApi.post(routes.recoverPassword, {
         email,
       });
-      setLoading(false);
-      setSubmitting(false);
       addToast({
         type: 'success',
         title: 'Um email foi enviado para você!',
         description: 'Clique no link enviado para recuperar sua senha.',
       });
+
+      setSubmitting(false);
       router.push('/sign-in');
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not reset password',
+        description: e.response?.data.message,
+        title: 'Não foi possível resetar sua senha',
       });
-      setLoading(false);
       setSubmitting(false);
     }
+    setLoading(false);
   };
 
   return (

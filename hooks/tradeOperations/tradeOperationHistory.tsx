@@ -1,9 +1,11 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import privateApi from '../../services/privateApi';
 import { useToast } from '../toast';
 import { useLoader } from '../loader';
 import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 interface TradeOperationHistoryContextData {
   tradeOperationWithHistory: TradeOperationWithHistory;
@@ -34,8 +36,6 @@ const TradeOperationHistorysProvider: React.FC<Props> = ({ children }) => {
   const getTradeOperationHistory = useCallback(async (id: string) => {
     setLoading(true);
     try {
-      console.log(id);
-
       const { data } = await privateApi.get(
         `${routes.tradeOperations}/history`,
         {
@@ -46,12 +46,13 @@ const TradeOperationHistorysProvider: React.FC<Props> = ({ children }) => {
       );
 
       setTradeOperationWithHistory(data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter o histórico da operação',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter o histórico da operação.',
       });
     }
     setLoading(false);

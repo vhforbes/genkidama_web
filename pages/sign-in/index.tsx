@@ -3,12 +3,14 @@ import * as Yup from 'yup';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Form, Formik } from 'formik';
+import { AxiosError } from 'axios';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
 import MyTextInput from '../../components/shared/textInput.component';
 import { useLoader } from '../../hooks/loader';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 interface SubmitLoginData {
   email: string;
@@ -36,17 +38,21 @@ const SignIn: NextPage = () => {
         email,
         password,
       });
-      setLoading(false);
+
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not login',
+        description: e.response?.data.message,
+        title: 'Não foi possível submeter o formulário de login',
       });
-      setLoading(false);
+
       setSubmitting(false);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -88,7 +94,7 @@ const SignIn: NextPage = () => {
                     Login
                   </button>
                   <a
-                    href="/users/resetPassword"
+                    href="/users/reset"
                     className="link-hover text-center mt-6"
                   >
                     Esqueceu sua senha?

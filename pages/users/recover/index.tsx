@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { AxiosError } from 'axios';
 import * as Yup from 'yup';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -8,6 +9,7 @@ import { useLoader } from '../../../hooks/loader';
 import { useToast } from '../../../hooks/toast';
 import publicApi from '../../../services/api';
 import MyTextInput from '../../../components/shared/textInput.component';
+import { ErrorResponse } from '../../../interfaces/ErrorResponse';
 
 interface SubmitRcoverPasswordData {
   token: string;
@@ -30,7 +32,6 @@ const RecoverPassword: NextPage = () => {
         token,
         newPassword: password,
       });
-      setLoading(false);
       setSubmitting(false);
       addToast({
         type: 'success',
@@ -38,15 +39,19 @@ const RecoverPassword: NextPage = () => {
         description: 'Faça login usando sua nova senha.',
       });
       router.push('/sign-in');
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not recover password',
+        description: e.response?.data.message,
+        title: 'Não foi possível alterar sua senha',
       });
-      setLoading(false);
+
       setSubmitting(false);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import * as Yup from 'yup';
 
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
@@ -13,6 +14,7 @@ import { useTradeOperations } from '../../hooks/tradeOperations/tradeOperations'
 import MyTextInput from '../shared/textInput.component';
 
 import { TradeOperation } from '../../interfaces/TradeOperation';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 const TradeOperationForm = ({
   edit,
@@ -60,11 +62,13 @@ const TradeOperationForm = ({
       }
 
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not edit trade operation',
+        description: e.response?.data.message,
+        title: 'Não foi possivel submeter o formulário',
       });
       setLoading(false);
       setSubmitting(false);

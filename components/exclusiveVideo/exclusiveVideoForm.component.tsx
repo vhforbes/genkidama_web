@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
@@ -11,6 +12,7 @@ import { useExclusiveVideos } from '../../hooks/exclusiveVideos';
 import { ExclusiveVideo } from '../../interfaces/ExclusiveVideo';
 
 import MyTextInput from '../shared/textInput.component';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 const ExclusiveVideoForm = ({
   edit,
@@ -58,12 +60,15 @@ const ExclusiveVideoForm = ({
       }
 
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not edit trade operation',
+        description: e.response?.data.message,
+        title: 'Ops, tivemos um erro.',
       });
+
       setLoading(false);
       setSubmitting(false);
     }

@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { AxiosError } from 'axios';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
@@ -9,6 +10,7 @@ import { useLoader } from '../../hooks/loader';
 import { useToast } from '../../hooks/toast';
 import { User } from '../../interfaces/User';
 import privateApi from '../../services/privateApi';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 const Account: NextPage = () => {
   const router = useRouter();
@@ -35,15 +37,18 @@ const Account: NextPage = () => {
         description: 'Você atualizou seu usuário com sucesso!',
       });
       setSubmitting(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        title: 'An error has ocurred',
-        description: 'Could not edit trade operation',
+        description: e.response?.data.message,
+        title:
+          'Não foi possível enviar o formulário para atualizar seu usuário',
       });
-      setLoading(false);
       setSubmitting(false);
     }
+    setLoading(false);
   };
 
   return (

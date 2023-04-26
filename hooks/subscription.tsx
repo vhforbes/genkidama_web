@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import privateApi from '../services/privateApi';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 import { useAuth } from './auth';
 import routes from '../enums/routes';
+import { ErrorResponse } from '../interfaces/ErrorResponse';
 
 interface SubscriptionState {
   id: string;
@@ -60,11 +62,13 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
       }
 
       return true;
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Favor entre em contato com nossa equipe de suporte.',
+        description: e.response?.data.message,
+        title: 'Não foi possível checar sua assinatura',
       });
 
       return false;
@@ -85,20 +89,21 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
         title: 'Você acaba de se tornar um Membro Genkidama!',
       });
 
-      setLoading(false);
       subscriptionData(data as SubscriptionState);
       localStorage.setItem('@Genkidama:subscription', JSON.stringify(data));
 
       router.push('/');
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Favor entre em contato com nossa equipe de suporte.',
+        description: e.response?.data.message,
+        title: 'Não foi possível ativar sua assinatura',
       });
-      console.error(error);
-      setLoading(false);
     }
+
+    setLoading(false);
   }, []);
 
   const cancelSubscription = useCallback(
@@ -119,20 +124,21 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
           title: 'Vamos sentia sua falta...',
         });
 
-        setLoading(false);
         subscriptionData(data as SubscriptionState);
         localStorage.setItem('@Genkidama:subscription', JSON.stringify(data));
 
         router.push('/');
-      } catch (error) {
+      } catch (error: any) {
+        const e: AxiosError<ErrorResponse> = error;
+
         addToast({
           type: 'error',
-          description: 'Ops, tivemos um erro.',
-          title: 'Favor entre em contato com nossa equipe de suporte.',
+          description: e.response?.data.message,
+          title: 'Não foi possível cancelar sua assinatura',
         });
-        console.error(error);
-        setLoading(false);
       }
+
+      setLoading(false);
     },
     [],
   );

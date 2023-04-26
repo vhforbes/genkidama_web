@@ -1,9 +1,11 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import privateApi from '../services/privateApi';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 import routes from '../enums/routes';
 import { ExclusiveVideo } from '../interfaces/ExclusiveVideo';
+import { ErrorResponse } from '../interfaces/ErrorResponse';
 
 interface ExclusiveVideoContextData {
   exclusiveVideos: ExclusiveVideo[];
@@ -49,11 +51,13 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
       setExclusiveVideos(data as ExclusiveVideo[]);
 
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter os últimos videos',
+        description: e.response?.data.message,
+        title: 'Não foi possível excluir os vídeos',
       });
     }
   }, []);
@@ -76,11 +80,13 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
       });
 
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter as operações',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter os vídeos',
       });
     }
   }, [currentPage]);
@@ -99,11 +105,13 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
           title: 'Sucesso',
           description: 'Video exclusivo criado :)',
         });
-      } catch (error) {
+      } catch (error: any) {
+        const e: AxiosError<ErrorResponse> = error;
+
         addToast({
           type: 'error',
-          description: 'Ops, tivemos um erro.',
-          title: 'Não foi possível obter os últimos videos',
+          description: e.response?.data.message,
+          title: 'Não foi possível criar o vídeo',
         });
       }
     },
@@ -124,11 +132,13 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
           title: 'Sucesso',
           description: 'Video exclusivo atualizado :)',
         });
-      } catch (error) {
+      } catch (error: any) {
+        const e: AxiosError<ErrorResponse> = error;
+
         addToast({
           type: 'error',
-          description: 'Ops, tivemos um erro.',
-          title: 'Não foi possível obter os últimos videos',
+          description: e.response?.data.message,
+          title: 'Não foi possível editar o vídeo',
         });
       }
     },
@@ -145,11 +155,13 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
         description: 'Video apagado com sucesso',
         title: '',
       });
-    } catch (error) {
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
       addToast({
         type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível deletar a operação',
+        description: e.response?.data.message,
+        title: 'Não foi possível excluir o vídeo',
       });
     }
   }, []);

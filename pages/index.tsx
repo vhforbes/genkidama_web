@@ -27,9 +27,9 @@ const Home: NextPage = () => {
       <div>
         <main className="h-full hidden md:block">
           {!user?.telegramId ? (
-            <h1 className="text-center">
-              Você não falou com o Mestre Kame, assim não irá receber as
-              atualizações no seu telegram :(
+            <h1 className="text-center text-red text-xl">
+              Você não falou com o @MestreKamee_bot, assim não irá receber as
+              atualizações no seu telegram :(.
             </h1>
           ) : null}
           <div className="flex flex-col xl:flex-row p-10 justify-around">
