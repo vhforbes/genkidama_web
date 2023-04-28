@@ -8,16 +8,21 @@ import { useAuth } from '../../hooks/auth';
 
 import { useToast } from '../../hooks/toast';
 import { useSubscription } from '../../hooks/subscription';
+import roles from '../../enums/roles';
+import pricing from '../../enums/pricing';
 
 const SejaMembro: NextPage = () => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
   const { checkSub, activateSubscription, cancelSubscription, subscription } =
     useSubscription();
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const { theme } = useTheme();
   const { addToast } = useToast();
   const [cancelReason, setCancelReason] = useState('');
-  const [planID, setPlanID] = useState('P-55501210J8134335TMN5ZXXQ');
+  // oficial
+  // const [planID, setPlanID] = useState('P-80415352J0511314RMRFMT3A'); OFC
+  // teste 10 cents
+  const [planID, setPlanID] = useState('P-75925301CT371305PMRFNJVY');
 
   const router = useRouter();
 
@@ -28,10 +33,15 @@ const SejaMembro: NextPage = () => {
 
   useEffect(() => {
     // GO TO HOME UNTIL RELEASE
-    router.push('/');
+
+    refreshUser();
 
     if (user.role === 'BITGET') {
-      setPlanID('bitgezera');
+      setPlanID('P-9PT36443UN926091UMRFMS3Q');
+    }
+
+    if (user.role === 'EA') {
+      setPlanID('P-5YN09310K73339648MRFMTNY');
     }
 
     dispatch({
@@ -132,40 +142,79 @@ const SejaMembro: NextPage = () => {
             Seja membro da plataforma Genkidama!
           </p>
 
-          {user.role === 'BITGET' ? (
+          {user.role === roles.bitget ? (
             <div>
               <div className="mt-4 text-center">
-                <span className="text-xl  line-through">R$80,00</span>
-                <span className="text-2xl font-semibold"> R$40,00 </span>
-                <span>por mês!*</span>
                 <p className="text-xs">
-                  *Preço exclusivo para associados na Bitget
+                  Obrigado por ser um membro BITGET!
+                  <br />
+                  Aproveite seu desconto de:
                 </p>
-              </div>
-              <div className="mt-6">
-                <li>Lives interativas</li>
-                <li>Acesso à pool de investimentos</li>
-                <li>Grupo exclusivo no telegram</li>
+                <span className="text-xl  line-through">
+                  R${pricing.fullPrice}
+                </span>
+                <span className="text-2xl font-semibold">
+                  {' '}
+                  R${pricing.bitgetAssociateAndSubscriber}{' '}
+                </span>
+                <span>por mês!</span>
               </div>
             </div>
-          ) : (
+          ) : null}
+
+          {user.role === roles.earlyAdopter ? (
             <div>
               <div className="mt-4 text-center">
-                <span className="text-2xl">R$80,00</span>
-                {/* <span className="text-2xl font-semibold"> R$80,00 </span>
-              <span>por mês!*</span> */}
-                <p className="text-xs mt-4 font-bold">
-                  *Seja um associado Bitget e pague apenas R$40,00
+                <p className="text-xs">
+                  Obrigado por ser um early adopter!
+                  <br />
+                  Aproveite seu desconto de:
                 </p>
-              </div>
-              <div className="mt-6">
-                <li>Acesso completo à plataforma</li>
-                <li>Lives interativas</li>
-                <li>Acesso à pool de investimentos</li>
-                <li>Grupo exclusivo no telegram</li>
+                <span className="text-xl  line-through">
+                  R${pricing.fullPrice}
+                </span>
+                <span className="text-2xl font-semibold">
+                  {' '}
+                  R${pricing.earlyAdopterAndSubscriber}{' '}
+                </span>
+                <span>por mês!</span>
               </div>
             </div>
-          )}
+          ) : null}
+
+          {user.role === roles.commom ? (
+            <div>
+              <div className="mt-4 text-center">
+                <p className="text-xs">
+                  Estamos felizes que você queira fazer parte da Genkidama!
+                  Assine agora por:
+                </p>
+
+                <span className="text-2xl font-semibold">
+                  {' '}
+                  R${pricing.fullPrice}{' '}
+                </span>
+                <span>por mês!</span>
+                <br />
+                <br />
+
+                <p>
+                  Caso queira pagar apenas{' '}
+                  <span className="text-lg">
+                    R$
+                    {pricing.bitgetAssociateAndSubscriber}
+                  </span>{' '}
+                  não deixe de virar um{' '}
+                  <a
+                    className="hover:text-lightTeal underline text-lg"
+                    href="/parceiro-bitget"
+                  >
+                    parceiro bitget
+                  </a>
+                </p>
+              </div>
+            </div>
+          ) : null}
 
           <div className="mt-10 mb-10 pl-8 pr-8 bg-[#fff] rounded-2xl max-w-sm z-0">
             <p className="text-slate900 text-center relative top-[20px]">
@@ -174,6 +223,9 @@ const SejaMembro: NextPage = () => {
             <PayPalButtons
               className="mt-10"
               createSubscription={(data, actions) => {
+                console.log(planID);
+                console.log(data);
+
                 return actions.subscription
                   .create({
                     plan_id: planID,
@@ -193,6 +245,8 @@ const SejaMembro: NextPage = () => {
                 });
               }}
               onError={async data => {
+                console.log(data);
+
                 addToast({
                   type: 'error',
                   title: 'Sua transação falhou',

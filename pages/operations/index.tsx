@@ -2,18 +2,23 @@ import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
 import FilteredTradeOperationsContainer from '../../components/tradeOperations/filteredTradeOperationsContainer';
+import NoAccessCompnent from '../../components/noAccess/noAccessComponent';
 
 const Operations: NextPage = () => {
-  const { checkLimitedAccess } = useAccessControl();
+  const { getUserAccess, currentAccess } = useAccessControl();
 
   useEffect(() => {
-    checkLimitedAccess();
+    getUserAccess();
   }, []);
 
   return (
     <div>
       <p className="text-center text-4xl font-bold mt-10 mb-10">Operações</p>
-      <FilteredTradeOperationsContainer />
+      {currentAccess.hasFullAccess ? (
+        <FilteredTradeOperationsContainer />
+      ) : (
+        <NoAccessCompnent />
+      )}
     </div>
   );
 };

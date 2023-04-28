@@ -71,7 +71,11 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
         accessControl.isAdmin = true;
       }
 
-      if (user.role === 'ADMIN' || user.role === 'MEMBER') {
+      if (
+        user.role === 'ADMIN' ||
+        user.role === 'MEMBER' ||
+        user.subscription?.status === 'ACTIVE'
+      ) {
         accessControl.hasFullAccess = true;
         accessControl.hasLimitedAccess = true;
       }

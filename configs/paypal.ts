@@ -1,6 +1,6 @@
 const initialOptions = {
   'client-id':
-    'AVXXx1iHH4B-iILgv85Hx0KxnPwekFNSP42RGcUyeFRkabrwjaEeS_nfVeggJkKQPplrUi3BbgwTdfFu',
+    'AWX2DNsalOZWbpe-mkd0ZgrmtCd1LdfyPw8JpBPG6PEzVdtNo3VbakP7r7AafaB9kRJNWAPP3yZeIkQX',
   currency: 'BRL',
   components: 'buttons',
   intent: 'subscription',

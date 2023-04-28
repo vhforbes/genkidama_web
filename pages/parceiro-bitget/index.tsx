@@ -39,8 +39,8 @@ const ParceriaBitget: NextPage = () => {
               target="_blank"
               rel="noreferrer"
             >
-              grupo do telegram.
-            </a>
+              grupo do telegram
+            </a>{' '}
             com o seu UID.
           </li>
         </ul>
