@@ -56,11 +56,12 @@ const Home: NextPage = () => {
             </p>
             {currentAccess.hasLimitedAccess ? (
               <ExclusiveVideosContainer editable={false} />
-            ) : (
-              <NoAccessCompnent />
-            )}
+            ) : null}
             {currentAccess.hasFullAccess ? (
               <ExclusiveVideosContainer editable={false} />
+            ) : null}
+            {!currentAccess.hasFullAccess && !currentAccess.hasLimitedAccess ? (
+              <NoAccessCompnent />
             ) : null}
           </div>
         </div>
@@ -81,8 +82,6 @@ const Home: NextPage = () => {
       </main>
     </div>
   );
-
-  return null;
 };
 
 export default Home;
