@@ -59,7 +59,9 @@ const Home: NextPage = () => {
             ) : (
               <NoAccessCompnent />
             )}
-            <ExclusiveVideosContainer editable={false} />
+            {currentAccess.hasFullAccess ? (
+              <ExclusiveVideosContainer editable={false} />
+            ) : null}
           </div>
         </div>
       </main>

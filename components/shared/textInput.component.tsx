@@ -47,8 +47,8 @@ const MyTextInput = ({
           prefix="$ "
           id="input-example"
           decimalsLimit={8}
-          decimalSeparator=","
-          groupSeparator="."
+          decimalSeparator="."
+          groupSeparator=","
           value={field.value}
           onValueChange={value => setFieldValue(field.name, value)}
           {...props}
@@ -63,8 +63,8 @@ const MyTextInput = ({
           prefix="% "
           id="input-example"
           decimalsLimit={8}
-          decimalSeparator=","
-          groupSeparator="."
+          decimalSeparator="."
+          groupSeparator=","
           value={field.value}
           onValueChange={value => setFieldValue(field.name, value)}
           {...props}
