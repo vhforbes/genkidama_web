@@ -5,6 +5,8 @@ import routes from '../enums/routes';
 import { useToast } from './toast';
 import { User } from '../interfaces/User';
 import privateApi from '../services/privateApi';
+import { AxiosError } from 'axios';
+import { ErrorResponse } from '../interfaces/ErrorResponse';
 
 interface AuthState {
   token: string;
@@ -121,17 +123,28 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   );
 
   const refreshUser = useCallback(async () => {
-    const response = await privateApi.get(routes.users);
+    try {
+      const response = await privateApi.get(routes.users);
 
-    const { token, user, subscription } = response.data;
+      const { token, user, subscription } = response.data;
 
-    localStorage.setItem('@Genkidama:user', JSON.stringify(user));
-    localStorage.setItem(
-      '@Genkidama:subscription',
-      JSON.stringify(subscription),
-    );
+      localStorage.setItem('@Genkidama:user', JSON.stringify(user));
+      localStorage.setItem(
+        '@Genkidama:subscription',
+        JSON.stringify(subscription),
+      );
+      setData({ token, user });
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
 
-    setData({ token, user });
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possivel recuperar sua sessão',
+      });
+
+      signOut();
+    }
   }, []);
 
   return (

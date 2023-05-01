@@ -20,7 +20,7 @@ const Live: NextPage = () => {
     checkFullAccess();
   }, []);
 
-  if (currentAccess)
+  if (currentAccess.hasFullAccess)
     return (
       <div>
         <iframe

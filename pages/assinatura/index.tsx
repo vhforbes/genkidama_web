@@ -19,10 +19,9 @@ const SejaMembro: NextPage = () => {
   const { theme } = useTheme();
   const { addToast } = useToast();
   const [cancelReason, setCancelReason] = useState('');
-  // oficial
-  // const [planID, setPlanID] = useState('P-80415352J0511314RMRFMT3A'); OFC
-  // teste 10 cents
-  const [planID, setPlanID] = useState('P-75925301CT371305PMRFNJVY');
+
+  // const [planID, setPlanID] = useState('P-8TA82871T8318744AMRH3V5Q');
+  const [planID, setPlanID] = useState('NOTYET');
 
   const router = useRouter();
 
@@ -37,11 +36,12 @@ const SejaMembro: NextPage = () => {
     refreshUser();
 
     if (user.role === 'BITGET') {
-      setPlanID('P-9PT36443UN926091UMRFMS3Q');
+      // setPlanID('P-2RF01754NW371114VMRH3VAI');
+      setPlanID('NOTYET');
     }
 
     if (user.role === 'EA') {
-      setPlanID('P-5YN09310K73339648MRFMTNY');
+      setPlanID('P-3NX15147R0531871RMRH3VPA');
     }
 
     dispatch({
