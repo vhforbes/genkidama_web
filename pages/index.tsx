@@ -54,7 +54,7 @@ const Home: NextPage = () => {
             <p className="text-2xl font-bold mb-8 text-center">
               VÍDEOS EXCLUSIVOS:
             </p>
-            {currentAccess.hasLimitedAccess ? (
+            {currentAccess.hasLimitedAccess && !currentAccess.hasFullAccess ? (
               <ExclusiveVideosContainer editable={false} />
             ) : null}
             {currentAccess.hasFullAccess ? (
