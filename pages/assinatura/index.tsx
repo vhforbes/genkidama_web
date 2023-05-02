@@ -273,6 +273,8 @@ const SejaMembro: NextPage = () => {
                   <a
                     className="hover:text-green underline"
                     href="https://wa.me/5522998597277"
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     nosso whatsapp
                   </a>{' '}
@@ -307,6 +309,8 @@ const SejaMembro: NextPage = () => {
                   <a
                     className="hover:text-green underline"
                     href="https://wa.me/5522998597277"
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     nosso whatsapp
                   </a>{' '}
