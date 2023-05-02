@@ -13,4 +13,6 @@ export interface User {
   subscription?: Subscription;
   updated_at?: string;
   created_at?: string;
+  bitgetPartner?: boolean;
+  onTelegramGroup?: boolean;
 }

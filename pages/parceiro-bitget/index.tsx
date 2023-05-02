@@ -26,8 +26,8 @@ const ParceriaBitget: NextPage = () => {
           </li>
           <br />
           <li>
-            Deposite ao menos 10 USD para que sua criação de conta seja
-            considerada válida pela plataforma.
+            Deposite ao menos $10 e tenha uma conta ativa para que sua criação
+            de conta seja considerada válida pela plataforma.
           </li>
           <br />
           <li>

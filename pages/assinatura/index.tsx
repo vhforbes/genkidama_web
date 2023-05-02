@@ -257,6 +257,64 @@ const SejaMembro: NextPage = () => {
               }}
             />
           </div>
+
+          {user.bitgetPartner ? (
+            <div>
+              <div className="mt-4 text-center">
+                <p className="">
+                  Obrigado por ser um membro{' '}
+                  <span className="text-lightTeal font-bold">BITGET!</span>{' '}
+                  Aproveite a chance de assinar o plano anual por apenas{' '}
+                  <span className="text-xl">R$599,90</span>.
+                </p>
+                <br />
+                <p>
+                  Entre em contato com{' '}
+                  <a
+                    className="hover:text-green underline"
+                    href="https://wa.me/5522998597277"
+                  >
+                    nosso whatsapp
+                  </a>{' '}
+                  para fechar seu plano anual.
+                </p>
+              </div>
+            </div>
+          ) : null}
+          {!user.bitgetPartner ? (
+            <div>
+              <div className="mt-4 text-center">
+                <p className="">
+                  Parce que você não é um membro{' '}
+                  <span className="text-lightTeal font-bold">BITGET!</span>
+                  <br />
+                  Seja um{' '}
+                  <a
+                    className="hover:text-lightTeal underline"
+                    href="/parceiro-bitget"
+                  >
+                    parceiro bitget
+                  </a>{' '}
+                  e proveite a chance de assinar o plano anual por apenas:
+                  <br />
+                  <br />
+                  <span className="line-through">R$1199,90</span>{' '}
+                  <span className="text-xl font-bold">R$599,90</span>.
+                </p>
+                <br />
+                <p>
+                  Entre em contato com{' '}
+                  <a
+                    className="hover:text-green underline"
+                    href="https://wa.me/5522998597277"
+                  >
+                    nosso whatsapp
+                  </a>{' '}
+                  para fechar seu plano anual.
+                </p>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     );

@@ -80,7 +80,7 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
         accessControl.hasLimitedAccess = true;
       }
 
-      if (user.role === 'BITGET') {
+      if (user.bitgetPartner) {
         accessControl.hasLimitedAccess = true;
       }
 
