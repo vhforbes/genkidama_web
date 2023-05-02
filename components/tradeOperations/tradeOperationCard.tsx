@@ -78,29 +78,33 @@ const TradeOperationCard = ({
     </div>
   );
 
-  const operationTitle = () => (
-    <p className="font-bold text-2xl">
-      {tradeOperation.status === tradeStatus.closed ? (
-        <a
-          className="hover:text-lightTeal"
-          target="_blank"
-          rel="noreferrer"
-          href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
-        >
-          <s>{market}</s>
-        </a>
-      ) : (
-        <a
-          className="hover:text-lightTeal"
-          target="_blank"
-          rel="noreferrer"
-          href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
-        >
-          {market}
-        </a>
-      )}
-    </p>
-  );
+  const operationTitle = () => {
+    const upperCaseMarket = market.toUpperCase();
+
+    return (
+      <p className="font-bold text-2xl">
+        {tradeOperation.status === tradeStatus.closed ? (
+          <a
+            className="hover:text-lightTeal"
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.bitget.com/mix/usdt/${upperCaseMarket.trimEnd()}_UMCBL`}
+          >
+            <s>{upperCaseMarket}</s>
+          </a>
+        ) : (
+          <a
+            className="hover:text-lightTeal"
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.bitget.com/mix/usdt/${upperCaseMarket.trimEnd()}_UMCBL`}
+          >
+            {upperCaseMarket}
+          </a>
+        )}
+      </p>
+    );
+  };
 
   const directionTitle = () => {
     if (direction === 'long') {
