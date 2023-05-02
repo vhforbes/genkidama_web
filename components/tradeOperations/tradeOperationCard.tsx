@@ -229,7 +229,7 @@ const TradeOperationCard = ({
             ) : null}
           </div>
 
-          <div className="text-sm dark:bg-gray p-2 rounded-md mb-4">
+          <div className="text-sm dark:bg-gray p-2 rounded-md mb-4 w-fit">
             <p>Atualizado em: {updatedDate}</p>
             <p className="break-words">Obs: {observation}</p>
           </div>
