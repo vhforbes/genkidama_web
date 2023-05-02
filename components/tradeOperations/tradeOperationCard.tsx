@@ -229,9 +229,9 @@ const TradeOperationCard = ({
             ) : null}
           </div>
 
-          <div className="text-sm dark:bg-gray p-2 rounded-md mb-4 w-fit">
+          <div className="text-sm dark:bg-gray p-2 rounded-md mb-4 w-full">
             <p>Atualizado em: {updatedDate}</p>
-            <p className="break-words">Obs: {observation}</p>
+            <p className="break-words w-fit">Obs: {observation}</p>
           </div>
 
           <div className="flex flex-row justify-between">
