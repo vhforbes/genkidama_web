@@ -20,8 +20,7 @@ const SejaMembro: NextPage = () => {
   const { addToast } = useToast();
   const [cancelReason, setCancelReason] = useState('');
 
-  // const [planID, setPlanID] = useState('P-8TA82871T8318744AMRH3V5Q');
-  const [planID, setPlanID] = useState('NOTYET');
+  const [planID, setPlanID] = useState('P-8TA82871T8318744AMRH3V5Q');
 
   const router = useRouter();
 
@@ -36,8 +35,7 @@ const SejaMembro: NextPage = () => {
     refreshUser();
 
     if (user.role === 'BITGET') {
-      // setPlanID('P-2RF01754NW371114VMRH3VAI');
-      setPlanID('NOTYET');
+      setPlanID('P-2RF01754NW371114VMRH3VAI');
     }
 
     if (user.role === 'EA') {

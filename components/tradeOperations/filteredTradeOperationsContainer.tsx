@@ -42,7 +42,7 @@ const FilteredTradeOperationsContainer = ({
 
   // Refresh if page changes
   useEffect(() => {
-    if (currentAccess.hasLimitedAccess) {
+    if (currentAccess.hasFullAccess) {
       getPaginatedActiveTradeOperations();
       getPaginatedAwaitingTradeOperations();
       getPaginatedClosedTradeOperations();
