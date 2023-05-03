@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { useRouter } from 'next/router';
 import privateApi from '../../services/privateApi';
 import { useToast } from '../toast';
 import { useLoader } from '../loader';
@@ -34,6 +35,7 @@ const TradeOperationsContext = createContext<TradeOperationContextData>(
 const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const router = useRouter();
 
   // GENERAL
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,6 +97,8 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
           title: 'Sucesso',
           description: 'Operação criada com sucesso :)',
         });
+
+        router.push('/admin/operations');
       } catch (error) {
         addToast({
           type: 'error',
@@ -125,6 +129,8 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
           title: 'Sucesso',
           description: 'Operação editada com sucesso :)',
         });
+
+        router.push('/admin/operations');
       } catch (error) {
         addToast({
           type: 'error',
