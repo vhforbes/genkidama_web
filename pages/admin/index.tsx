@@ -1,12 +1,18 @@
 import type { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
+import privateApi from '../../services/privateApi';
+import routes from '../../enums/routes';
 
 const Admin: NextPage = () => {
   const { checkAdmin } = useAccessControl();
   useEffect(() => {
     checkAdmin();
   }, []);
+
+  const startLive = async () => {
+    await privateApi.post(routes.forms.startlive);
+  };
 
   return (
     <main className="flex flex-col items-center max-w-4xl m-auto">
@@ -23,6 +29,10 @@ const Admin: NextPage = () => {
       <a className="btn btn-secondary w-1/2" href="/admin/bitget-associated">
         Atualizar associados
       </a>
+      <br />
+      <button type="button" className="btn btn-accent" onClick={startLive}>
+        START LIVE
+      </button>
     </main>
   );
 };

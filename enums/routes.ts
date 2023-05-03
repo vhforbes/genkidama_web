@@ -7,6 +7,7 @@ const routes = {
 
   forms: {
     mentoria: '/forms/mentoria',
+    startlive: '/forms/startlive',
   },
   recoverPassword: '/users/recover',
   bitget: '/bitget',
