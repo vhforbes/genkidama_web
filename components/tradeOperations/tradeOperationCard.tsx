@@ -62,6 +62,18 @@ const TradeOperationCard = ({
     return '#6b7280';
   });
 
+  const [resultClass] = useState(() => {
+    if (result === 'gain') {
+      return 'text-green h-[48px]';
+    }
+
+    if (result === 'loss') {
+      return 'text-red h-[48px]';
+    }
+
+    return 'text-gray h-[48px]';
+  });
+
   const [isFollowing, setIsFollowing] = useState(false);
 
   const pulseBubble = () => (
@@ -267,13 +279,7 @@ const TradeOperationCard = ({
               </div>
 
               {result ? (
-                <div
-                  className={
-                    result === 'gain'
-                      ? 'text-green h-[48px]'
-                      : 'text-red h-[48px]'
-                  }
-                >
+                <div className={resultClass}>
                   <span className="text-xl font-bold">
                     {result.toUpperCase()}:{' '}
                   </span>
