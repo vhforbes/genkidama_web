@@ -39,6 +39,7 @@ const TradeOperationCard = ({
     status,
     market,
     updatedAt,
+    createdAt,
     direction,
     entryOrderOne,
     entryOrderTwo,
@@ -161,7 +162,11 @@ const TradeOperationCard = ({
 
   const updatedDate = dayjs(updatedAt)
     .tz('America/Sao_Paulo')
-    .format('HH:mm:ss - DD/MM/YYYY');
+    .format('HH:mm:ss - DD/MM');
+
+  const createdDate = dayjs(createdAt)
+    .tz('America/Sao_Paulo')
+    .format('HH:mm:ss - DD/MM');
 
   // RULE OUT THE ONES WHO ARE NOT FOLLOWING AND IF NOT ADMIN
   if (
@@ -230,8 +235,10 @@ const TradeOperationCard = ({
           </div>
 
           <div className="text-sm dark:bg-gray p-2 rounded-md mb-4 w-full">
-            <p>Atualizado em: {updatedDate}</p>
-            <p className="break-words w-fit">Obs: {observation}</p>
+            <p>Atualizada em: {updatedDate}</p>
+            {observation ? (
+              <p className="break-words w-fit">Obs: {observation}</p>
+            ) : null}
           </div>
 
           <div className="flex flex-row justify-between">
@@ -317,6 +324,8 @@ const TradeOperationCard = ({
               Histórico da operação
             </a>
           ) : null}
+
+          <p className="text-center mt-2 text-sm">Criada em: {createdDate}</p>
         </div>
 
         {/* <button
