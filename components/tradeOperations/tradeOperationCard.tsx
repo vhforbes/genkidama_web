@@ -123,10 +123,6 @@ const TradeOperationCard = ({
   };
 
   const followButton = () => {
-    if (history) {
-      return null;
-    }
-
     if (isFollowing) {
       return (
         <button
