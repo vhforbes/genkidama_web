@@ -217,7 +217,7 @@ const TradeOperationCard = ({
   )
     return (
       <div
-        className={`card max-w-xs ${
+        className={`card w-72 ${
           active
             ? 'bg-primary'
             : 'bg-base-200 border-2 border-primary text-secondary'
