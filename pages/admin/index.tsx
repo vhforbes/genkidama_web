@@ -1,22 +1,15 @@
 import type { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../hooks/accessControl';
-import privateApi from '../../services/privateApi';
-import routes from '../../enums/routes';
+import { useLiveControl } from '../../hooks/liveControl';
 
 const Admin: NextPage = () => {
   const { checkAdmin } = useAccessControl();
+  const { startLive, closeLive } = useLiveControl();
+
   useEffect(() => {
     checkAdmin();
   }, []);
-
-  const startLive = async () => {
-    await privateApi.post(routes.forms.startlive);
-  };
-
-  const closeLive = async () => {
-    await privateApi.post(routes.forms.closelive);
-  };
 
   return (
     <main className="flex flex-col items-center max-w-4xl m-auto">
