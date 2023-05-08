@@ -218,8 +218,8 @@ const TradeOperationCard = ({
     return (
       <div
         className={`card w-72 ${
-          active
-            ? 'bg-primary'
+          status === tradeStatus.active
+            ? 'bg-primary border-2 border-opacity-60 border-lightTeal'
             : 'bg-base-200 border-2 border-primary text-secondary'
         } text-primary-content mb-10 shadow-xl text-sm`}
       >
