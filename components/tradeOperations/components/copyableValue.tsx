@@ -32,13 +32,13 @@ const CopyableValue: React.FC<Props> = ({ value }) => {
         <div className="relative">
           {!copied && (
             <ClipboardIcon
-              className="h-5 w-5 cursor-pointer"
+              className="h-5 w-4 cursor-pointer"
               onClick={handleCopyClick}
             />
           )}
           {copied && (
             <ClipboardDocumentCheckIcon
-              className="h-5 w-5 cursor-pointer"
+              className="h-5 w-4 cursor-pointer"
               onClick={handleCopyClick}
             />
           )}

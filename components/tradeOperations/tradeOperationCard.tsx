@@ -64,25 +64,29 @@ const TradeOperationCard = ({
 
   const [resultClass] = useState(() => {
     if (result === 'gain') {
-      return 'text-green h-[48px]';
+      return 'text-green';
     }
 
     if (result === 'loss') {
-      return 'text-red h-[48px]';
+      return 'text-red';
     }
 
-    return 'text-gray h-[48px]';
+    return 'text-gray';
   });
 
   const [isFollowing, setIsFollowing] = useState(false);
 
   const pulseBubble = () => (
-    <div className={`${status !== tradeStatus.closed ? 'animate-pulse' : ''}`}>
-      <svg height="30" width="32" className="fill">
+    <div
+      className={`${
+        status !== tradeStatus.closed ? 'animate-pulse' : ''
+      } relative`}
+    >
+      <svg height="24" width="20" className="fill">
         <circle
-          cx="20"
-          cy="18"
-          r="10"
+          cx="12"
+          cy="14"
+          r="6"
           stroke="black"
           strokeWidth="3"
           fill={`${colorHex}`}
@@ -95,7 +99,7 @@ const TradeOperationCard = ({
     const upperCaseMarket = market.toUpperCase();
 
     return (
-      <p className="font-bold text-2xl">
+      <p className="font-bold text-lg">
         {tradeOperation.status === tradeStatus.closed ? (
           <a
             className="hover:text-lightTeal"
@@ -122,14 +126,14 @@ const TradeOperationCard = ({
   const directionTitle = () => {
     if (direction === 'long') {
       return (
-        <span className="font-bold text-2xl text-green">
+        <span className="font-bold text-lg text-green">
           {direction.toUpperCase()}
         </span>
       );
     }
 
     return (
-      <span className="font-bold text-2xl text-red">
+      <span className="font-bold text-lg text-red">
         {direction.toUpperCase()}
       </span>
     );
@@ -213,13 +217,13 @@ const TradeOperationCard = ({
   )
     return (
       <div
-        className={`card ${
+        className={`card max-w-xs ${
           active
             ? 'bg-primary'
             : 'bg-base-200 border-2 border-primary text-secondary'
-        } text-primary-content mb-10 shadow-xl`}
+        } text-primary-content mb-10 shadow-xl text-sm`}
       >
-        <div className="card-body flex min-h-[380px]">
+        <div className="card-body p-6 flex min-h-[380px]">
           {/* EDITABLE CONDITONAL */}
           <div>
             {editable ? (
@@ -246,7 +250,8 @@ const TradeOperationCard = ({
             ) : null}
           </div>
 
-          <div className="text-sm dark:bg-gray p-2 rounded-md mb-4 w-full">
+          {/* OBSERVATION GRAY */}
+          <div className="text-sm dark:bg-gray p-2 rounded-md mb-2">
             <p>Atualizada em: {updatedDate}</p>
             {observation ? (
               <p className="break-words w-fit">Obs: {observation}</p>
@@ -256,16 +261,15 @@ const TradeOperationCard = ({
           <div className="flex flex-row justify-between">
             {/* LEFT ROW */}
             <div className="leftRow flex flex-col justify-between mr-10">
-              <div className="mb-4 w-fit flex flex-col">
+              <div className="mb-2 w-fit flex flex-col">
                 <div className="flex">
                   {operationTitle()}
                   {pulseBubble()}
                 </div>
-
                 <p className="self-end">{directionTitle()}</p>
               </div>
 
-              <p className="mb-4 w-full min-h-[48px]">
+              <p className="mb-4 w-full">
                 Status:{' '}
                 <span className="font-bold">{status.toUpperCase()}</span>
               </p>
@@ -280,17 +284,18 @@ const TradeOperationCard = ({
 
               {result ? (
                 <div className={resultClass}>
-                  <span className="text-xl font-bold">
+                  <span className="text-base font-bold">
                     {result.toUpperCase()}:{' '}
                   </span>
-                  <span className="text-xl font-bold">{percentual}%</span>
+                  <span className="text-base font-bold">{percentual}%</span>
                 </div>
               ) : null}
 
               {status !== tradeStatus.closed ? followButton() : null}
             </div>
 
-            <div className="rightRow flex flex-col justify-between">
+            {/* RIGHT ROW */}
+            <div className="rightRow flex flex-col justify-between min-h-[14em]">
               <div className="entryZon w-full">
                 <p className="font-bold">Ordens:</p>
                 <div>
