@@ -48,12 +48,15 @@ const PageButtonsComponent = ({
 
   return (
     <div>
-      <button type="button" className="hover:cursor-pointer">
-        <ChevronLeftIcon
-          onClick={handlePreviousPageClick}
-          className="h-5 w-4 cursor-pointer"
-        />
-      </button>
+      {buttons.length > itemsPerPage ? (
+        <button type="button" className="hover:cursor-pointer">
+          <ChevronLeftIcon
+            onClick={handlePreviousPageClick}
+            className="h-5 w-4 cursor-pointer"
+          />
+        </button>
+      ) : null}
+
       {getButtonsForCurrentPage(buttons).map(pageNumber => (
         <button
           type="button"
@@ -67,13 +70,15 @@ const PageButtonsComponent = ({
         </button>
       ))}
 
-      <button
-        type="button"
-        onClick={handleNextPageClick}
-        className="hover:cursor-pointer"
-      >
-        <ChevronRightIcon className="h-5 w-4 cursor-pointer" />
-      </button>
+      {buttons.length > 4 ? (
+        <button
+          type="button"
+          onClick={handleNextPageClick}
+          className="hover:cursor-pointer"
+        >
+          <ChevronRightIcon className="h-5 w-4 cursor-pointer" />
+        </button>
+      ) : null}
     </div>
   );
 };
