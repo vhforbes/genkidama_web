@@ -54,8 +54,6 @@ const TradeOperationCard = ({
     currentFollowers,
   } = tradeOperation as TradeOperation;
 
-  const active = true;
-
   const [colorHex] = useState(() => {
     if (status === tradeStatus.active)
       return direction.toLocaleLowerCase() === 'long' ? '#16a34a' : '#b91c1c';
@@ -75,6 +73,16 @@ const TradeOperationCard = ({
   });
 
   const [isFollowing, setIsFollowing] = useState(false);
+
+  const [canSee, setCanSee] = useState(false);
+
+  const updatedDate = dayjs(updatedAt)
+    .tz('America/Sao_Paulo')
+    .format('HH:mm:ss - DD/MM');
+
+  const createdDate = dayjs(createdAt)
+    .tz('America/Sao_Paulo')
+    .format('HH:mm:ss - DD/MM');
 
   const pulseBubble = () => (
     <div
@@ -97,6 +105,10 @@ const TradeOperationCard = ({
 
   const operationTitle = () => {
     const upperCaseMarket = market.toUpperCase();
+
+    if (!canSee) {
+      return <p>NADAAQUI</p>;
+    }
 
     return (
       <p className="font-bold text-lg">
@@ -152,16 +164,47 @@ const TradeOperationCard = ({
       );
     }
 
-    return (
-      <button
-        type="button"
-        className="btn btn-secondary max-w-[100px]"
-        onClick={() => followTradeOperation(id)}
-      >
-        Seguir
-      </button>
-    );
+    if (!isFollowing && canSee) {
+      return (
+        <button
+          type="button"
+          className="btn btn-secondary max-w-[100px]"
+          onClick={() => followTradeOperation(id)}
+        >
+          Seguir
+        </button>
+      );
+    }
+
+    if (!canSee) {
+      return (
+        <button
+          type="button"
+          disabled
+          className="btn btn-secondary max-w-[100px]"
+        >
+          Seguir
+        </button>
+      );
+    }
+
+    return null;
   };
+
+  const checkCanSee = () => {
+    if (
+      maxFollowers > currentFollowers ||
+      isFollowing ||
+      currentAccess.isAdmin ||
+      status === tradeStatus.closed
+    ) {
+      setCanSee(true);
+    }
+  };
+
+  useEffect(() => {
+    checkCanSee();
+  }, [isFollowing]);
 
   // CHECK IF USER IS FOLLOWING THE OPERATION
   useEffect(() => {
@@ -176,187 +219,130 @@ const TradeOperationCard = ({
     }
   }, [FollowingTradeOperations]);
 
-  const updatedDate = dayjs(updatedAt)
-    .tz('America/Sao_Paulo')
-    .format('HH:mm:ss - DD/MM');
-
-  const createdDate = dayjs(createdAt)
-    .tz('America/Sao_Paulo')
-    .format('HH:mm:ss - DD/MM');
-
-  // RULE OUT THE ONES WHO ARE NOT FOLLOWING AND IF NOT ADMIN
-  if (
-    maxFollowers === currentFollowers &&
-    !isFollowing &&
-    !currentAccess.isAdmin
-  ) {
-    return (
-      <div
-        className={`card ${
-          active
-            ? 'bg-primary'
-            : 'bg-base-200 border-2 border-primary text-secondary'
-        } text-primary-content mb-10 shadow-xl p-10`}
-      >
-        <div className="flex">{operationTitle()}</div>
-        <br />
-        <h1>
-          Puts parece que a casa está cheia, fique de olho para pegar a próxima
-          operação...
-        </h1>
-      </div>
-    );
-  }
-
-  // CHEGA SE A OPERAÇÃO ESTÁ COM ESPAÇO OU SE O USER ESTÁ SEGUINDO
-  if (
-    maxFollowers > currentFollowers ||
-    isFollowing ||
-    currentAccess.isAdmin ||
-    history
-  )
-    return (
-      <div
-        className={`card w-72 ${
-          status === tradeStatus.active
-            ? 'bg-primary border-2 border-opacity-60 border-lightTeal'
-            : 'bg-base-200 border-2 border-primary text-secondary'
-        } text-primary-content mb-10 shadow-xl text-sm`}
-      >
-        <div className="card-body p-6 flex min-h-[380px]">
-          {/* EDITABLE CONDITONAL */}
-          <div>
-            {editable ? (
-              <div>
-                <button
-                  onClick={() =>
-                    router.push(
-                      `/admin/operations/edit?operationId=${tradeOperation.id}`,
-                    )
-                  }
-                  type="button"
-                  className="hover:underline"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => deleteTradeOperation(tradeOperation.id)}
-                  type="button"
-                  className="ml-8 hover:underline"
-                >
-                  Apagar
-                </button>
-              </div>
-            ) : null}
-          </div>
-
-          {/* OBSERVATION GRAY */}
-          <div className="text-sm dark:bg-gray p-2 rounded-md mb-2">
-            <p>Atualizada em: {updatedDate}</p>
-            {observation ? (
-              <p className="break-words w-fit">Obs: {observation}</p>
-            ) : null}
-          </div>
-
-          <div className="flex flex-row justify-between">
-            {/* LEFT ROW */}
-            <div className="leftRow flex flex-col justify-between mr-10">
-              <div className="mb-2 w-fit flex flex-col">
-                <div className="flex">
-                  {operationTitle()}
-                  {pulseBubble()}
-                </div>
-                <p className="self-end">{directionTitle()}</p>
-              </div>
-
-              <p className="mb-4 w-full">
-                Status:{' '}
-                <span className="font-bold">{status.toUpperCase()}</span>
-              </p>
-
-              <div className="mb-8">
-                <span>Seguidores:</span>
-                <span className="font-bold">
-                  {' '}
-                  {currentFollowers}/{maxFollowers}
-                </span>
-              </div>
-
-              {result ? (
-                <div className={resultClass}>
-                  <span className="text-base font-bold">
-                    {result.toUpperCase()}:{' '}
-                  </span>
-                  <span className="text-base font-bold">{percentual}%</span>
-                </div>
-              ) : null}
-
-              {status !== tradeStatus.closed ? followButton() : null}
+  return (
+    <div
+      className={`card w-72  ${
+        status === tradeStatus.active
+          ? 'bg-primary border-2 border-opacity-60 border-lightTeal'
+          : 'bg-base-200 border-2 border-primary text-secondary'
+      } text-primary-content mb-10 shadow-xl text-sm ${
+        !canSee ? 'blur select-none' : null
+      }`}
+    >
+      <div className="card-body p-6 flex min-h-[380px]">
+        {/* EDITABLE CONDITONAL */}
+        <div>
+          {editable ? (
+            <div>
+              <button
+                onClick={() =>
+                  router.push(
+                    `/admin/operations/edit?operationId=${tradeOperation.id}`,
+                  )
+                }
+                type="button"
+                className="hover:underline"
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => deleteTradeOperation(tradeOperation.id)}
+                type="button"
+                className="ml-8 hover:underline"
+              >
+                Apagar
+              </button>
             </div>
-
-            {/* RIGHT ROW */}
-            <div className="rightRow flex flex-col justify-between min-h-[14em]">
-              <div className="entryZon w-full">
-                <p className="font-bold">Ordens:</p>
-                <div>
-                  <CopyableValue value={entryOrderOne} />
-                  {entryOrderTwo ? (
-                    <CopyableValue value={entryOrderTwo} />
-                  ) : null}
-                  {entryOrderThree ? (
-                    <CopyableValue value={entryOrderThree} />
-                  ) : null}
-                </div>
-              </div>
-
-              <div className="stopZone w-full">
-                <p className="font-bold">Stop:</p>
-                <CopyableValue value={stop} />
-              </div>
-
-              <div className="stop&profit w-full flex flex-row md:flex-col justify-between">
-                <div>
-                  <p className="font-bold">Take profit:</p>
-                  <div>
-                    <CopyableValue value={takeProfitOne} />
-                    {takeProfitTwo ? (
-                      <CopyableValue value={takeProfitTwo} />
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {!history ? (
-            <a
-              href={`/operations/${tradeOperation.id}`}
-              className="text-center mt-4 italic hover:text-lightTeal underline"
-            >
-              Histórico da operação
-            </a>
           ) : null}
-
-          <p className="text-center mt-2 text-sm">Criada em: {createdDate}</p>
         </div>
 
-        {/* <button
-        className={`btn  ${
-          active ? 'btn-primary' : 'btn-disabled'
-        } bg-secondary md:self-end self-center`}
-        type="button"
-      >
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href={`https://www.bitget.com/mix/usdt/${market.trimEnd()}_UMCBL`}
-        >
-          {market}
-        </a>
-      </button> */}
-      </div>
-    );
+        {/* OBSERVATION GRAY */}
+        <div className="text-sm dark:bg-gray p-2 rounded-md mb-2">
+          <p>Atualizada em: {updatedDate}</p>
+          {observation ? (
+            <p className="break-words w-fit">Obs: {observation}</p>
+          ) : null}
+        </div>
 
-  return <h1>batata</h1>;
+        <div className="flex flex-row justify-between">
+          {/* LEFT ROW */}
+          <div className="leftRow flex flex-col justify-between mr-10">
+            <div className="mb-2 w-fit flex flex-col">
+              <div className="flex">
+                {operationTitle()}
+                {pulseBubble()}
+              </div>
+              <p className="self-end">{directionTitle()}</p>
+            </div>
+
+            <p className="mb-4 w-full">
+              Status: <span className="font-bold">{status.toUpperCase()}</span>
+            </p>
+
+            <div className="mb-8">
+              <span>Seguidores:</span>
+              <span className="font-bold">
+                {' '}
+                {currentFollowers}/{maxFollowers}
+              </span>
+            </div>
+
+            {result ? (
+              <div className={resultClass}>
+                <span className="text-base font-bold">
+                  {result.toUpperCase()}:{' '}
+                </span>
+                <span className="text-base font-bold">{percentual}%</span>
+              </div>
+            ) : null}
+
+            {status !== tradeStatus.closed ? followButton() : null}
+          </div>
+
+          {/* RIGHT ROW */}
+          <div className="rightRow flex flex-col justify-between min-h-[14em]">
+            <div className="entryZon w-full">
+              <p className="font-bold">Ordens:</p>
+              <div>
+                <CopyableValue value={entryOrderOne} />
+                {entryOrderTwo ? <CopyableValue value={entryOrderTwo} /> : null}
+                {entryOrderThree ? (
+                  <CopyableValue value={entryOrderThree} />
+                ) : null}
+              </div>
+            </div>
+
+            <div className="stopZone w-full">
+              <p className="font-bold">Stop:</p>
+              <CopyableValue value={stop} />
+            </div>
+
+            <div className="stop&profit w-full flex flex-row md:flex-col justify-between">
+              <div>
+                <p className="font-bold">Take profit:</p>
+                <div>
+                  <CopyableValue value={takeProfitOne} />
+                  {takeProfitTwo ? (
+                    <CopyableValue value={takeProfitTwo} />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {!history ? (
+          <a
+            href={`/operations/${tradeOperation.id}`}
+            className="text-center mt-4 italic hover:text-lightTeal underline"
+          >
+            Histórico da operação
+          </a>
+        ) : null}
+
+        <p className="text-center mt-2 text-sm">Criada em: {createdDate}</p>
+      </div>
+    </div>
+  );
 };
 
 export default TradeOperationCard;
