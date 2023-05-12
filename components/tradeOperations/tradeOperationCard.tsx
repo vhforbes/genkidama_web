@@ -10,6 +10,7 @@ import CopyableValue from './components/copyableValue';
 import tradeStatus from '../../enums/tradeStatus';
 import { useFollowTradeOperations } from '../../hooks/tradeOperations/followingTradeOperations';
 import { useAccessControl } from '../../hooks/accessControl';
+import TradingViewModal from './components/tradingViewModal';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -52,6 +53,7 @@ const TradeOperationCard = ({
     percentual,
     maxFollowers,
     currentFollowers,
+    tradingViewLink,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
@@ -266,13 +268,16 @@ const TradeOperationCard = ({
 
         <div className="flex flex-row justify-between">
           {/* LEFT ROW */}
-          <div className="leftRow flex flex-col justify-between mr-10">
+          <div className="leftRow flex flex-col justify-between mr-4">
             <div className="mb-2 w-fit flex flex-col">
               <div className="flex">
                 {operationTitle()}
                 {pulseBubble()}
               </div>
-              <p className="self-end">{directionTitle()}</p>
+              <div className="self-end flex">
+                <TradingViewModal imageLink={tradingViewLink} />
+                <span className="">{directionTitle()}</span>
+              </div>
             </div>
 
             <p className="mb-4 w-full">
