@@ -276,7 +276,7 @@ const TradeOperationCard = ({
                 {pulseBubble()}
               </div>
               <div className="self-end flex">
-                <TradingViewModal imageLink={tradingViewLink} />
+                <TradingViewModal imageLink={tradingViewLink} id={id} />
                 <span className="">{directionTitle()}</span>
               </div>
             </div>
