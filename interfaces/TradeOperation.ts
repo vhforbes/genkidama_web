@@ -19,4 +19,5 @@ export interface TradeOperation {
   currentFollowers: number;
   tradingViewLink?: string;
   observation?: string;
+  stopDistance?: string;
 }

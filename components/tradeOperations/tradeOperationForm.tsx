@@ -274,6 +274,16 @@ const TradeOperationForm = ({
                       percentual
                     />
                   </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Distancia até stop (%):"
+                      name="stopDistance"
+                      type="text"
+                      placeholder="XX"
+                      percentual
+                    />
+                  </div>
                 </div>
               </div>
               <div className="form-control px-8">

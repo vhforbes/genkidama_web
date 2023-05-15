@@ -54,6 +54,7 @@ const TradeOperationCard = ({
     maxFollowers,
     currentFollowers,
     tradingViewLink,
+    stopDistance,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
@@ -306,7 +307,7 @@ const TradeOperationCard = ({
 
           {/* RIGHT ROW */}
           <div className="rightRow flex flex-col justify-between min-h-[14em]">
-            <div className="entryZon w-full">
+            <div className="ordens w-full">
               <p className="font-bold">Ordens:</p>
               <div>
                 <CopyableValue value={entryOrderOne} />
@@ -317,12 +318,17 @@ const TradeOperationCard = ({
               </div>
             </div>
 
-            <div className="stopZone w-full">
-              <p className="font-bold">Stop:</p>
+            <div className="stop w-full">
+              <p className="font-bold">
+                Stop:{' '}
+                {stopDistance ? (
+                  <span className="font-normal">{stopDistance}%</span>
+                ) : null}
+              </p>
               <CopyableValue value={stop} />
             </div>
 
-            <div className="stop&profit w-full flex flex-row md:flex-col justify-between">
+            <div className="take-profit w-full flex flex-row md:flex-col justify-between">
               <div>
                 <p className="font-bold">Take profit:</p>
                 <div>
