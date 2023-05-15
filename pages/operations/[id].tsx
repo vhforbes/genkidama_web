@@ -6,7 +6,6 @@ import { useFollowTradeOperations } from '../../hooks/tradeOperations/followingT
 import { useAccessControl } from '../../hooks/accessControl';
 import NoAccessCompnent from '../../components/noAccess/noAccessComponent';
 import { useAuth } from '../../hooks/auth';
-import TradingViewModal from '../../components/tradeOperations/components/tradingViewModal';
 
 const OperationPage = () => {
   const router = useRouter();
@@ -42,10 +41,6 @@ const OperationPage = () => {
     <div>
       {currentAccess.hasFullAccess ? (
         <div className="flex flex-col w-full items-center p-10">
-          <TradingViewModal
-            imageLink={tradeOperationWithHistory.tradeOperation.tradingViewLink}
-          />
-
           <p className="mb-10">STATUS ATUAL:</p>
 
           <TradeOperationCard
