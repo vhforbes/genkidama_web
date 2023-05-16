@@ -126,10 +126,13 @@ const SignIn: NextPage = () => {
             </Form>
           </Formik>
         </div>
-        <h1 className="text-lg text-center">
+        <h1 className="text-2xl text-center">
           Ainda não tem conta?
           <br />
-          <a href="/sign-up" className="link-hover">
+          <a
+            href="/sign-up"
+            className="link-hover hover:text-lightTeal font-bold"
+          >
             {' '}
             Crie agora a sua, <i>clique aqui!</i>
           </a>
