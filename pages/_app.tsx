@@ -10,11 +10,13 @@ import ToastComponent from '../components/toast/toast.component';
 import { useToast } from '../hooks/toast';
 import Drawer from '../components/header/components/Drawer.component';
 import Loader from '../components/loader/loader.component';
+import { useLoader } from '../hooks/loader';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [mounted, setMounted] = useState(false);
 
   const { messages } = useToast();
+  const { isLoading } = useLoader();
 
   useEffect(() => {
     setMounted(true);
@@ -31,7 +33,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <HeaderComponent />
         <Drawer />
         <ToastComponent messages={messages} />
-        <Component {...pageProps} />
+        {isLoading ? null : <Component {...pageProps} />}
       </AppProvider>
     </ThemeProvider>
   );
