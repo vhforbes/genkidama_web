@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
+import dayjs from 'dayjs';
 import { useExclusiveVideos } from '../../../hooks/exclusiveVideos';
 import { ExclusiveVideo } from '../../../interfaces/ExclusiveVideo';
 
@@ -12,6 +13,10 @@ const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
   const videoId = exclusiveVideo.videoLink.split('v=')[1];
   const router = useRouter();
   const { deleteExclusiveVideo } = useExclusiveVideos();
+
+  const createdDate = dayjs(exclusiveVideo.createdAt)
+    .tz('America/Sao_Paulo')
+    .format('HH:mm - DD/MM');
 
   return (
     <div className="card card-compact mb-4 mr-4 max-w-xs bg-primary shadow-xl">
@@ -44,6 +49,8 @@ const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
       <div className="card-body">
         <h2 className="card-title">{exclusiveVideo.title}</h2>
         <p>{exclusiveVideo.content}</p>
+        <p>Postado em: {createdDate}</p>
+
         <div className="card-actions justify-center mt-4">
           <button type="button" className="btn btn-secondary">
             <a href={exclusiveVideo.videoLink} target="_blank" rel="noreferrer">

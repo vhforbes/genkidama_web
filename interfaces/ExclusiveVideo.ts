@@ -5,4 +5,5 @@ export interface ExclusiveVideo {
   content: string;
   image: string;
   videoLink: string;
+  createdAt: string;
 }

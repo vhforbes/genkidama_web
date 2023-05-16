@@ -12,32 +12,37 @@ const Admin: NextPage = () => {
   }, []);
 
   return (
-    <main className="flex flex-col items-center max-w-4xl m-auto">
+    <main className="flex flex-col items-center max-w-sm m-auto">
       <h1 className="text-center mt-10 text-3xl">Pagina administador</h1>
       <br />
-      <a className="btn btn-secondary w-1/2" href="/admin/operations">
+      <a className="btn btn-secondary w-full" href="/admin/operations">
         Operações
       </a>
       <br />
-      <a className="btn btn-secondary w-1/2" href="/admin/exclusive-video">
+      <a className="btn btn-secondary w-full" href="/admin/exclusive-video">
         Vídeos Exclusivos
       </a>
       <br />
-      <a className="btn btn-secondary w-1/2" href="/admin/bitget-associated">
+      <a className="btn btn-secondary w-full" href="/admin/bitget-associated">
         Atualizar associados
       </a>
       <br />
-      <button
-        type="button"
-        className="btn bg-green text-[#fff]"
-        onClick={startLive}
-      >
-        START LIVE
-      </button>
+      <a className="btn btn-secondary w-full" href="/admin/mestre-kame">
+        Mestre Kame
+      </a>
       <br />
-      <button type="button" className="btn btn-accent" onClick={closeLive}>
-        CLOSE LIVE
-      </button>
+      <div className="flex justify-around w-full">
+        <button
+          type="button"
+          className="btn bg-green text-[#fff]"
+          onClick={startLive}
+        >
+          START LIVE
+        </button>
+        <button type="button" className="btn btn-accent" onClick={closeLive}>
+          CLOSE LIVE
+        </button>
+      </div>
     </main>
   );
 };

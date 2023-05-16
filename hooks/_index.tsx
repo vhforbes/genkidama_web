@@ -11,6 +11,7 @@ import { AccessControlProvider } from './accessControl';
 import { ExclusiveVideosProvider } from './exclusiveVideos';
 import GeneralTradeOperationsProvider from './tradeOperations/_index';
 import { LiveControlProvider } from './liveControl';
+import { MestreKameProvider } from './mestreKame';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -22,7 +23,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
               <ExclusiveVideosProvider>
                 <PayPalScriptProvider options={initialOptions}>
                   <GeneralTradeOperationsProvider>
-                    <LiveControlProvider>{children}</LiveControlProvider>
+                    <LiveControlProvider>
+                      <MestreKameProvider>{children}</MestreKameProvider>
+                    </LiveControlProvider>
                   </GeneralTradeOperationsProvider>
                 </PayPalScriptProvider>
               </ExclusiveVideosProvider>

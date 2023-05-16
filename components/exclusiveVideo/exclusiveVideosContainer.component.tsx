@@ -4,7 +4,7 @@ import { useAccessControl } from '../../hooks/accessControl';
 import { useExclusiveVideos } from '../../hooks/exclusiveVideos';
 import { ExclusiveVideo } from '../../interfaces/ExclusiveVideo';
 import PageButtonsComponent from '../shared/pageButtons';
-import PostComponent from './components/post.component';
+import PostComponent from './components/video.component';
 
 export interface PostsData {
   posts: Post[];
