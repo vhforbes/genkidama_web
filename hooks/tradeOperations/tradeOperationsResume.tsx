@@ -64,7 +64,7 @@ const TradingResumeProvider = ({ children }: Props) => {
       });
     }
     setLoading(false);
-  }, []);
+  }, [period]);
 
   return (
     <TradingResumeContext.Provider
