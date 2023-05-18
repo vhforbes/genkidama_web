@@ -12,7 +12,7 @@ const TradeOperationsResumeCard = () => {
     <div className="card bg-primary flex h-52 border-2 border-lightTeal border-opacity-40">
       <div className="card-body p-0">
         <div className="relative w-full px-4 bg-secondary borrder-2 border-b-slate900">
-          <div className="max-w-xs flex justify-around m-auto -mt-2">
+          <div className="max-w-xs flex justify-around m-auto">
             <button
               onClick={() => setPeriod(7)}
               className={`h-10 ${
