@@ -16,6 +16,8 @@ import { useToast } from '../toast';
 interface TradingResumeData {
   totalOperations: number;
   gainPercentage: number;
+  lossPercentage: number;
+  evenPercentage: number;
   totalProfitPercentage: number;
 }
 
