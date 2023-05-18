@@ -11,9 +11,11 @@ const TradingViewModal = ({ imageLink, id }: Props) => {
     return (
       <div className="relative mr-2">
         {/* The button to open modal */}
-        <label htmlFor={`my-modal-${id}`} className="">
-          <PresentationChartLineIcon className="h-8 w-5 cursor-pointer" />
-        </label>
+        <button type="button" className="btn btn-secondary min-h-0 h-8 w-8 p-0">
+          <label htmlFor={`my-modal-${id}`} className="">
+            <PresentationChartLineIcon className="w-5 cursor-pointer" />
+          </label>
+        </button>
 
         {/* Put this part before </body> tag */}
         <input type="checkbox" id={`my-modal-${id}`} className="modal-toggle" />
