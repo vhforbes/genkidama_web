@@ -7,6 +7,7 @@ import { useAccessControl } from '../hooks/accessControl';
 import { useAuth } from '../hooks/auth';
 import FilteredTradeOperationsContainer from '../components/tradeOperations/filteredTradeOperationsContainer';
 import NoAccessCompnent from '../components/noAccess/noAccessComponent';
+import TradeOperationsResumeCard from '../components/tradeOperations/tradeOperationsResumeCard';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -51,6 +52,13 @@ const Home: NextPage = () => {
           </div>
 
           <div className="2xl:ml-8 xl:w-1/6 h-full ">
+            <div className="mb-8">
+              <p className="text-2xl font-bold mb-8 text-center">
+                PAINEL OPERAÇÕES:
+              </p>
+              <TradeOperationsResumeCard />
+            </div>
+
             <p className="text-2xl font-bold mb-8 text-center">
               VÍDEOS EXCLUSIVOS:
             </p>
@@ -69,10 +77,16 @@ const Home: NextPage = () => {
 
       {/* 
         
-        ------ MOBILE MENU -----
+        ------ MOBILE VIEW -----
         
         */}
       <main className="md:hidden flex flex-col justify-evenly p-4 mt-4">
+        <div className="mb-8">
+          <p className="text-2xl font-bold mb-8 text-center">
+            PAINEL OPERAÇÕES:
+          </p>
+          <TradeOperationsResumeCard />
+        </div>
         <a href="/operations" className="btn btn-secondary">
           Operações
         </a>

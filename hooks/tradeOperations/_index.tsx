@@ -5,6 +5,7 @@ import { AwaitingTradeOperationsProvider } from './awatingTradeOperations';
 import { ClosedTradeOperationsProvider } from './closedTradeOperations';
 import { TradeOperationHistorysProvider } from './tradeOperationHistory';
 import { FollowingTradeOperationsProvider } from './followingTradeOperations';
+import { TradingResumeProvider } from './tradeOperationsResume';
 
 const GeneralTradeOperationsProvider = ({
   children,
@@ -17,7 +18,7 @@ const GeneralTradeOperationsProvider = ({
         <ClosedTradeOperationsProvider>
           <TradeOperationHistorysProvider>
             <FollowingTradeOperationsProvider>
-              {children}
+              <TradingResumeProvider>{children}</TradingResumeProvider>
             </FollowingTradeOperationsProvider>
           </TradeOperationHistorysProvider>
         </ClosedTradeOperationsProvider>

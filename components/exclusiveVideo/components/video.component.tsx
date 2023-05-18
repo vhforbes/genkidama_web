@@ -19,7 +19,7 @@ const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
     .format('HH:mm - DD/MM');
 
   return (
-    <div className="card card-compact mb-4 mr-4 max-w-xs bg-primary shadow-xl">
+    <div className="card card-compact mb-4 mr-4 w-full bg-primary shadow-xl">
       {editable ? (
         <div>
           <button
