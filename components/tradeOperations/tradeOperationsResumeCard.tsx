@@ -9,10 +9,10 @@ const TradeOperationsResumeCard = () => {
   }, [period]);
 
   return (
-    <div className="card bg-primary flex h-44 border-2 border-lightTeal border-opacity-40">
+    <div className="card bg-primary flex h-52 border-2 border-lightTeal border-opacity-40">
       <div className="card-body p-0">
         <div className="relative w-full px-4 bg-secondary borrder-2 border-b-slate900">
-          <div className="max-w-xs flex justify-around m-auto">
+          <div className="max-w-xs flex justify-around m-auto -mt-2">
             <button
               onClick={() => setPeriod(7)}
               className={`h-10 ${
@@ -49,7 +49,7 @@ const TradeOperationsResumeCard = () => {
             >
               90D
             </button>
-            <button
+            {/* <button
               onClick={() => setPeriod(180)}
               className={`h-10 ${
                 period === 180 ? 'bg-primary' : 'bg-secondary'
@@ -57,21 +57,31 @@ const TradeOperationsResumeCard = () => {
               type="button"
             >
               180D
-            </button>
+            </button> */}
           </div>
         </div>
-        <div className="flex flex-col justify-between h-full ml-4 mb-2">
-          <p>
+        <div className="flex flex-col justify-around h-full p-4 -mt-2">
+          <p className="">
             Total Operações:{' '}
-            <span className="font-bold">{resumeData.totalOperations}</span>
+            <span className="font-bold text-2xl">
+              {resumeData.totalOperations}
+            </span>
           </p>
-          <p>
+          <p className="">
             Resultado:{' '}
-            <span className="font-bold">
+            <span
+              className={`font-bold text-2xl ${
+                resumeData?.totalProfitPercentage > 0
+                  ? 'dark:text-lightTeal text-green'
+                  : 'text-red'
+              }
+              `}
+            >
               {resumeData?.totalProfitPercentage?.toFixed(2)}%
             </span>
           </p>
-          <div className="flex">
+
+          <div className="flex justify-center w-full">
             <p>
               Gain:{' '}
               <span className="font-bold">
