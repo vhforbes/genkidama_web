@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
@@ -200,9 +201,10 @@ const TradeOperationCard = ({
       currentAccess.isAdmin ||
       status === tradeStatus.closed
     ) {
-      // setCanSee(true);
+      setCanSee(true);
     } else {
       market = 'NOSPOT';
+      setCanSee(false);
     }
   };
 
