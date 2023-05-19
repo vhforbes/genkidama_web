@@ -35,7 +35,7 @@ const TradeOperationCard = ({
   } = useFollowTradeOperations();
   const router = useRouter();
 
-  const {
+  let {
     id,
     status,
     market,
@@ -108,11 +108,6 @@ const TradeOperationCard = ({
 
   const operationTitle = () => {
     const upperCaseMarket = market.toUpperCase();
-
-    if (!canSee) {
-      return <p>NADAAQUI</p>;
-    }
-
     return (
       <p className="font-bold text-lg">
         {tradeOperation.status === tradeStatus.closed ? (
@@ -139,6 +134,10 @@ const TradeOperationCard = ({
   };
 
   const directionTitle = () => {
+    if (!canSee) {
+      return <span className="font-bold text-lg text-gray">XXXX</span>;
+    }
+
     if (direction === 'long') {
       return (
         <span className="font-bold text-lg text-green">
@@ -201,7 +200,9 @@ const TradeOperationCard = ({
       currentAccess.isAdmin ||
       status === tradeStatus.closed
     ) {
-      setCanSee(true);
+      // setCanSee(true);
+    } else {
+      market = 'NOSPOT';
     }
   };
 
