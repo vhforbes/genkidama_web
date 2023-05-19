@@ -1,6 +1,8 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc'; // import UTC plugin
+import timezone from 'dayjs/plugin/timezone'; // import timezone plugin
 import { useExclusiveVideos } from '../../../hooks/exclusiveVideos';
 import { ExclusiveVideo } from '../../../interfaces/ExclusiveVideo';
 
@@ -13,6 +15,9 @@ const PostComponent = ({ exclusiveVideo, editable }: PostProps) => {
   const videoId = exclusiveVideo.videoLink.split('v=')[1];
   const router = useRouter();
   const { deleteExclusiveVideo } = useExclusiveVideos();
+
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
 
   const createdDate = dayjs(exclusiveVideo.createdAt)
     .tz('America/Sao_Paulo')
