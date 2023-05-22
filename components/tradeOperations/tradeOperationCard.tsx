@@ -199,12 +199,10 @@ const TradeOperationCard = ({
       maxFollowers > currentFollowers ||
       isFollowing ||
       currentAccess.isAdmin ||
-      status === tradeStatus.closed
+      status === tradeStatus.closed ||
+      history
     ) {
       setCanSee(true);
-    } else {
-      market = 'NOSPOT';
-      setCanSee(false);
     }
   };
 
@@ -220,8 +218,6 @@ const TradeOperationCard = ({
 
     if (followingFilter.length === 1) {
       setIsFollowing(true);
-    } else {
-      setIsFollowing(false);
     }
   }, [FollowingTradeOperations]);
 
