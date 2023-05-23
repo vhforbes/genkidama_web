@@ -221,9 +221,6 @@ const SejaMembro: NextPage = () => {
             <PayPalButtons
               className="mt-10"
               createSubscription={(data, actions) => {
-                console.log(planID);
-                console.log(data);
-
                 return actions.subscription
                   .create({
                     plan_id: planID,

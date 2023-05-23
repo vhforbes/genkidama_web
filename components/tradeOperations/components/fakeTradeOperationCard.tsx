@@ -2,7 +2,7 @@ import React from 'react';
 
 const FakeTradeOperationCard = () => (
   <div>
-    <div className="absolute z-20 text-center mt-24 ml-10 bg-primary p-4 rounded-lg shadow-md">
+    <div className="absolute z-10 text-center mt-24 ml-10 bg-primary p-4 rounded-lg shadow-md">
       <p>
         Puts, me parece que essa <br /> operação está cheia...
       </p>

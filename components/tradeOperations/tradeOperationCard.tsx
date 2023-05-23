@@ -161,8 +161,6 @@ const TradeOperationCard = ({
   };
 
   const followButton = () => {
-    console.log(isFollowing);
-
     if (isFollowing) {
       return (
         <button
