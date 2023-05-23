@@ -56,7 +56,6 @@ const TradeOperationCard = ({
     currentFollowers,
     tradingViewLink,
     stopDistance,
-    tradeOperationId,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
