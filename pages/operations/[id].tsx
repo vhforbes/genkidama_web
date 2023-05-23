@@ -30,6 +30,8 @@ const OperationPage = () => {
   useEffect(() => {
     if (id) {
       getTradeOperationHistory(id as string);
+
+      console.log(id);
     }
 
     getFollowingTradeOperations();

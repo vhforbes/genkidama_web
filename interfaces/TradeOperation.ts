@@ -20,4 +20,6 @@ export interface TradeOperation {
   tradingViewLink?: string;
   observation?: string;
   stopDistance?: string;
+  // USED IN THE HISTORY MODEL
+  tradeOperationId?: string;
 }

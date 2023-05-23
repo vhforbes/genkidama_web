@@ -56,6 +56,7 @@ const TradeOperationCard = ({
     currentFollowers,
     tradingViewLink,
     stopDistance,
+    tradeOperationId,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
@@ -199,8 +200,7 @@ const TradeOperationCard = ({
       maxFollowers > currentFollowers ||
       isFollowing ||
       currentAccess.isAdmin ||
-      status === tradeStatus.closed ||
-      history
+      status === tradeStatus.closed
     ) {
       setCanSee(true);
     }
@@ -212,9 +212,9 @@ const TradeOperationCard = ({
 
   // CHECK IF USER IS FOLLOWING THE OPERATION
   useEffect(() => {
-    const followingFilter = FollowingTradeOperations.filter(
-      trade => trade.id === id,
-    );
+    let followingFilter = {} as TradeOperation[];
+
+    followingFilter = FollowingTradeOperations.filter(trade => trade.id === id);
 
     if (followingFilter.length === 1) {
       setIsFollowing(true);
