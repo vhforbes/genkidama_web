@@ -6,6 +6,7 @@ import { useLoader } from '../loader';
 import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
+import { TradeOperationHistory } from '../../interfaces/TradeOperationHistory';
 
 interface TradeOperationHistoryContextData {
   tradeOperationWithHistory: TradeOperationWithHistory;
@@ -14,7 +15,7 @@ interface TradeOperationHistoryContextData {
 
 interface TradeOperationWithHistory {
   tradeOperation: TradeOperation;
-  history: TradeOperation[];
+  history: TradeOperationHistory[];
 }
 
 interface Props {

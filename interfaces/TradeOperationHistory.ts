@@ -1,4 +1,6 @@
-export interface TradeOperation {
+import { TradeOperation } from './TradeOperation';
+
+export interface TradeOperationHistory {
   id: string;
   authorId: string;
   market: string;
@@ -20,6 +22,5 @@ export interface TradeOperation {
   tradingViewLink?: string;
   observation?: string;
   stopDistance?: string;
-  // USED IN THE HISTORY MODEL
   tradeOperation: TradeOperation;
 }

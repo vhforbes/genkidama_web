@@ -12,6 +12,7 @@ interface FollowingTradeOperationContextData {
   getFollowingTradeOperations(): Promise<void>;
   followTradeOperation(id: string): Promise<void>;
   unFollowTradeOperation(id: string): Promise<void>;
+  checkIsFollowing(tradeOperation: TradeOperation): boolean;
 }
 
 interface Props {
@@ -105,6 +106,22 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
     setLoading(false);
   }, []);
 
+  const checkIsFollowing = (tradeOperation: TradeOperation) => {
+    const followingFilter = FollowingTradeOperations.filter(
+      trade => trade.id === tradeOperation.id,
+    );
+
+    console.log(tradeOperation);
+
+    console.log(FollowingTradeOperations);
+
+    if (followingFilter.length === 1) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <FollowingTradeOperationsContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -113,6 +130,7 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
         getFollowingTradeOperations,
         followTradeOperation,
         unFollowTradeOperation,
+        checkIsFollowing,
       }}
     >
       {children}

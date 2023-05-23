@@ -12,6 +12,7 @@ import tradeStatus from '../../enums/tradeStatus';
 import { useFollowTradeOperations } from '../../hooks/tradeOperations/followingTradeOperations';
 import { useAccessControl } from '../../hooks/accessControl';
 import TradingViewModal from './components/tradingViewModal';
+import FakeTradeOperationCard from './components/fakeTradeOperationCard';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -20,12 +21,14 @@ interface Props {
   tradeOperation: TradeOperation;
   editable?: boolean;
   history?: boolean;
+  isFullHistory?: boolean;
 }
 
 const TradeOperationCard = ({
   tradeOperation,
   editable = false,
   history = false,
+  isFullHistory,
 }: Props) => {
   const { deleteTradeOperation } = useTradeOperations();
   const { currentAccess } = useAccessControl();
@@ -33,6 +36,7 @@ const TradeOperationCard = ({
     FollowingTradeOperations,
     followTradeOperation,
     unFollowTradeOperation,
+    checkIsFollowing,
   } = useFollowTradeOperations();
   const router = useRouter();
 
@@ -77,6 +81,8 @@ const TradeOperationCard = ({
   });
 
   const [isFollowing, setIsFollowing] = useState(false);
+
+  const [isFull, setIsFull] = useState(true);
 
   const [canSee, setCanSee] = useState(false);
 
@@ -155,6 +161,8 @@ const TradeOperationCard = ({
   };
 
   const followButton = () => {
+    console.log(isFollowing);
+
     if (isFollowing) {
       return (
         <button
@@ -196,7 +204,7 @@ const TradeOperationCard = ({
 
   const checkCanSee = () => {
     if (
-      maxFollowers > currentFollowers ||
+      !isFull ||
       isFollowing ||
       currentAccess.isAdmin ||
       status === tradeStatus.closed
@@ -206,19 +214,24 @@ const TradeOperationCard = ({
   };
 
   useEffect(() => {
-    checkCanSee();
-  }, [isFollowing]);
+    setIsFollowing(
+      checkIsFollowing(
+        history ? tradeOperation.tradeOperation : tradeOperation,
+      ),
+    );
 
-  // CHECK IF USER IS FOLLOWING THE OPERATION
-  useEffect(() => {
-    let followingFilter = {} as TradeOperation[];
-
-    followingFilter = FollowingTradeOperations.filter(trade => trade.id === id);
-
-    if (followingFilter.length === 1) {
-      setIsFollowing(true);
+    if (currentFollowers < maxFollowers) {
+      setIsFull(false);
     }
+
+    if (isFullHistory) {
+      setIsFull(true);
+    }
+
+    checkCanSee();
   }, [FollowingTradeOperations]);
+
+  if (!canSee) return <FakeTradeOperationCard />;
 
   return (
     <div
@@ -227,7 +240,7 @@ const TradeOperationCard = ({
           ? 'bg-primary border-2 border-opacity-60 border-lightTeal'
           : 'bg-base-200 border-2 border-primary text-secondary'
       } text-primary-content mb-10 shadow-xl text-sm ${
-        !canSee ? 'blur select-none' : null
+        !canSee ? 'blur select-none' : ''
       }`}
     >
       <div className="card-body p-6 flex min-h-[380px]">
