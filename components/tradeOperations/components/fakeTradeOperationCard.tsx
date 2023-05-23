@@ -7,7 +7,7 @@ const FakeTradeOperationCard = () => (
         Puts, me parece que essa <br /> operação está cheia...
       </p>
       <p className="mt-2">
-        Pela seua segurança e do <br /> sinal, fique de fora.
+        Pela sua segurança e do <br /> sinal, fique de fora.
       </p>
     </div>
     <div

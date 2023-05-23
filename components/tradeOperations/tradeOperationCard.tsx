@@ -28,7 +28,7 @@ const TradeOperationCard = ({
   tradeOperation,
   editable = false,
   history = false,
-  isFullHistory,
+  isFullHistory = false,
 }: Props) => {
   const { deleteTradeOperation } = useTradeOperations();
   const { currentAccess } = useAccessControl();
@@ -212,22 +212,26 @@ const TradeOperationCard = ({
   };
 
   useEffect(() => {
+    if (maxFollowers !== currentFollowers) {
+      setIsFull(false);
+    }
+
+    if (isFullHistory) {
+      setIsFull(isFullHistory);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkCanSee();
+  }, [isFull]);
+
+  useEffect(() => {
     setIsFollowing(
       checkIsFollowing(
         history ? tradeOperation.tradeOperation : tradeOperation,
       ),
     );
-
-    if (currentFollowers < maxFollowers) {
-      setIsFull(false);
-    }
-
-    if (isFullHistory) {
-      setIsFull(true);
-    }
-
-    checkCanSee();
-  }, [FollowingTradeOperations]);
+  }, FollowingTradeOperations);
 
   if (!canSee) return <FakeTradeOperationCard />;
 
