@@ -242,8 +242,11 @@ const TradeOperationCard = ({
 
   useEffect(() => {
     checkIsFollowing();
-    checkCanSee();
   }, [FollowingTradeOperations, isFull]);
+
+  useEffect(() => {
+    checkCanSee();
+  }, [isFollowing, isFull]);
 
   if (!canSee) return <FakeTradeOperationCard />;
 
