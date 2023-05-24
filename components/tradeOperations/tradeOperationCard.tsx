@@ -201,9 +201,19 @@ const TradeOperationCard = ({
   };
 
   const checkIsFollowing = () => {
-    const followingFilter = FollowingTradeOperations.filter(
-      trade => trade.id === tradeOperation?.id,
-    );
+    let followingFilter = [];
+
+    if (history) {
+      followingFilter = FollowingTradeOperations.filter(
+        trade => trade.id === tradeOperation.tradeOperation.id,
+      );
+    }
+
+    if (!history) {
+      followingFilter = FollowingTradeOperations.filter(
+        trade => trade.id === tradeOperation.id,
+      );
+    }
 
     if (followingFilter.length === 1) {
       console.log('setIsFollowing(true)');
