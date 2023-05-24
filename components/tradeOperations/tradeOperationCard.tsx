@@ -225,11 +225,6 @@ const TradeOperationCard = ({
   };
 
   const checkCanSee = () => {
-    console.log('name: ', market);
-    console.log('isFull: ', isFull);
-    console.log('isFollowing: ', isFollowing);
-    console.log('------------------');
-
     if (
       !isFull ||
       isFollowing ||
@@ -241,12 +236,19 @@ const TradeOperationCard = ({
   };
 
   useEffect(() => {
-    if (maxFollowers !== currentFollowers) {
-      setIsFull(false);
+    if (!history) {
+      if (maxFollowers !== currentFollowers) {
+        setIsFull(false);
+      }
     }
 
-    if (isFullHistory) {
-      setIsFull(isFullHistory);
+    if (history) {
+      if (
+        tradeOperation.tradeOperation.maxFollowers !==
+        tradeOperation.tradeOperation.currentFollowers
+      ) {
+        setIsFull(false);
+      }
     }
   }, []);
 

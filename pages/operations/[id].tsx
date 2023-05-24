@@ -41,7 +41,7 @@ const OperationPage = () => {
           tradeOperationWithHistory.tradeOperation.maxFollowers,
       );
     }
-  }, [tradeOperationWithHistory]);
+  }, [tradeOperationWithHistory.tradeOperation]);
 
   if (Object.keys(tradeOperationWithHistory).length === 0) return null;
 
@@ -66,7 +66,7 @@ const OperationPage = () => {
                   tradeOperation={tradeOperation}
                   editable={false}
                   history
-                  isFullHistory={isFull}
+                  // isFullHistory={isFull}
                 />
               </div>
             ))}
@@ -78,19 +78,5 @@ const OperationPage = () => {
     </div>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps<Props> = async (
-//   context: NextPageContext,
-// ) => {
-//   const { query } = context;
-
-//   console.log(query);
-
-//   return {
-//     props: {
-//       id: query.id,
-//     },
-//   };
-// };
 
 export default OperationPage;
