@@ -106,17 +106,20 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const checkIsFollowing = (tradeOperation: TradeOperation) => {
-    const followingFilter = FollowingTradeOperations.filter(
-      trade => trade.id === tradeOperation?.id,
-    );
+  const checkIsFollowing = useCallback(
+    (tradeOperation: TradeOperation) => {
+      const followingFilter = FollowingTradeOperations.filter(
+        trade => trade.id === tradeOperation?.id,
+      );
 
-    if (followingFilter.length === 1) {
-      return true;
-    }
+      if (followingFilter.length === 1) {
+        return true;
+      }
 
-    return false;
-  };
+      return false;
+    },
+    [FollowingTradeOperations],
+  );
 
   return (
     <FollowingTradeOperationsContext.Provider
