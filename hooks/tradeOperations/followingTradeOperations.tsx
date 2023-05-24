@@ -108,7 +108,7 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
 
   const checkIsFollowing = (tradeOperation: TradeOperation) => {
     const followingFilter = FollowingTradeOperations.filter(
-      trade => trade.id === tradeOperation.id,
+      trade => trade.id === tradeOperation?.id,
     );
 
     if (followingFilter.length === 1) {

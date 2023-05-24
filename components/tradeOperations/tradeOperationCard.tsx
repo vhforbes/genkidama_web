@@ -201,7 +201,11 @@ const TradeOperationCard = ({
   };
 
   const checkCanSee = () => {
-    console.log(isFollowing);
+    setIsFollowing(
+      checkIsFollowing(
+        history ? tradeOperation.tradeOperation : tradeOperation,
+      ),
+    );
 
     if (
       !isFull ||
@@ -222,14 +226,6 @@ const TradeOperationCard = ({
       setIsFull(isFullHistory);
     }
   }, []);
-
-  useEffect(() => {
-    setIsFollowing(
-      checkIsFollowing(
-        history ? tradeOperation.tradeOperation : tradeOperation,
-      ),
-    );
-  }, [FollowingTradeOperations]);
 
   useEffect(() => {
     checkCanSee();

@@ -54,7 +54,6 @@ const OperationPage = () => {
           <TradeOperationCard
             tradeOperation={tradeOperationWithHistory.tradeOperation}
             editable={false}
-            history
             isFullHistory={isFull}
           />
 
