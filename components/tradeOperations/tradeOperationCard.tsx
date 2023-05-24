@@ -205,9 +205,13 @@ const TradeOperationCard = ({
       trade => trade.id === tradeOperation?.id,
     );
 
-    if (followingFilter.length === 1) setIsFollowing(true);
-
-    if (followingFilter.length === 0) setIsFollowing(false);
+    if (followingFilter.length === 1) {
+      console.log('setIsFollowing(true)');
+      setIsFollowing(true);
+    } else {
+      console.log('setIsFollowing(false)');
+      setIsFollowing(false);
+    }
   };
 
   const checkCanSee = () => {
