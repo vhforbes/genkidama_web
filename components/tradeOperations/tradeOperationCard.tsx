@@ -201,6 +201,8 @@ const TradeOperationCard = ({
   };
 
   const checkCanSee = () => {
+    console.log(isFollowing);
+
     if (
       !isFull ||
       isFollowing ||
@@ -222,16 +224,16 @@ const TradeOperationCard = ({
   }, []);
 
   useEffect(() => {
-    checkCanSee();
-  }, [isFull]);
-
-  useEffect(() => {
     setIsFollowing(
       checkIsFollowing(
         history ? tradeOperation.tradeOperation : tradeOperation,
       ),
     );
-  }, FollowingTradeOperations);
+  }, [FollowingTradeOperations]);
+
+  useEffect(() => {
+    checkCanSee();
+  }, [isFull, FollowingTradeOperations]);
 
   if (!canSee) return <FakeTradeOperationCard />;
 
