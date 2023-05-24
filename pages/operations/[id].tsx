@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTradeOperationHistory } from '../../hooks/tradeOperations/tradeOperationHistory';
 import TradeOperationCard from '../../components/tradeOperations/tradeOperationCard';
@@ -16,8 +16,6 @@ const OperationPage = () => {
     useTradeOperationHistory();
   const { getFollowingTradeOperations } = useFollowTradeOperations();
 
-  const [isFull, setIsFull] = useState(true);
-
   useEffect(() => {
     checkFullAccess();
 
@@ -34,15 +32,6 @@ const OperationPage = () => {
     getFollowingTradeOperations();
   }, [id]);
 
-  useEffect(() => {
-    if (tradeOperationWithHistory.tradeOperation) {
-      setIsFull(
-        tradeOperationWithHistory.tradeOperation.currentFollowers <=
-          tradeOperationWithHistory.tradeOperation.maxFollowers,
-      );
-    }
-  }, [tradeOperationWithHistory.tradeOperation]);
-
   if (Object.keys(tradeOperationWithHistory).length === 0) return null;
 
   return (
@@ -54,7 +43,6 @@ const OperationPage = () => {
           <TradeOperationCard
             tradeOperation={tradeOperationWithHistory.tradeOperation}
             editable={false}
-            isFullHistory={isFull}
           />
 
           <hr className="text-base m-10 w-full" />
@@ -66,7 +54,6 @@ const OperationPage = () => {
                   tradeOperation={tradeOperation}
                   editable={false}
                   history
-                  // isFullHistory={isFull}
                 />
               </div>
             ))}

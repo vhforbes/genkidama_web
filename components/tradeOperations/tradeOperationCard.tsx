@@ -21,14 +21,12 @@ interface Props {
   tradeOperation: TradeOperation;
   editable?: boolean;
   history?: boolean;
-  isFullHistory?: boolean;
 }
 
 const TradeOperationCard = ({
   tradeOperation,
   editable = false,
   history = false,
-  isFullHistory = false,
 }: Props) => {
   const { deleteTradeOperation } = useTradeOperations();
   const { currentAccess } = useAccessControl();
