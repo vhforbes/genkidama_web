@@ -36,7 +36,7 @@ const TradeOperationCard = ({
     FollowingTradeOperations,
     followTradeOperation,
     unFollowTradeOperation,
-    checkIsFollowing,
+    // checkIsFollowing,
   } = useFollowTradeOperations();
   const router = useRouter();
 
@@ -200,12 +200,21 @@ const TradeOperationCard = ({
     return null;
   };
 
-  const checkCanSee = () => {
-    setIsFollowing(
-      checkIsFollowing(
-        history ? tradeOperation.tradeOperation : tradeOperation,
-      ),
+  const checkIsFollowing = () => {
+    const followingFilter = FollowingTradeOperations.filter(
+      trade => trade.id === tradeOperation?.id,
     );
+
+    if (followingFilter.length === 1) setIsFollowing(true);
+
+    if (followingFilter.length === 0) setIsFollowing(false);
+  };
+
+  const checkCanSee = () => {
+    console.log('name: ', market);
+    console.log('isFull: ', isFull);
+    console.log('isFollowing: ', isFollowing);
+    console.log('------------------');
 
     if (
       !isFull ||
@@ -228,8 +237,9 @@ const TradeOperationCard = ({
   }, []);
 
   useEffect(() => {
+    checkIsFollowing();
     checkCanSee();
-  }, [isFull, FollowingTradeOperations]);
+  }, [FollowingTradeOperations]);
 
   if (!canSee) return <FakeTradeOperationCard />;
 
