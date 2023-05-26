@@ -7,11 +7,17 @@ import privateApi from '../services/privateApi';
 import { ErrorResponse } from '../interfaces/ErrorResponse';
 
 interface MestreKameContextData {
-  broadcastMessage(message: string): void;
+  broadcastMessage(sendMessageRequest: SendMessageRequest): void;
 }
 
 interface Props {
   children: React.ReactNode;
+}
+
+interface SendMessageRequest {
+  message: string;
+  toGroup: boolean;
+  toUsers: boolean;
 }
 
 const MestreKameContext = createContext<MestreKameContextData>(
@@ -22,31 +28,42 @@ const MestreKameProvider = ({ children }: Props) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
 
-  const broadcastMessage = useCallback(async (message: string) => {
-    try {
-      setLoading(true);
+  const broadcastMessage = useCallback(
+    async ({ message, toGroup, toUsers }: SendMessageRequest) => {
+      try {
+        setLoading(true);
 
-      await privateApi.post(`${routes.mestreKame}/broadcast`, {
-        message,
-      });
+        if (toGroup) {
+          await privateApi.post(`${routes.mestreKame}/broadcastToGroup`, {
+            message,
+          });
+        }
 
-      addToast({
-        type: 'success',
-        title: 'Sucesso',
-        description: 'Mensagem enviada',
-      });
-    } catch (error: any) {
-      const e: AxiosError<ErrorResponse> = error;
+        if (toUsers) {
+          await privateApi.post(`${routes.mestreKame}/broadcastToUsers`, {
+            message,
+          });
+        }
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível enviar mensagem',
-      });
-    }
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'Mensagem enviada',
+        });
+      } catch (error: any) {
+        const e: AxiosError<ErrorResponse> = error;
 
-    setLoading(false);
-  }, []);
+        addToast({
+          type: 'error',
+          description: e.response?.data.message,
+          title: 'Não foi possível enviar mensagem',
+        });
+      }
+
+      setLoading(false);
+    },
+    [],
+  );
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values

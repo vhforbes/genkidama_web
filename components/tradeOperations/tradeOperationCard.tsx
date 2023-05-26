@@ -240,6 +240,7 @@ const TradeOperationCard = ({
       }
     }
 
+    // History checks if the parent tradeOperation isFull
     if (history) {
       if (
         tradeOperation.tradeOperation.maxFollowers !==
