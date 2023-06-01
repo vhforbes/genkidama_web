@@ -1,7 +1,7 @@
 const pricing = {
-  fullPrice: '99,90',
-  bitgetAssociateAndSubscriber: '59,90',
-  earlyAdopterAndSubscriber: '39,90',
+  fullPrice: '119,90',
+  bitgetAssociateAndSubscriber: '79,90',
+  earlyAdopterAndSubscriber: '59,90',
   bitgetAssociateFreeTier: '0,00',
 };
 
