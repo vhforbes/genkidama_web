@@ -262,7 +262,7 @@ const SejaMembro: NextPage = () => {
                   Obrigado por ser um membro{' '}
                   <span className="text-lightTeal font-bold">BITGET!</span>{' '}
                   Aproveite a chance de assinar o plano anual por apenas{' '}
-                  <span className="text-xl">R$599,90</span>.
+                  <span className="text-xl">R$799,90</span>.
                 </p>
                 <br />
                 <p>
@@ -297,8 +297,8 @@ const SejaMembro: NextPage = () => {
                   e proveite a chance de assinar o plano anual por apenas:
                   <br />
                   <br />
-                  <span className="line-through">R$1199,90</span>{' '}
-                  <span className="text-xl font-bold">R$599,90</span>.
+                  <span className="line-through">R$1399,90</span>{' '}
+                  <span className="text-xl font-bold">R$799,90</span>.
                 </p>
                 <br />
                 <p>
