@@ -31,6 +31,10 @@ const Admin: NextPage = () => {
         Mestre Kame
       </a>
       <br />
+      <a className="btn btn-secondary w-full" href="/admin/users-control">
+        Users Control
+      </a>
+      <br />
       <div className="flex justify-around w-full">
         <button
           type="button"

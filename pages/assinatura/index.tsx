@@ -240,8 +240,6 @@ const SejaMembro: NextPage = () => {
                 });
               }}
               onError={async data => {
-                console.log(data);
-
                 addToast({
                   type: 'error',
                   title: 'Sua transação falhou',

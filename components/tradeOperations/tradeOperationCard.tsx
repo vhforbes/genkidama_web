@@ -214,10 +214,8 @@ const TradeOperationCard = ({
     }
 
     if (followingFilter.length === 1) {
-      console.log('setIsFollowing(true)');
       setIsFollowing(true);
     } else {
-      console.log('setIsFollowing(false)');
       setIsFollowing(false);
     }
   };
