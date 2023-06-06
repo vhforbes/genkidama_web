@@ -98,7 +98,7 @@ const SejaMembro: NextPage = () => {
               value={cancelReason}
               onChange={e => setCancelReason(e.target.value)}
             />
-            {!!cancelReason || cancelReason.length <= 30 ? (
+            {!!cancelReason || cancelReason.length <= 20 ? (
               <p className="text-red">
                 Por favor escreva o motivo do cancelamento para melhorarmos
                 nosso serviço.
@@ -108,7 +108,7 @@ const SejaMembro: NextPage = () => {
             <button
               type="button"
               className="btn btn-accent m-6"
-              disabled={!cancelReason || cancelReason.length <= 30}
+              disabled={!cancelReason || cancelReason.length <= 20}
               onClick={() =>
                 cancelSubscription(
                   cancelReason,
