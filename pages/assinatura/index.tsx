@@ -20,7 +20,10 @@ const SejaMembro: NextPage = () => {
   const { addToast } = useToast();
   const [cancelReason, setCancelReason] = useState('');
 
-  const [planID, setPlanID] = useState('P-13968243Y69234712MR33BTQ');
+  // PRODUCTION
+  // const [planID, setPlanID] = useState('P-13968243Y69234712MR33BTQ');
+  // DEVELOPMENT;
+  const [planID, setPlanID] = useState('P-4UM68146V4599473UMR66GGY');
 
   const router = useRouter();
 

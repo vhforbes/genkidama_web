@@ -1,6 +1,5 @@
 const initialOptions = {
-  'client-id':
-    'AQQ1bf2U-onJi8x7hpHmjIawBSSVHrhZ9mjlupNWBJ0IT_WwONcpfIFKD-ExN4bBTRTfLpeXgZpb0bRw',
+  'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
   currency: 'BRL',
   components: 'buttons',
   intent: 'subscription',
