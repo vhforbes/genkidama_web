@@ -102,6 +102,7 @@ const SejaMembro: NextPage = () => {
             <button
               type="button"
               className="btn btn-accent m-6"
+              disabled={!cancelReason || cancelReason.length <= 30}
               onClick={() =>
                 cancelSubscription(
                   cancelReason,
