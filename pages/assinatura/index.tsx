@@ -98,7 +98,7 @@ const SejaMembro: NextPage = () => {
               value={cancelReason}
               onChange={e => setCancelReason(e.target.value)}
             />
-            {!!cancelReason || cancelReason.length <= 20 ? (
+            {cancelReason.length <= 20 ? (
               <p className="text-red">
                 Por favor escreva o motivo do cancelamento para melhorarmos
                 nosso serviço.
