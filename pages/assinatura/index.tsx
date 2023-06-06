@@ -98,6 +98,12 @@ const SejaMembro: NextPage = () => {
               value={cancelReason}
               onChange={e => setCancelReason(e.target.value)}
             />
+            {!!cancelReason || cancelReason.length <= 30 ? (
+              <p className="text-red">
+                Por favor escreva o motivo do cancelamento para melhorarmos
+                nosso serviço.
+              </p>
+            ) : null}
             <br />
             <button
               type="button"
