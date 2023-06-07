@@ -53,13 +53,11 @@ const SejaMembro: NextPage = () => {
         vault: true,
       },
     });
-
-    checkSub();
   }, []);
 
-  if (!subscription) return null;
+  if (!user) return null;
 
-  if (subscription.status === 'ACTIVE')
+  if (user.subscription?.status === 'ACTIVE')
     return (
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg max-w-[500px]">
@@ -123,7 +121,7 @@ const SejaMembro: NextPage = () => {
       </div>
     );
 
-  if (subscription.status !== 'ACTIVE')
+  if (user.subscription?.status !== 'ACTIVE')
     return (
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center md:mt-14 bg-secondary md:w-2/5 p-4 rounded-lg max-w-[500px]">
