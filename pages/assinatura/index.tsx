@@ -21,9 +21,9 @@ const SejaMembro: NextPage = () => {
   const [cancelReason, setCancelReason] = useState('');
 
   // PRODUCTION
-  // const [planID, setPlanID] = useState('P-13968243Y69234712MR33BTQ');
+  const [planID, setPlanID] = useState('P-13968243Y69234712MR33BTQ');
   // DEVELOPMENT;
-  const [planID, setPlanID] = useState('P-4UM68146V4599473UMR66GGY');
+  // const [planID, setPlanID] = useState('P-4UM68146V4599473UMR66GGY');
 
   const router = useRouter();
 
@@ -38,11 +38,19 @@ const SejaMembro: NextPage = () => {
     refreshUser();
 
     if (user.role === 'BITGET') {
+      // V2
       setPlanID('P-64F73262DA4253457MR33BKI');
+
+      // V1
+      // setPlanID('P-2RF01754NW371114VMRH3VAI');
     }
 
     if (user.role === 'EA') {
-      setPlanID('P-5E407350VB375000FMR36MPQ');
+      // V2
+      // setPlanID('P-5E407350VB375000FMR36MPQ');
+
+      // V1
+      setPlanID('P-3NX15147R0531871RMRH3VPA');
     }
 
     dispatch({
