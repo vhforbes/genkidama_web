@@ -13,7 +13,7 @@ import pricing from '../../enums/pricing';
 
 const SejaMembro: NextPage = () => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
-  const { checkSub, activateSubscription, cancelSubscription, subscription } =
+  const { activateSubscription, cancelSubscription, subscription } =
     useSubscription();
   const { user, refreshUser } = useAuth();
   const { theme } = useTheme();
