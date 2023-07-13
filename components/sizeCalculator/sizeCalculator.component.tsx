@@ -54,7 +54,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
   const [monetaryStopDistance, setMonetaryStopDistance] = useState<number>();
 
-  const [totalSizeInUsd, setTotalSizeInUsd] = useState<number>();
+  const [totalAssetSize, setTotalAssetSize] = useState<number>();
 
   const [orders, setOrders] = useState([
     { price: entryOrderOne, proportion: orderOnePerc / 100 },
@@ -62,11 +62,11 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     { price: entryOrderThree, proportion: orderThreePerc / 100 },
   ]);
 
-  const formatUSD = (valueToFormat?: number) => {
+  const formatUSD = (valueToFormat?: number, digits: number = 6) => {
     if (valueToFormat) {
       const formatedValue = new Intl.NumberFormat('en-US', {
         currency: 'USD',
-        maximumFractionDigits: 6,
+        maximumFractionDigits: digits,
       }).format(valueToFormat);
 
       return formatedValue;
@@ -148,162 +148,182 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
   useEffect(() => {
     if (risk && monetaryStopDistance)
-      setTotalSizeInUsd(computeTotalAssetSize(risk, monetaryStopDistance));
+      setTotalAssetSize(computeTotalAssetSize(risk, monetaryStopDistance));
   }, [risk]);
 
   return (
     <div className="flex flex-col justify-between">
       {/* FIRST SECTION - INPUTS */}
 
-      <div className="firstSection mt-6 flex lg:flex-row flex-col w-full justify-around h-20">
-        <div className="leftRow lg:mt-0 mt-4 flex lg:flex-row flex-col justify-around">
+      <div className="firstSection mt-6">
+        <div className="lg:mt-0 mt-4 flex flex-wrap justify-between">
           <div className="flex flex-col mr-4">
-            <p className="w-full mr-4">Risco máximo: </p>
-            <div className="w-full">
-              <CurrencyInput
-                className="input input-bordered w-28"
-                type="text"
-                prefix="$ "
-                decimalsLimit={2}
-                decimalSeparator="."
-                groupSeparator=","
-                placeholder="$ 200"
-                value={risk}
-                onChange={e => setRisk(handleChange(e))}
-              />
-            </div>
-          </div>
-        </div>
+            <p>Risco máximo: </p>
 
-        <div className="rightRow lg:mt-0 mt-4 flex lg:flex-row flex-col justify-around">
-          <div className="flex flex-col mr-4">
+            <CurrencyInput
+              className="input input-bordered mt-2 w-28 text-2xl"
+              type="text"
+              prefix="$ "
+              decimalsLimit={2}
+              decimalSeparator="."
+              groupSeparator=","
+              placeholder="$ 200"
+              value={risk}
+              onChange={e => setRisk(handleChange(e))}
+            />
+          </div>
+
+          <div className={`flex flex-col ${entryOrderTwo ? 'md:mr-4' : ''}`}>
             <p>Ordem 1: ${formatUSD(entryOrderOne)}</p>
-            <div className="w-full">
+
+            <CurrencyInput
+              type="text"
+              className={`input input-bordered mt-2 w-28 text-2xl ${
+                percentualError ? 'border-red' : ''
+              }`}
+              prefix="% "
+              id="input-example"
+              decimalsLimit={2}
+              decimalSeparator="."
+              groupSeparator=","
+              value={orderOnePerc}
+              onChange={e => setOrderOnePerc(handleChange(e))}
+            />
+          </div>
+
+          {entryOrderTwo && (
+            <div className={`flex flex-col ${entryOrderThree ? 'mr-4' : ''}`}>
+              <p>Ordem 2: ${formatUSD(entryOrderTwo)}</p>
+
               <CurrencyInput
                 type="text"
-                className="input input-bordered w-28"
+                className={`input input-bordered mt-2 w-28 text-2xl ${
+                  percentualError ? 'border-red' : ''
+                }`}
                 prefix="% "
                 id="input-example"
                 decimalsLimit={2}
                 decimalSeparator="."
                 groupSeparator=","
-                value={orderOnePerc}
-                onChange={e => setOrderOnePerc(handleChange(e))}
+                value={orderTwoPerc}
+                onChange={e => setOrderTwoPerc(handleChange(e))}
               />
-            </div>
-          </div>
-
-          {entryOrderTwo && (
-            <div className="flex flex-col  mr-4">
-              <p>Ordem 2: ${formatUSD(entryOrderTwo)}</p>
-              <div className="w-full">
-                <CurrencyInput
-                  type="text"
-                  className="input input-bordered w-28"
-                  prefix="% "
-                  id="input-example"
-                  decimalsLimit={2}
-                  decimalSeparator="."
-                  groupSeparator=","
-                  value={orderTwoPerc}
-                  onChange={e => setOrderTwoPerc(handleChange(e))}
-                />
-              </div>
             </div>
           )}
 
           {entryOrderThree && (
-            <div className="flex flex-col  mr-4">
+            <div className="flex flex-col">
               <p>Ordem 3: ${formatUSD(entryOrderThree)}</p>
-              <div className="w-full">
-                <CurrencyInput
-                  type="text"
-                  className="input input-bordered w-28"
-                  prefix="% "
-                  id="input-example"
-                  decimalsLimit={2}
-                  decimalSeparator="."
-                  groupSeparator=","
-                  value={orderThreePerc}
-                  onChange={e => setOrderThreePerc(handleChange(e))}
-                />
-              </div>
+
+              <CurrencyInput
+                type="text"
+                className={`input input-bordered mt-2 w-28 text-2xl ${
+                  percentualError ? 'border-red' : ''
+                }`}
+                prefix="% "
+                id="input-example"
+                decimalsLimit={2}
+                decimalSeparator="."
+                groupSeparator=","
+                value={orderThreePerc}
+                onChange={e => setOrderThreePerc(handleChange(e))}
+              />
             </div>
           )}
         </div>
       </div>
 
-      <p>Avarage: ${weightedAveragePrice}</p>
-      <p>StopDist: {distanceToStop}%</p>
-      <p>MonetaryStopDist: ${monetaryStopDistance}</p>
-      <p>TotalAssetSize: ${totalSizeInUsd}</p>
-
       {/* SECOND SECTION - RESULTS */}
-      {!percentualError && totalSizeInUsd && (
-        <div className="flex flex-col mt-36 md:mt-4 p-4">
-          <div className="flex w-full justify-between mt-4">
-            <div className="w-fit">Ordem 1:</div>
-            <div className="w-fit md:pr-8 pr-4">
+      {!percentualError && totalAssetSize && (
+        <div className="flex flex-col  md:mt-4">
+          <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
+            <div className="w-fit mr-4 self-center font-bold text-lightTeal">
+              Ordem 1:
+            </div>
+            <div className="w-fit text-left">
+              <p>Entrada: </p>
               <CopyableValue currency value={entryOrderOne} />
             </div>
-            <div className="w-fit md:pr-8 pr-4">
+            <div className="w-fit text-left">
+              <p>Valor: </p>
               <CopyableValue
                 currency
                 value={
-                  computeOrderSizeInAsset(totalSizeInUsd, orderOnePerc) *
+                  computeOrderSizeInAsset(totalAssetSize, orderOnePerc) *
                   entryOrderOne
                 }
               />
             </div>
-            <div className="w-fit">
+            <div className="w-fit text-left">
+              <p>Ativos: </p>
               <CopyableValue
-                value={computeOrderSizeInAsset(totalSizeInUsd, orderOnePerc)}
+                value={computeOrderSizeInAsset(totalAssetSize, orderOnePerc)}
               />
             </div>
           </div>
 
+          <hr />
+
           {entryOrderTwo && (
-            <div className="flex w-full justify-between mt-4">
-              <div className="w-fit">Ordem 2:</div>
-              <div className="w-fit md:pr-8 pr-4">
+            <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
+              <div className="w-fit mr-4 self-center font-bold text-lightTeal">
+                Ordem 2:
+              </div>
+              <div className="w-fit text-left ">
+                <p>Entrada: </p>
+
                 <CopyableValue currency value={entryOrderTwo} />
               </div>
-              <div className="w-fit md:pr-8 pr-4">
+              <div className="w-fit text-left ">
+                <p>Valor: </p>
+
                 <CopyableValue
                   currency
                   value={
-                    computeOrderSizeInAsset(totalSizeInUsd, orderTwoPerc) *
+                    computeOrderSizeInAsset(totalAssetSize, orderTwoPerc) *
                     entryOrderTwo
                   }
                 />
               </div>
-              <div className="w-fit">
+              <div className="w-fit text-left">
+                <p>Ativos: </p>
+
                 <CopyableValue
-                  value={computeOrderSizeInAsset(totalSizeInUsd, orderTwoPerc)}
+                  value={computeOrderSizeInAsset(totalAssetSize, orderTwoPerc)}
                 />
               </div>
             </div>
           )}
 
+          <hr />
+
           {entryOrderThree && (
-            <div className="flex w-full justify-between mt-4">
-              <div className="w-fit">Ordem 3:</div>
-              <div className="w-fit md:pr-8 pr-4">
+            <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
+              <div className="w-fit mr-4 self-center font-bold text-lightTeal">
+                Ordem 3:
+              </div>
+              <div className="w-fit text-left ">
+                <p>Entrada: </p>
+
                 <CopyableValue currency value={entryOrderThree} />
               </div>
-              <div className="w-fit md:pr-8 pr-4">
+              <div className="w-fit text-left ">
+                <p>Valor: </p>
+
                 <CopyableValue
                   currency
                   value={
-                    computeOrderSizeInAsset(totalSizeInUsd, orderThreePerc) *
+                    computeOrderSizeInAsset(totalAssetSize, orderThreePerc) *
                     entryOrderThree
                   }
                 />
               </div>
-              <div className="w-fit">
+              <div className="w-fit text-left">
+                <p>Ativos: </p>
+
                 <CopyableValue
                   value={computeOrderSizeInAsset(
-                    totalSizeInUsd,
+                    totalAssetSize,
                     orderThreePerc,
                   )}
                 />
@@ -312,6 +332,53 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
           )}
         </div>
       )}
+
+      {risk && !percentualError && <hr />}
+
+      {/* THIRD SECTION - DETAILS */}
+      {!percentualError &&
+        risk &&
+        totalAssetSize &&
+        distanceToStop &&
+        monetaryStopDistance &&
+        weightedAveragePrice && (
+          <div className="flex flex-wrap  justify-center mt-4 ">
+            <div className="flex flex-col items-start mr-8">
+              <span className="mt-2 ">
+                Preço médio:{' '}
+                <span className="font-bold text-lightTeal">
+                  ${formatUSD(weightedAveragePrice, 2)}
+                </span>
+              </span>
+              <span className="mt-2">
+                Distancia Stop:{' '}
+                <span className="font-bold text-lightTeal">
+                  {formatUSD(Math.abs(distanceToStop), 2)} % | $
+                  {formatUSD(Math.abs(monetaryStopDistance), 2)}{' '}
+                </span>
+              </span>
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="mt-2">
+                Ativos:{' '}
+                <span className="font-bold text-lightTeal">
+                  {formatUSD(Math.abs(totalAssetSize))}
+                </span>
+              </span>
+              <span className="mt-2">
+                Capital:{' '}
+                <span className="font-bold text-lightTeal">
+                  {' '}
+                  $
+                  {formatUSD(
+                    Math.abs(totalAssetSize * weightedAveragePrice),
+                    2,
+                  )}
+                </span>
+              </span>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

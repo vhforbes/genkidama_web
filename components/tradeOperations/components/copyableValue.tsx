@@ -13,14 +13,16 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(value.toString());
+    const positiveValue = Math.abs(value);
+
+    navigator.clipboard.writeText(positiveValue.toString());
     setCopied(true);
   };
 
   const formatUSD = (valueToFormat: number) => {
     const formatedValue = new Intl.NumberFormat('en-US', {
       currency: 'USD',
-      maximumFractionDigits: 6,
+      maximumFractionDigits: currency ? 2 : 6,
     }).format(valueToFormat);
 
     return formatedValue;
@@ -28,13 +30,15 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
 
   return (
     <div className="flex justify-between">
-      {currency ? (
-        <span>${formatUSD(value)}</span>
-      ) : (
-        <span>{formatUSD(value)}</span>
-      )}
+      <div className="mr-2">
+        {currency ? (
+          <span>${formatUSD(Math.abs(value))}</span>
+        ) : (
+          <span>{formatUSD(Math.abs(value))}</span>
+        )}
+      </div>
 
-      <span className="flex-shrink-0">
+      <span className="flex-shrink-0" title="Copiar">
         <div className="relative">
           {!copied && (
             <ClipboardIcon

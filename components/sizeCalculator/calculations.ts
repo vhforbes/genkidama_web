@@ -41,11 +41,7 @@ export const computeTotalAssetSize = (
   risk: number,
   monetaryValueToStop: number,
 ): number => {
-  console.log(risk, monetaryValueToStop);
-
   const totalAssetSize = risk / monetaryValueToStop;
-
-  console.log(totalAssetSize);
 
   return totalAssetSize;
 };

@@ -28,7 +28,7 @@ const SizeCalculatorModal = ({ tradeOperation }: Props) => {
       />
 
       <div className="modal">
-        <div className="modal-box relative max-w-none w-full md:w-fit h-full md:h-fit text-center">
+        <div className="modal-box text-center max-w-none md:w-fit">
           <label
             htmlFor={`my-modal-${tradeOperation.id}-calculator`}
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -36,8 +36,10 @@ const SizeCalculatorModal = ({ tradeOperation }: Props) => {
             ✕
           </label>
           <div>
-            <h1>Calculadora de posição GNK</h1>
-            <div className="mt-24 md:mt-0">
+            <h1 className="text-xl font-bold text-lightTeal">
+              Calculadora de posição GNK
+            </h1>
+            <div className="">
               <SizeCalculator tradeOperation={tradeOperation} />
             </div>
           </div>
