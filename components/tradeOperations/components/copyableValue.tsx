@@ -6,9 +6,10 @@ import {
 
 interface Props {
   value: number;
+  currency?: boolean;
 }
 
-const CopyableValue: React.FC<Props> = ({ value }) => {
+const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyClick = () => {
@@ -27,7 +28,12 @@ const CopyableValue: React.FC<Props> = ({ value }) => {
 
   return (
     <div className="flex justify-between">
-      <span>${formatUSD(value)}</span>
+      {currency ? (
+        <span>${formatUSD(value)}</span>
+      ) : (
+        <span>{formatUSD(value)}</span>
+      )}
+
       <span className="flex-shrink-0">
         <div className="relative">
           {!copied && (

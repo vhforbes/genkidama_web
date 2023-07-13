@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { TradeOperation } from '../../interfaces/TradeOperation';
 import CopyableValue from '../tradeOperations/components/copyableValue';
-import { weightedAverage } from './calculations';
+import {
+  computeOrderSizeInAsset,
+  computeStopDistance,
+  computeStopDistancePercentual,
+  computeTotalAssetSize,
+  computeWeightedAverage,
+} from './calculations';
 
 interface Props {
   tradeOperation: TradeOperation;
@@ -43,6 +49,12 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
   });
 
   const [weightedAveragePrice, setWeightedAveragePrice] = useState<number>();
+
+  const [distanceToStop, setDistanceToStop] = useState<number>();
+
+  const [monetaryStopDistance, setMonetaryStopDistance] = useState<number>();
+
+  const [totalSizeInUsd, setTotalSizeInUsd] = useState<number>();
 
   const [orders, setOrders] = useState([
     { price: entryOrderOne, proportion: orderOnePerc / 100 },
@@ -85,7 +97,12 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
       { price: entryOrderThree, proportion: orderThreePerc / 100 },
     ]);
 
-    setWeightedAveragePrice(weightedAverage(orders));
+    setWeightedAveragePrice(computeWeightedAverage(orders));
+
+    if (weightedAveragePrice)
+      setDistanceToStop(
+        computeStopDistancePercentual(weightedAveragePrice, stop),
+      );
   }, []);
 
   useEffect(() => {
@@ -111,13 +128,28 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     }
 
     setWeightedAveragePrice(
-      weightedAverage([
+      computeWeightedAverage([
         { price: entryOrderOne, proportion: orderOnePerc / 100 },
         { price: entryOrderTwo, proportion: orderTwoPerc / 100 },
         { price: entryOrderThree, proportion: orderThreePerc / 100 },
       ]),
     );
   }, [orderOnePerc, orderTwoPerc, orderThreePerc]);
+
+  useEffect(() => {
+    if (weightedAveragePrice) {
+      setDistanceToStop(
+        computeStopDistancePercentual(weightedAveragePrice, stop),
+      );
+
+      setMonetaryStopDistance(computeStopDistance(weightedAveragePrice, stop));
+    }
+  }, [weightedAveragePrice]);
+
+  useEffect(() => {
+    if (risk && monetaryStopDistance)
+      setTotalSizeInUsd(computeTotalAssetSize(risk, monetaryStopDistance));
+  }, [risk]);
 
   return (
     <div className="flex flex-col justify-between">
@@ -201,21 +233,32 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
         </div>
       </div>
 
-      <p>PM: {weightedAveragePrice}</p>
+      <p>Avarage: ${weightedAveragePrice}</p>
+      <p>StopDist: {distanceToStop}%</p>
+      <p>MonetaryStopDist: ${monetaryStopDistance}</p>
+      <p>TotalAssetSize: ${totalSizeInUsd}</p>
 
       {/* SECOND SECTION - RESULTS */}
-      {!percentualError && (
+      {!percentualError && totalSizeInUsd && (
         <div className="flex flex-col mt-36 md:mt-4 p-4">
           <div className="flex w-full justify-between mt-4">
             <div className="w-fit">Ordem 1:</div>
             <div className="w-fit md:pr-8 pr-4">
-              <CopyableValue value={entryOrderOne} />
+              <CopyableValue currency value={entryOrderOne} />
             </div>
             <div className="w-fit md:pr-8 pr-4">
-              <CopyableValue value={0.03} />
+              <CopyableValue
+                currency
+                value={
+                  computeOrderSizeInAsset(totalSizeInUsd, orderOnePerc) *
+                  entryOrderOne
+                }
+              />
             </div>
             <div className="w-fit">
-              <CopyableValue value={0.03} />
+              <CopyableValue
+                value={computeOrderSizeInAsset(totalSizeInUsd, orderOnePerc)}
+              />
             </div>
           </div>
 
@@ -223,13 +266,21 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
             <div className="flex w-full justify-between mt-4">
               <div className="w-fit">Ordem 2:</div>
               <div className="w-fit md:pr-8 pr-4">
-                <CopyableValue value={entryOrderTwo} />
+                <CopyableValue currency value={entryOrderTwo} />
               </div>
               <div className="w-fit md:pr-8 pr-4">
-                <CopyableValue value={0.03} />
+                <CopyableValue
+                  currency
+                  value={
+                    computeOrderSizeInAsset(totalSizeInUsd, orderTwoPerc) *
+                    entryOrderTwo
+                  }
+                />
               </div>
               <div className="w-fit">
-                <CopyableValue value={0.03} />
+                <CopyableValue
+                  value={computeOrderSizeInAsset(totalSizeInUsd, orderTwoPerc)}
+                />
               </div>
             </div>
           )}
@@ -238,13 +289,24 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
             <div className="flex w-full justify-between mt-4">
               <div className="w-fit">Ordem 3:</div>
               <div className="w-fit md:pr-8 pr-4">
-                <CopyableValue value={entryOrderThree} />
+                <CopyableValue currency value={entryOrderThree} />
               </div>
               <div className="w-fit md:pr-8 pr-4">
-                <CopyableValue value={0.03} />
+                <CopyableValue
+                  currency
+                  value={
+                    computeOrderSizeInAsset(totalSizeInUsd, orderThreePerc) *
+                    entryOrderThree
+                  }
+                />
               </div>
               <div className="w-fit">
-                <CopyableValue value={0.03} />
+                <CopyableValue
+                  value={computeOrderSizeInAsset(
+                    totalSizeInUsd,
+                    orderThreePerc,
+                  )}
+                />
               </div>
             </div>
           )}
