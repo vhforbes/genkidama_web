@@ -13,6 +13,7 @@ import { useFollowTradeOperations } from '../../hooks/tradeOperations/followingT
 import { useAccessControl } from '../../hooks/accessControl';
 import TradingViewModal from './components/tradingViewModal';
 import FakeTradeOperationCard from './components/fakeTradeOperationCard';
+import SizeCalculatorModal from '../sizeCalculator/sizeCalculatorModal.component';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -308,13 +309,14 @@ const TradeOperationCard = ({
           {/* LEFT ROW */}
           <div className="leftRow flex flex-col justify-between mr-4">
             <div className="mb-2 w-fit flex flex-col">
-              <div className="flex">
+              <div className="flex content-start">
                 {operationTitle()}
-                {pulseBubble()}
+                <div className="w-full ml-2">{pulseBubble()}</div>
               </div>
-              <div className="self-end flex">
+              <div className="flex">
+                <span className="mr-2">{directionTitle()}</span>
                 <TradingViewModal imageLink={tradingViewLink} id={id} />
-                <span className="">{directionTitle()}</span>
+                <SizeCalculatorModal tradeOperation={tradeOperation} />
               </div>
             </div>
 
