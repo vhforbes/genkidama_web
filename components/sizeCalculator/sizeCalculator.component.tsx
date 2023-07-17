@@ -20,7 +20,11 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
   const [risk, setRisk] = useState<number>();
 
+  const [leverege, setLeverage] = useState<number>(1);
+
   const [percentualError, setPercentualError] = useState(false);
+
+  // Percentual value in absolute, must divide it by 100 to use.
 
   const [orderOnePerc, setOrderOnePerc] = useState(() => {
     if (entryOrderTwo && entryOrderThree) {
@@ -48,6 +52,16 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     return 0;
   });
 
+  // Order values in USD
+
+  const [orderOneValueUSD, setOrderOneValueUSD] = useState<number>();
+
+  const [orderTwoValueUSD, setOrderTwoValueUSD] = useState<number>();
+
+  const [orderThreeValueUSD, setOrderThreeValueUSD] = useState<number>();
+
+  // General Information
+
   const [weightedAveragePrice, setWeightedAveragePrice] = useState<number>();
 
   const [distanceToStop, setDistanceToStop] = useState<number>();
@@ -55,6 +69,8 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
   const [monetaryStopDistance, setMonetaryStopDistance] = useState<number>();
 
   const [totalAssetSize, setTotalAssetSize] = useState<number>();
+
+  const [totalAssetSizeUSD, setTotalAssetSizeUSD] = useState<number>();
 
   const [orders, setOrders] = useState([
     { price: entryOrderOne, proportion: orderOnePerc / 100 },
@@ -90,6 +106,22 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     return num;
   };
 
+  const handleLeverageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const cleanedValue = event.target.value.replace(/[xX\s,]/g, '');
+
+    const num = parseInt(cleanedValue, 10);
+    setLeverage(num);
+
+    if (num > 100) {
+      setLeverage(100);
+    }
+
+    if (num < 1) {
+      setLeverage(1);
+    }
+  };
+
+  // INITIAL RENDER => SET Weighted Avarege Price / Orders value and % / Distance from stop
   useEffect(() => {
     setOrders([
       { price: entryOrderOne, proportion: orderOnePerc / 100 },
@@ -105,6 +137,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
       );
   }, []);
 
+  // Updates the Percentuals, check if it matches 100% / Update the Weighted Avarege Price
   useEffect(() => {
     let sumPercentual;
 
@@ -136,6 +169,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     );
   }, [orderOnePerc, orderTwoPerc, orderThreePerc]);
 
+  // Updates the STOP distance when the Weighted Avarege Price changes
   useEffect(() => {
     if (weightedAveragePrice) {
       setDistanceToStop(
@@ -146,10 +180,38 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     }
   }, [weightedAveragePrice]);
 
+  // Defines the total asset size according to the risk
   useEffect(() => {
     if (risk && monetaryStopDistance)
       setTotalAssetSize(computeTotalAssetSize(risk, monetaryStopDistance));
   }, [risk]);
+
+  // Defines the value in USD according to the leverage
+  useEffect(() => {
+    if (totalAssetSize && entryOrderOne)
+      setOrderOneValueUSD(
+        (computeOrderSizeInAsset(totalAssetSize, orderOnePerc) *
+          entryOrderOne) /
+          leverege,
+      );
+
+    if (totalAssetSize && entryOrderTwo)
+      setOrderTwoValueUSD(
+        (computeOrderSizeInAsset(totalAssetSize, orderTwoPerc) *
+          entryOrderTwo) /
+          leverege,
+      );
+
+    if (totalAssetSize && entryOrderThree)
+      setOrderThreeValueUSD(
+        (computeOrderSizeInAsset(totalAssetSize, orderThreePerc) *
+          entryOrderThree) /
+          leverege,
+      );
+
+    if (totalAssetSize && weightedAveragePrice)
+      setTotalAssetSizeUSD((totalAssetSize * weightedAveragePrice) / leverege);
+  }, [leverege, risk]);
 
   return (
     <div className="flex flex-col justify-between">
@@ -170,6 +232,22 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               placeholder="$ 200"
               value={risk}
               onChange={e => setRisk(handleChange(e))}
+            />
+          </div>
+
+          <div className="flex flex-col mr-4">
+            <p>Alavancagem: </p>
+
+            <CurrencyInput
+              className="input input-bordered mt-2 w-28 text-2xl"
+              type="text"
+              prefix="x "
+              decimalsLimit={2}
+              decimalSeparator="."
+              groupSeparator=","
+              placeholder="x 10"
+              value={leverege || ''}
+              onChange={e => handleLeverageChange(e)}
             />
           </div>
 
@@ -234,7 +312,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
       </div>
 
       {/* SECOND SECTION - RESULTS */}
-      {!percentualError && totalAssetSize && (
+      {!percentualError && totalAssetSize && orderOneValueUSD && (
         <div className="flex flex-col  md:mt-4">
           <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
             <div className="w-fit mr-4 self-center font-bold text-lightTeal">
@@ -246,13 +324,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
             </div>
             <div className="w-fit text-left">
               <p>Valor: </p>
-              <CopyableValue
-                currency
-                value={
-                  computeOrderSizeInAsset(totalAssetSize, orderOnePerc) *
-                  entryOrderOne
-                }
-              />
+              <CopyableValue currency value={orderOneValueUSD} />
             </div>
             <div className="w-fit text-left">
               <p>Ativos: </p>
@@ -264,7 +336,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
           <hr />
 
-          {entryOrderTwo && (
+          {entryOrderTwo && orderTwoValueUSD && (
             <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
               <div className="w-fit mr-4 self-center font-bold text-lightTeal">
                 Ordem 2:
@@ -277,13 +349,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               <div className="w-fit text-left ">
                 <p>Valor: </p>
 
-                <CopyableValue
-                  currency
-                  value={
-                    computeOrderSizeInAsset(totalAssetSize, orderTwoPerc) *
-                    entryOrderTwo
-                  }
-                />
+                <CopyableValue currency value={orderTwoValueUSD} />
               </div>
               <div className="w-fit text-left">
                 <p>Ativos: </p>
@@ -297,7 +363,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
           <hr />
 
-          {entryOrderThree && (
+          {entryOrderThree && orderThreeValueUSD && (
             <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
               <div className="w-fit mr-4 self-center font-bold text-lightTeal">
                 Ordem 3:
@@ -310,13 +376,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               <div className="w-fit text-left ">
                 <p>Valor: </p>
 
-                <CopyableValue
-                  currency
-                  value={
-                    computeOrderSizeInAsset(totalAssetSize, orderThreePerc) *
-                    entryOrderThree
-                  }
-                />
+                <CopyableValue currency value={orderThreeValueUSD} />
               </div>
               <div className="w-fit text-left">
                 <p>Ativos: </p>
@@ -333,12 +393,13 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
         </div>
       )}
 
-      {risk && !percentualError && <hr />}
+      {risk && !percentualError && leverege && <hr />}
 
       {/* THIRD SECTION - DETAILS */}
       {!percentualError &&
         risk &&
         totalAssetSize &&
+        totalAssetSizeUSD &&
         distanceToStop &&
         monetaryStopDistance &&
         weightedAveragePrice && (
@@ -369,11 +430,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
                 Capital:{' '}
                 <span className="font-bold text-lightTeal">
                   {' '}
-                  $
-                  {formatUSD(
-                    Math.abs(totalAssetSize * weightedAveragePrice),
-                    2,
-                  )}
+                  ${formatUSD(Math.abs(totalAssetSizeUSD), 2)}
                 </span>
               </span>
             </div>
