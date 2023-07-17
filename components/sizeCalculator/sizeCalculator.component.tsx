@@ -20,7 +20,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
   const [risk, setRisk] = useState<number>();
 
-  const [leverege, setLeverage] = useState<number>(1);
+  const [leverage, setLeverage] = useState<number>(10);
 
   const [percentualError, setPercentualError] = useState(false);
 
@@ -184,34 +184,38 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
   useEffect(() => {
     if (risk && monetaryStopDistance)
       setTotalAssetSize(computeTotalAssetSize(risk, monetaryStopDistance));
-  }, [risk]);
+  }, [risk, leverage]);
 
   // Defines the value in USD according to the leverage
   useEffect(() => {
+    console.log(leverage);
+    console.log(risk);
+    console.log(totalAssetSize);
+
     if (totalAssetSize && entryOrderOne)
       setOrderOneValueUSD(
         (computeOrderSizeInAsset(totalAssetSize, orderOnePerc) *
           entryOrderOne) /
-          leverege,
+          leverage,
       );
 
     if (totalAssetSize && entryOrderTwo)
       setOrderTwoValueUSD(
         (computeOrderSizeInAsset(totalAssetSize, orderTwoPerc) *
           entryOrderTwo) /
-          leverege,
+          leverage,
       );
 
     if (totalAssetSize && entryOrderThree)
       setOrderThreeValueUSD(
         (computeOrderSizeInAsset(totalAssetSize, orderThreePerc) *
           entryOrderThree) /
-          leverege,
+          leverage,
       );
 
     if (totalAssetSize && weightedAveragePrice)
-      setTotalAssetSizeUSD((totalAssetSize * weightedAveragePrice) / leverege);
-  }, [leverege, risk]);
+      setTotalAssetSizeUSD((totalAssetSize * weightedAveragePrice) / leverage);
+  }, [leverage, risk, totalAssetSize]);
 
   return (
     <div className="flex flex-col justify-between">
@@ -246,7 +250,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               decimalSeparator="."
               groupSeparator=","
               placeholder="x 10"
-              value={leverege || ''}
+              value={leverage || ''}
               onChange={e => handleLeverageChange(e)}
             />
           </div>
@@ -393,7 +397,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
         </div>
       )}
 
-      {risk && !percentualError && leverege && <hr />}
+      {risk && !percentualError && leverage && <hr />}
 
       {/* THIRD SECTION - DETAILS */}
       {!percentualError &&
