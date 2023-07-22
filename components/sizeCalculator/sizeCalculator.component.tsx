@@ -194,10 +194,6 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
   // Defines the value in USD according to the leverage
   useEffect(() => {
-    console.log(leverage);
-    console.log(risk);
-    console.log(totalAssetSize);
-
     if (totalAssetSize && entryOrderOne)
       setOrderOneValueUSD(
         (computeOrderSizeInAsset(totalAssetSize, orderOnePerc) *
