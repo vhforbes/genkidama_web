@@ -78,10 +78,13 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
   const activateSubscription = useCallback(async (paypalData: any) => {
     try {
       setLoading(true);
-      const { data } = await privateApi.post(`${routes.subscriptions}/create`, {
-        email: user?.email,
-        subscriptionID: paypalData.subscriptionID,
-      });
+      const { data } = await privateApi.post(
+        `${routes.subscriptions}/createPayapalSubscription`,
+        {
+          email: user?.email,
+          subscriptionID: paypalData.subscriptionID,
+        },
+      );
 
       addToast({
         type: 'success',
