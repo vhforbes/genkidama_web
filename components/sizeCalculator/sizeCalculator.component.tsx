@@ -15,8 +15,14 @@ interface Props {
 }
 
 const SizeCalculator = ({ tradeOperation }: Props) => {
-  const { entryOrderOne, entryOrderTwo, entryOrderThree, stop } =
-    tradeOperation;
+  const {
+    entryOrderOne,
+    entryOrderTwo,
+    entryOrderThree,
+    stop,
+    takeProfitOne,
+    takeProfitTwo,
+  } = tradeOperation;
 
   const [risk, setRisk] = useState<number>();
 
@@ -315,9 +321,28 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
         </div>
       </div>
 
-      {/* SECOND SECTION - RESULTS */}
+      {/* SECOND SECTION - RESULTS & INFO */}
       {!percentualError && totalAssetSize && orderOneValueUSD && (
         <div className="flex flex-col  md:mt-4">
+          <div className="flex flex-wrap w-full justify-around mt-4 pb-4">
+            <div className="w-fit text-left">
+              <p className="text-xl">Stop: </p>
+              <CopyableValue currency value={stop} />
+            </div>
+            <div className="w-fit text-left">
+              <p className="text-xl">TP 1: </p>
+              <CopyableValue currency value={takeProfitOne} />
+            </div>
+            {takeProfitTwo && (
+              <div className="w-fit text-left">
+                <p className="text-xl">TP 2: </p>
+                <CopyableValue currency value={takeProfitTwo} />
+              </div>
+            )}
+          </div>
+
+          <hr />
+
           <div className="flex flex-wrap w-full justify-between mt-4 pb-4">
             <div className="w-fit mr-4 self-center font-bold text-lightTeal">
               Ordem 1:
