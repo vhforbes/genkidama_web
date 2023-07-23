@@ -8,15 +8,18 @@ import { useAuth } from '../hooks/auth';
 import FilteredTradeOperationsContainer from '../components/tradeOperations/filteredTradeOperationsContainer';
 import NoAccessCompnent from '../components/noAccess/noAccessComponent';
 import TradeOperationsResumeCard from '../components/tradeOperations/tradeOperationsResumeCard';
+import { useSubscription } from '../hooks/subscription';
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { user, refreshUser } = useAuth();
   const { currentAccess, getUserAccess } = useAccessControl();
+  const { checkSub } = useSubscription();
 
   useEffect(() => {
     if (user) {
       getUserAccess();
+      checkSub();
     }
 
     if (!user?.telegramId) {

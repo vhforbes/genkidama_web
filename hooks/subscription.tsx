@@ -22,7 +22,7 @@ interface SubscriptionState {
 
 interface SubscriptionContextData {
   subscription: SubscriptionState;
-  checkSub(): Promise<boolean>;
+  checkSub(): Promise<void>;
   activateSubscription(paypalData: any): Promise<void>;
   cancelSubscription(
     cancelationReason: string,
@@ -55,13 +55,6 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
       setLoading(false);
 
       subscriptionData(data as SubscriptionState);
-
-      if (data.status !== 'ACTIVE') {
-        // router.push('/assinatura');
-        return false;
-      }
-
-      return true;
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
@@ -70,8 +63,6 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
         description: e.response?.data.message,
         title: 'Não foi possível checar sua assinatura',
       });
-
-      return false;
     }
   }, []);
 
