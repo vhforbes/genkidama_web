@@ -10,6 +10,8 @@ import { User } from '../interfaces/User';
 interface UsersControlContextData {
   setMember(setMemberRequest: SetMemberRequest): void;
   getUsersList(): Promise<void>;
+  getUserFromId(userId: string): Promise<User | null>;
+  userToEdit: User;
   usersList: User[];
 }
 
@@ -30,6 +32,7 @@ const UsersControlProvider = ({ children }: Props) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
   const [usersList, setUsersList] = useState([] as User[]);
+  const [userToEdit, setUserToEdit] = useState({} as User);
 
   const setMember = useCallback(
     async ({ email, isMember }: SetMemberRequest) => {
@@ -81,10 +84,31 @@ const UsersControlProvider = ({ children }: Props) => {
     setLoading(false);
   }, []);
 
+  const getUserFromId = useCallback(async (userId: string) => {
+    try {
+      setLoading(true);
+
+      const { data } = await privateApi.get(`${routes.users}/id/${userId}`);
+
+      setUserToEdit(data);
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter o usuário desejado',
+      });
+    }
+
+    setLoading(false);
+    return null;
+  }, []);
+
   return (
     <UsersControlContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{ setMember, getUsersList, usersList }}
+      value={{ setMember, getUsersList, getUserFromId, usersList, userToEdit }}
     >
       {children}
     </UsersControlContext.Provider>

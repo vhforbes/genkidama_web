@@ -1,9 +1,11 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../../hooks/accessControl';
 import { useUsersControl } from '../../../hooks/usersControl';
 
 const MestreKame: NextPage = () => {
+  const router = useRouter();
   const { checkAdmin } = useAccessControl();
   const { getUsersList, usersList } = useUsersControl();
 
@@ -26,6 +28,11 @@ const MestreKame: NextPage = () => {
       (user.subscription.type === 'BETATESTER' ||
         user.subscription.type === 'VIP'),
   ).length;
+
+  const goToEditUserPage = (userId: string) => {
+    console.log(userId);
+    router.push(`/admin/users-control/edit-user/${userId}`);
+  };
 
   return (
     <div className="flex flex-col">
@@ -91,6 +98,7 @@ const MestreKame: NextPage = () => {
                   <tr
                     key={user.id}
                     className="hover:cursor-pointer hover:bg-primary-focus"
+                    onClick={() => goToEditUserPage(user.id)}
                   >
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.name}

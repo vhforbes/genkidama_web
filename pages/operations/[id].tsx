@@ -11,10 +11,11 @@ const OperationPage = () => {
   const router = useRouter();
   const { checkFullAccess, currentAccess } = useAccessControl();
   const { user } = useAuth();
-  const { id } = router.query;
   const { getTradeOperationHistory, tradeOperationWithHistory } =
     useTradeOperationHistory();
   const { getFollowingTradeOperations } = useFollowTradeOperations();
+
+  const { id } = router.query;
 
   useEffect(() => {
     checkFullAccess();
