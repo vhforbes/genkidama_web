@@ -1,13 +1,16 @@
-import React, { createContext, useCallback, useContext } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
 import { useToast } from './toast';
 import { useLoader } from './loader';
 import routes from '../enums/routes';
 import privateApi from '../services/privateApi';
 import { ErrorResponse } from '../interfaces/ErrorResponse';
+import { User } from '../interfaces/User';
 
 interface UsersControlContextData {
   setMember(setMemberRequest: SetMemberRequest): void;
+  getUsersList(): Promise<void>;
+  usersList: User[];
 }
 
 interface Props {
@@ -26,6 +29,7 @@ const UsersControlContext = createContext<UsersControlContextData>(
 const UsersControlProvider = ({ children }: Props) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const [usersList, setUsersList] = useState([] as User[]);
 
   const setMember = useCallback(
     async ({ email, isMember }: SetMemberRequest) => {
@@ -57,9 +61,31 @@ const UsersControlProvider = ({ children }: Props) => {
     [],
   );
 
+  const getUsersList = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const { data } = await privateApi.get(`${routes.users}/list`);
+
+      setUsersList(data.users);
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter a lista de usuários',
+      });
+    }
+
+    setLoading(false);
+  }, []);
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <UsersControlContext.Provider value={{ setMember }}>
+    <UsersControlContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{ setMember, getUsersList, usersList }}
+    >
       {children}
     </UsersControlContext.Provider>
   );
