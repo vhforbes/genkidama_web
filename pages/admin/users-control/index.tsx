@@ -83,6 +83,12 @@ const MestreKame: NextPage = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
+                    Subscription Status
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
                     Subscription Type
                   </th>
                   <th
@@ -115,6 +121,9 @@ const MestreKame: NextPage = () => {
 
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.role}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {user.subscription?.status || ''}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.subscription?.type || ''}

@@ -8,21 +8,24 @@ import { useToast } from '../../hooks/toast';
 import { useLoader } from '../../hooks/loader';
 
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
-import { User } from '../../interfaces/User';
 
 import MyTextInput from '../shared/textInput.component';
-import Checkbox from '../shared/checkbox.component';
+import { Subscription } from '../../interfaces/Subscription';
 
-const EditUserComponent = ({ user }: { user: User }) => {
+const EditSubscriptionComponent = ({
+  subscription,
+}: {
+  subscription: Subscription;
+}) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
 
   const submit = async (
-    userDOT: User,
+    subscriptionDOT: Subscription,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      console.log(userDOT);
+      console.log(subscriptionDOT);
 
       setSubmitting(false);
     } catch (error: any) {
@@ -46,75 +49,62 @@ const EditUserComponent = ({ user }: { user: User }) => {
             enableReinitialize
             initialValues={
               {
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                bitgetUID: user.bitgetUID,
-                bitgetPartner: user?.bitgetPartner,
-                // avatar: string,
-                verified: user.verified,
-                role: user.role,
-                telegramId: user.telegramId,
-                onTelegramGroup: user.onTelegramGroup,
-                updated_at: user.updated_at,
-                created_at: user.created_at,
-              } as User
+                id: subscription.id,
+                status: subscription.status,
+                type: subscription.type,
+                paypal_subscription_id: subscription.paypal_subscription_id,
+                plan_id: subscription.plan_id,
+                current_period_start: subscription.current_period_start,
+                current_period_end: subscription.current_period_end,
+                canceled_at: subscription.canceled_at,
+                cancelation_reason: subscription.cancelation_reason,
+              } as Subscription
             }
             onSubmit={(values, { setSubmitting }) => {
               submit(values, setSubmitting);
             }}
           >
             <Form>
-              <h1 className="text-center mt-4 text-xl">USER</h1>
-
+              <h1 className="text-center mt-4 text-xl">SUBSCRIPTION</h1>
               <div className="card-body flex flex-row flex-wrap">
                 {/* ROW 1 */}
                 <div className="w-fit">
                   <div className="form-control">
                     <MyTextInput
-                      label="Nome:"
-                      name="name"
+                      label="Status:"
+                      name="status"
                       type="text"
                       placeholder=""
                     />
                   </div>
 
                   <div className="form-control">
-                    <MyTextInput
-                      label="Email:"
-                      name="email"
-                      type="text"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div className="form-control">
-                    <MyTextInput
-                      label="Bitget UID:"
-                      name="bitgetUID"
-                      type="text"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div className="form-control">
-                    <label htmlFor="direction" className="">
+                    <label htmlFor="type" className="">
                       Role:
                     </label>
                     <Field
-                      id="role"
-                      name="role"
+                      id="type"
+                      name="type"
                       as="select"
                       className="input input-bordered w-full"
                     >
                       <option value=""> - </option>
-                      <option value="ADMIN">ADMIN</option>
-                      <option value="BITGET">BITGET</option>
-                      <option value="MEMBER">MEMBER</option>
+                      <option value="VIP">VIP</option>
+                      <option value="BETATESTER">BETATESTER</option>
+                      <option value="PAYPAL">PAYPAL</option>
                     </Field>
                     <div className="text-red">
                       <ErrorMessage name="direction" />
                     </div>
+                  </div>
+
+                  <div className="form-control">
+                    <MyTextInput
+                      label="Paypal ID:"
+                      name="paypal_subscription_id"
+                      type="text"
+                      placeholder=""
+                    />
                   </div>
                 </div>
 
@@ -122,8 +112,9 @@ const EditUserComponent = ({ user }: { user: User }) => {
                 <div className="w-fit">
                   <div className="form-control">
                     <MyTextInput
-                      label="Telegram ID:"
-                      name="telegramId"
+                      disabled
+                      label="Inicio:"
+                      name="current_period_start"
                       type="text"
                       placeholder=""
                     />
@@ -132,43 +123,11 @@ const EditUserComponent = ({ user }: { user: User }) => {
                   <div className="form-control">
                     <MyTextInput
                       disabled
-                      label="Criado em:"
-                      name="created_at"
+                      label="Fim:"
+                      name="current_period_end"
                       type="text"
                       placeholder=""
                     />
-                  </div>
-
-                  <div className="form-control">
-                    <MyTextInput
-                      disabled
-                      label="Atualizado em:"
-                      name="updated_at"
-                      type="text"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div className="w-44">
-                    <div className="form-control">
-                      <Checkbox
-                        disabled
-                        label="Email Verificado:"
-                        name="verified"
-                      />
-                    </div>
-
-                    <div className="form-control">
-                      <Checkbox
-                        disabled
-                        label="Está no Grupo:"
-                        name="onTelegramGroup"
-                      />
-                    </div>
-
-                    <div className="form-control">
-                      <Checkbox label="Parceiro Bitget:" name="bitgetPartner" />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -186,4 +145,4 @@ const EditUserComponent = ({ user }: { user: User }) => {
   );
 };
 
-export default EditUserComponent;
+export default EditSubscriptionComponent;
