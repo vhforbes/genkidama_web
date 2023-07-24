@@ -49,15 +49,16 @@ const EditSubscriptionComponent = ({
             enableReinitialize
             initialValues={
               {
-                id: subscription.id,
-                status: subscription.status,
-                type: subscription.type,
-                paypal_subscription_id: subscription.paypal_subscription_id,
-                plan_id: subscription.plan_id,
-                current_period_start: subscription.current_period_start,
-                current_period_end: subscription.current_period_end,
-                canceled_at: subscription.canceled_at,
-                cancelation_reason: subscription.cancelation_reason,
+                id: subscription?.id || '',
+                status: subscription?.status || '',
+                type: subscription?.type || '',
+                paypal_subscription_id:
+                  subscription?.paypal_subscription_id || '',
+                plan_id: subscription?.plan_id || '',
+                current_period_start: subscription?.current_period_start || '',
+                current_period_end: subscription?.current_period_end || '',
+                canceled_at: subscription?.canceled_at || '',
+                cancelation_reason: subscription?.cancelation_reason || '',
               } as Subscription
             }
             onSubmit={(values, { setSubmitting }) => {
@@ -131,6 +132,27 @@ const EditSubscriptionComponent = ({
                   </div>
                 </div>
               </div>
+
+              {subscription.status !== 'ACTIVE' && (
+                <div className="form-control px-8">
+                  <label
+                    className="text-center mb-2"
+                    htmlFor="cancelation_reason"
+                  >
+                    Motivo cancelamento:
+                  </label>
+                  <Field
+                    as="textarea"
+                    id="cancelation_reason"
+                    name="cancelation_reason"
+                    className="input input-bordered w-full h-28"
+                    placeholder="Enter cancellation reason..."
+                  />
+                  <div className="text-red">
+                    <ErrorMessage name="cancelation_reason" />
+                  </div>
+                </div>
+              )}
 
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-secondary">

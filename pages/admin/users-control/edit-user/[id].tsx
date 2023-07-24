@@ -25,7 +25,7 @@ const EditUserPage: NextPage = () => {
 
   return (
     <main className="">
-      <h1 className="text-center mt-8 text-2xl">Editar Usuario</h1>
+      <h1 className="text-center mt-8 text-2xl">Controle de Usuarios</h1>
       <EditUserComponent user={userToEdit} />
 
       {userToEdit.subscription && (

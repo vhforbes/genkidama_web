@@ -46,18 +46,18 @@ const EditUserComponent = ({ user }: { user: User }) => {
             enableReinitialize
             initialValues={
               {
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                bitgetUID: user.bitgetUID,
-                bitgetPartner: user?.bitgetPartner,
-                // avatar: string,
-                verified: user.verified,
-                role: user.role,
-                telegramId: user.telegramId,
-                onTelegramGroup: user.onTelegramGroup,
-                updated_at: user.updated_at,
-                created_at: user.created_at,
+                id: user.id || '',
+                email: user.email || '',
+                name: user.name || '',
+                bitgetUID: user.bitgetUID || '',
+                bitgetPartner: user?.bitgetPartner || '',
+                // avatar: string || '',
+                verified: user.verified || '',
+                role: user.role || '',
+                telegramId: user.telegramId || '',
+                onTelegramGroup: user.onTelegramGroup || '',
+                updated_at: user.updated_at || '',
+                created_at: user.created_at || '',
               } as User
             }
             onSubmit={(values, { setSubmitting }) => {

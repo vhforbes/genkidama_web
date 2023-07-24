@@ -36,7 +36,7 @@ const MestreKame: NextPage = () => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="mt-20 text-3xl text-center mb-8">Controle de acesso</h1>
+      <h1 className="mt-20 text-3xl text-center mb-8">Controle de usuários</h1>
       <div className="flex justify-around mb-8">
         <p>Total de usuários: {usersList.length}</p>
         <p>Total de subscribers PayPal: {paypalUsersCount}</p>
