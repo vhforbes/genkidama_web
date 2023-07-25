@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
-import { ErrorMessage, Field, Form, Formik, useFormikContext } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { AxiosError } from 'axios';
 
 import { useToast } from '../../hooks/toast';
@@ -14,7 +14,6 @@ import { Subscription } from '../../interfaces/Subscription';
 import { useUsersControl } from '../../hooks/usersControl';
 import { User } from '../../interfaces/User';
 import DatePickerField from '../shared/datePicker.component';
-import { time } from 'console';
 
 const SubscriptionFormComponent = ({
   edit = false,
