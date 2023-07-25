@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../../../hooks/accessControl';
 import { useUsersControl } from '../../../../hooks/usersControl';
-import EditUserComponent from '../../../../components/usersControl/editUserComponent';
-import EditSubscriptionComponent from '../../../../components/usersControl/subscriptionFormComponent';
+import SubscriptionFormComponent from '../../../../components/usersControl/subscriptionFormComponent';
 
-const EditUserPage: NextPage = () => {
+const CreateSubsriptionPage: NextPage = () => {
   const { checkAdmin } = useAccessControl();
   const router = useRouter();
   const { getUserFromId, userToEdit } = useUsersControl();
@@ -26,16 +25,13 @@ const EditUserPage: NextPage = () => {
   return (
     <main className="">
       <h1 className="text-center mt-8 text-2xl">Controle de Usuarios</h1>
-      <EditUserComponent user={userToEdit} />
 
-      {userToEdit.subscription && (
-        <EditSubscriptionComponent
-          edit
-          subscription={userToEdit.subscription}
-        />
-      )}
+      <SubscriptionFormComponent
+        user={userToEdit}
+        subscription={userToEdit.subscription}
+      />
     </main>
   );
 };
 
-export default EditUserPage;
+export default CreateSubsriptionPage;

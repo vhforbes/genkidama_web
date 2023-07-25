@@ -28,7 +28,7 @@ const Account: NextPage = () => {
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      await privateApi.put(routes.users, userDOT);
+      await privateApi.put(`${routes.users}/updateFromToken`, userDOT);
       await refreshUser();
 
       addToast({

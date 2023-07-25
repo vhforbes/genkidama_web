@@ -6,11 +6,15 @@ import routes from '../enums/routes';
 import privateApi from '../services/privateApi';
 import { ErrorResponse } from '../interfaces/ErrorResponse';
 import { User } from '../interfaces/User';
+import { Subscription } from '../interfaces/Subscription';
 
 interface UsersControlContextData {
   setMember(setMemberRequest: SetMemberRequest): void;
   getUsersList(): Promise<void>;
   getUserFromId(userId: string): Promise<User | null>;
+  updateUser(user: User): Promise<void>;
+  updateSubscription(subscription: Subscription): Promise<void>;
+  createSubscription(subscription: Subscription): Promise<void>;
   userToEdit: User;
   usersList: User[];
 }
@@ -105,10 +109,86 @@ const UsersControlProvider = ({ children }: Props) => {
     return null;
   }, []);
 
+  const updateUser = useCallback(async (user: User) => {
+    try {
+      setLoading(true);
+
+      await privateApi.put(`${routes.users}/update/${user.id}`, user);
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possível atualizar o usuário desejado',
+      });
+    }
+
+    setLoading(false);
+  }, []);
+
+  const updateSubscription = useCallback(async (subscription: Subscription) => {
+    try {
+      setLoading(true);
+
+      await privateApi.put(
+        `${routes.subscriptions}/update/${subscription.id}`,
+        subscription,
+      );
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter o usuário desejado',
+      });
+    }
+
+    setLoading(false);
+  }, []);
+
+  const createSubscription = useCallback(async (subscription: Subscription) => {
+    try {
+      setLoading(true);
+
+      if (subscription.type === 'PAYPAL') {
+        await privateApi.post(
+          `${routes.subscriptions}/createPayapalSubscription/${subscription.id}`,
+          subscription,
+        );
+      } else {
+        await privateApi.post(
+          `${routes.subscriptions}/createManualSubscription/${subscription.id}`,
+          subscription,
+        );
+      }
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      addToast({
+        type: 'error',
+        description: e.response?.data.message,
+        title: 'Não foi possível obter o usuário desejado',
+      });
+    }
+
+    setLoading(false);
+  }, []);
+
   return (
     <UsersControlContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{ setMember, getUsersList, getUserFromId, usersList, userToEdit }}
+      value={{
+        setMember,
+        getUsersList,
+        getUserFromId,
+        updateUser,
+        updateSubscription,
+        createSubscription,
+        usersList,
+        userToEdit,
+      }}
     >
       {children}
     </UsersControlContext.Provider>

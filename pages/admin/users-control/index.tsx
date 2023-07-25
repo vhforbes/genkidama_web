@@ -1,11 +1,10 @@
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { useAccessControl } from '../../../hooks/accessControl';
 import { useUsersControl } from '../../../hooks/usersControl';
 
 const MestreKame: NextPage = () => {
-  const router = useRouter();
   const { checkAdmin } = useAccessControl();
   const { getUsersList, usersList } = useUsersControl();
 
@@ -28,11 +27,6 @@ const MestreKame: NextPage = () => {
       (user.subscription.type === 'BETATESTER' ||
         user.subscription.type === 'VIP'),
   ).length;
-
-  const goToEditUserPage = (userId: string) => {
-    console.log(userId);
-    router.push(`/admin/users-control/edit-user/${userId}`);
-  };
 
   return (
     <div className="flex flex-col">
@@ -97,15 +91,17 @@ const MestreKame: NextPage = () => {
                   >
                     Subscription End
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    {' '}
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {usersList.map(user => (
-                  <tr
-                    key={user.id}
-                    className="hover:cursor-pointer hover:bg-primary-focus"
-                    onClick={() => goToEditUserPage(user.id)}
-                  >
+                  <tr key={user.id} className="hover:bg-primary-focus">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.name}
                     </td>
@@ -123,13 +119,36 @@ const MestreKame: NextPage = () => {
                       {user.role}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {user.subscription?.status || ''}
+                      {user.subscription?.status ? (
+                        user.subscription?.status
+                      ) : (
+                        <Link
+                          href={`/admin/users-control/create-subscription/${user.id}`}
+                        >
+                          <button
+                            type="button"
+                            className="bg-secondary px-4 h-6 rounded-md hover:bg-accent"
+                          >
+                            CRIAR
+                          </button>
+                        </Link>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.subscription?.type || ''}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {user.subscription?.current_period_end || 'NA'}
+                      {user.subscription?.current_period_end || ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <Link href={`/admin/users-control/edit-user/${user.id}`}>
+                        <button
+                          type="button"
+                          className="bg-secondary px-4 h-6 rounded-md hover:bg-accent"
+                        >
+                          EDITAR
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

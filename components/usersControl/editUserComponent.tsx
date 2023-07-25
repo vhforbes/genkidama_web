@@ -12,17 +12,19 @@ import { User } from '../../interfaces/User';
 
 import MyTextInput from '../shared/textInput.component';
 import Checkbox from '../shared/checkbox.component';
+import { useUsersControl } from '../../hooks/usersControl';
 
 const EditUserComponent = ({ user }: { user: User }) => {
   const { addToast } = useToast();
   const { setLoading } = useLoader();
+  const { updateUser } = useUsersControl();
 
   const submit = async (
     userDOT: User,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
-      console.log(userDOT);
+      await updateUser(userDOT);
 
       setSubmitting(false);
     } catch (error: any) {
