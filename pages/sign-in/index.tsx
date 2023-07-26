@@ -64,23 +64,21 @@ const SignIn: NextPage = () => {
             <span className="font-bold text-lightTeal">GENKIDAMA</span> a melhor
             comunidade de sinais e educação do criptomercado brasileiro.
           </h1>
-          <br />
-          <span className="font-bold text-2xl">Aqui você encontra:</span>
-          <br />
-          <br />
-          <ul
-            className="text-left list-disc w-3/4 relative left-20 m-auto
-          "
-          >
-            <li>Mais de 8 horas de vídeos exclusívos.</li>
-            <li>Sinais diários na plataforma e telegram.</li>
-            <li>Bot inteligente que atualiza o status da operação.</li>
-            <li>Uma comunidade de traders engajados e ativos.</li>
-            <li>Lives semanais com um trader experiente.</li>
-          </ul>
         </div>
-        <br />
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
+
+        <div className="youtube-video-container mt-4">
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/zPvkBXeObP0`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+
+        <div className="card mt-4 flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100 dark:bg-primary">
           <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={Yup.object({
@@ -137,6 +135,21 @@ const SignIn: NextPage = () => {
             Crie agora a sua, <i>clique aqui!</i>
           </a>
         </h1>
+        {/* <div className=" flex flex-col mt-8">
+          <span className="font-bold text-xl text-center">
+            Aqui você encontra:
+          </span>
+          <ul
+            className="text-left list-disc relative mt-4 m-auto
+          "
+          >
+            <li>Mais de 8 horas de vídeos exclusívos.</li>
+            <li>Sinais diários e educativos na plataforma e telegram.</li>
+            <li>BOT inteligente que te atualiza com o status da operação.</li>
+            <li>Uma comunidade de traders engajados e ativos.</li>
+            <li>Lives e acesso direto a um trader com anos de experiência.</li>
+          </ul>
+        </div> */}
       </div>
     </div>
   );
