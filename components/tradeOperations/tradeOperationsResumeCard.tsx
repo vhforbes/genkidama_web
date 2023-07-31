@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { useTradingResume } from '../../hooks/tradeOperations/tradeOperationsResume';
-import { useAuth } from '../../hooks/auth';
 
 const TradeOperationsResumeCard = () => {
   const { period, setPeriod, getResumeData, resumeData } = useTradingResume();
-  const { user } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      getResumeData();
-    }
+    getResumeData();
   }, [period]);
 
   return (

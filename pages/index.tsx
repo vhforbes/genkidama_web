@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { useTheme } from 'next-themes';
 
 import ExclusiveVideosContainer from '../components/exclusiveVideo/exclusiveVideosContainer.component';
 import { useAccessControl } from '../hooks/accessControl';
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
   const { user, refreshUser } = useAuth();
   const { currentAccess, getUserAccess } = useAccessControl();
   const { checkSub } = useSubscription();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     if (user) {
@@ -27,7 +29,11 @@ const Home: NextPage = () => {
     }
 
     if (!user) {
-      router.push('/sign-in');
+      router.push('/home');
+    }
+
+    if (!theme) {
+      setTheme('dark');
     }
   }, []);
 

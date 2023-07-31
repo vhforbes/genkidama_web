@@ -36,7 +36,7 @@ const HeaderComponent = () => {
       {/* ------ HEADER DESKTOP ------ */}
       <div className="hidden md:flex content-center items-center justify-between h-20 p-5">
         <div className="flex items-center">
-          <a href="/">
+          <a href="/home">
             <img className="w-14" src="/logo-gnk-1.png" alt="logo-gnk" />
           </a>
           <a
