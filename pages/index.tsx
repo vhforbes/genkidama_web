@@ -21,6 +21,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (!user) {
       router.push('/home');
+      return;
     }
 
     if (user) {
