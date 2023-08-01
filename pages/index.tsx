@@ -19,6 +19,10 @@ const Home: NextPage = () => {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    if (!user) {
+      router.push('/home');
+    }
+
     if (user) {
       getUserAccess();
       checkSub();
@@ -26,10 +30,6 @@ const Home: NextPage = () => {
 
     if (!user?.telegramId) {
       refreshUser();
-    }
-
-    if (!user) {
-      router.push('/home');
     }
 
     if (!theme) {
