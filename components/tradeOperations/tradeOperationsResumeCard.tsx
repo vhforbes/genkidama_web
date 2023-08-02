@@ -5,7 +5,11 @@ const TradeOperationsResumeCard = () => {
   const { period, setPeriod, getResumeData, resumeData } = useTradingResume();
 
   useEffect(() => {
-    if (window.location.pathname === '/home') setPeriod(180);
+    if (window.location.pathname === '/home') {
+      setPeriod(180);
+    } else {
+      setPeriod(7);
+    }
   }, []);
 
   useEffect(() => {
