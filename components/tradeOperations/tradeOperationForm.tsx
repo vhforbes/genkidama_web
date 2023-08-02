@@ -141,6 +141,7 @@ const TradeOperationForm = ({
                       <option value="aguardando">Aguardando</option>
                       <option value="ativa">Ativa</option>
                       <option value="fechada">Fechada</option>
+                      <option value="cancelada">Cancelada</option>
                     </Field>
                   </div>
 
