@@ -19,11 +19,11 @@ const HomePage: NextPage = () => {
       <div className="flex flex-col md:flex-row justify-around">
         <div className="flex flex-col justify-center">
           <img
-            className="max-w-xl relative right-4"
+            className="max-w-xl md:relative md:right-4"
             alt="gnk text"
             src="/genkidama-azul.png"
           />
-          <p className="md:text-4xl text-2xl font-bold mt-8 max-w-lg">
+          <p className="md:text-4xl text-2xl font-bold md:mt-8 max-w-lg ml-4 ml:m-0">
             Seu caminho para se tornar um trader lucrativo começa agora!
           </p>
         </div>
@@ -36,7 +36,7 @@ const HomePage: NextPage = () => {
         </div>
       </div>
 
-      <p className="text-center md:mt-20 text-2xl">
+      <p className="text-center mt-8 md:mt-20 text-2xl">
         <span className="md:text-4xl font-bold  p-4">Trading sem mentiras</span>
         <br />
         <br />
@@ -93,10 +93,10 @@ const HomePage: NextPage = () => {
         </div>
       </div>
 
-      <div className="text-center md:mt-20">
+      <div className="text-center my-8 md:mt-20">
         <a
           href="/sign-up"
-          className="m-auto text-3xl text-slate900 font-bold cursor-pointer hover:text-red text-center w-fit p-4 bg-lightTeal"
+          className="m-auto text-xl md:text-3xl text-slate900 font-bold cursor-pointer hover:text-red text-center w-fit p-4 bg-lightTeal"
         >
           CRIA SUA CONTA E FAÇA PARTE
         </a>
