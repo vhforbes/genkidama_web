@@ -49,7 +49,7 @@ const TradeOperationsResumeCard = () => {
             >
               90D
             </button>
-            {/* <button
+            <button
               onClick={() => setPeriod(180)}
               className={`h-10 ${
                 period === 180 ? 'bg-primary' : 'bg-secondary'
@@ -57,7 +57,7 @@ const TradeOperationsResumeCard = () => {
               type="button"
             >
               180D
-            </button> */}
+            </button>
           </div>
         </div>
         <div className="flex flex-col justify-around h-full p-4 -mt-2">
