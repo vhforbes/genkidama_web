@@ -180,7 +180,7 @@ const UsersControlProvider = ({ children }: Props) => {
       addToast({
         type: 'error',
         description: e.response?.data.message,
-        title: 'Não foi possível obter o usuário desejado',
+        title: 'Não foi possível criar a subscription para o usuário',
       });
     }
 

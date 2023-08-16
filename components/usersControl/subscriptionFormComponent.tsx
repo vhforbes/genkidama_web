@@ -39,7 +39,11 @@ const SubscriptionFormComponent = ({
       }
 
       if (!edit) {
-        await createSubscription(subscriptionDOT);
+        await createSubscription({
+          email: user?.email,
+          type: subscriptionDOT.type,
+          current_period_end: subscriptionDOT.current_period_end,
+        } as Subscription);
       }
 
       setSubmitting(false);
