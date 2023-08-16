@@ -43,6 +43,7 @@ const SubscriptionFormComponent = ({
           email: user?.email,
           type: subscriptionDOT.type,
           current_period_end: subscriptionDOT.current_period_end,
+          paypal_subscription_id: subscriptionDOT.paypal_subscription_id,
         } as Subscription);
       }
 
