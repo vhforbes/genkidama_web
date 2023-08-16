@@ -14,6 +14,7 @@ import { Subscription } from '../../interfaces/Subscription';
 import { useUsersControl } from '../../hooks/usersControl';
 import { User } from '../../interfaces/User';
 import DatePickerField from '../shared/datePicker.component';
+import { subscriptionTypes } from '../../enums/subscriptionTypes';
 
 const SubscriptionFormComponent = ({
   edit = false,
@@ -59,6 +60,16 @@ const SubscriptionFormComponent = ({
     const date = new Date();
     // Add one year to it
     date.setFullYear(date.getFullYear() + 1);
+    // To create a timestamp in the format timestampz (Postgres style):
+    const timestampz = date.toISOString();
+
+    return timestampz;
+  };
+
+  const threeMonthsFromDate = () => {
+    const date = new Date();
+    // Add three months to it
+    date.setMonth(date.getMonth() + 3);
     // To create a timestamp in the format timestampz (Postgres style):
     const timestampz = date.toISOString();
 
@@ -139,19 +150,25 @@ const SubscriptionFormComponent = ({
                           setFieldValue('type', newValue);
 
                           switch (newValue) {
-                            case 'VIP':
+                            case subscriptionTypes.vip:
                               setFieldValue('current_period_end', '');
                               break;
-                            case 'BETATESTER':
+                            case subscriptionTypes.betaTester:
                               setFieldValue('current_period_end', '');
                               break;
-                            case 'PAYPAL':
+                            case subscriptionTypes.paypal:
                               setFieldValue('current_period_end', '');
                               break;
-                            case 'YEARLY':
+                            case subscriptionTypes.yearly:
                               setFieldValue(
                                 'current_period_end',
                                 oneYearFromNowDate(),
+                              );
+                              break;
+                            case subscriptionTypes.mentoria:
+                              setFieldValue(
+                                'current_period_end',
+                                threeMonthsFromDate(),
                               );
                               break;
                             default:
@@ -160,10 +177,15 @@ const SubscriptionFormComponent = ({
                         }}
                       >
                         <option value=""> - </option>
-                        <option value="VIP">VIP</option>
-                        <option value="BETATESTER">BETATESTER</option>
-                        <option value="PAYPAL">PAYPAL</option>
-                        <option value="YEARLY">YEARLY</option>
+                        <option value={subscriptionTypes.vip}>VIP</option>
+                        <option value={subscriptionTypes.betaTester}>
+                          BETATESTER
+                        </option>
+                        <option value={subscriptionTypes.paypal}>PAYPAL</option>
+                        <option value={subscriptionTypes.yearly}>YEARLY</option>
+                        <option value={subscriptionTypes.mentoria}>
+                          MENTORIA
+                        </option>
                       </Field>
                       <div className="text-red">
                         <ErrorMessage name="direction" />
@@ -206,14 +228,6 @@ const SubscriptionFormComponent = ({
                         name="current_period_end"
                         label="Fim ou prox. cobrança:"
                       />
-
-                      {/* <MyTextInput
-                        disabled={values.type !== 'YEARLY'}
-                        label="Fim ou prox. cobrança:"
-                        name="current_period_end"
-                        type="text"
-                        placeholder=""
-                      /> */}
                     </div>
                   </div>
                 </div>
