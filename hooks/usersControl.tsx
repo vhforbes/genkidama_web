@@ -78,11 +78,7 @@ const UsersControlProvider = ({ children }: Props) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter a lista de usuários',
-      });
+      console.error(e.response?.data.message);
     }
 
     setLoading(false);

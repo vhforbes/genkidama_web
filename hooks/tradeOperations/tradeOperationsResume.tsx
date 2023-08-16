@@ -37,7 +37,7 @@ const TradingResumeContext = createContext<TradingResumeContextData>(
 );
 
 const TradingResumeProvider = ({ children }: Props) => {
-  const [period, setPeriod] = useState();
+  const [period, setPeriod] = useState<number>();
   const [resumeData, setResumeData] = useState({} as TradingResumeData);
 
   const { setLoading } = useLoader();

@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
 import privateApi from '../../services/privateApi';
-import { useToast } from '../toast';
 import { useLoader } from '../loader';
 import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
@@ -33,7 +32,6 @@ const ActiveTradeOperationsContext =
   );
 
 const ActiveTradeOperationsProvider: React.FC<Props> = ({ children }) => {
-  const { addToast } = useToast();
   const { setLoading } = useLoader();
 
   // GENERAL
@@ -53,11 +51,7 @@ const ActiveTradeOperationsProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter todas as operação',
-      });
+      console.error(e.response?.data.message);
     }
     setLoading(false);
   }, []);
@@ -83,11 +77,7 @@ const ActiveTradeOperationsProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter as operações',
-      });
+      console.error(e.response?.data.message);
     }
   }, [activeCurrentPage]);
 

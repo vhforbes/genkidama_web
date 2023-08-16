@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useToast } from './toast';
 import { useLoader } from './loader';
 
 import { User } from '../interfaces/User';
@@ -38,7 +37,6 @@ const AccessControlContext = createContext<AccessControlContextData>(
 // principalmente, pensando em usar um redis como cache
 
 const AccessControlProvider: React.FC<Props> = ({ children }) => {
-  const { addToast } = useToast();
   const { setLoading } = useLoader();
   const router = useRouter();
 
@@ -91,11 +89,7 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Ops, tivemos um erro.',
-      });
+      console.error(e.response?.data.message);
 
       return accessControl;
     }

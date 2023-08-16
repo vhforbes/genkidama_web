@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import privateApi from '../../services/privateApi';
 import { useToast } from '../toast';
 import { useLoader } from '../loader';
 import routes from '../../enums/routes';
 import { TradeOperation } from '../../interfaces/TradeOperation';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 interface TradeOperationContextData {
   tradeOperations: TradeOperation[];
@@ -51,12 +53,10 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
       const { data } = await privateApi.get(routes.tradeOperations);
 
       setTradeOperations(data as TradeOperation[]);
-    } catch (error) {
-      addToast({
-        type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter as operações',
-      });
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      console.error(e.response?.data.message);
     }
     setLoading(false);
   }, []);
@@ -78,12 +78,10 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
         totalPages: data.totalPages as number,
       });
       setLoading(false);
-    } catch (error) {
-      addToast({
-        type: 'error',
-        description: 'Ops, tivemos um erro.',
-        title: 'Não foi possível obter as operações',
-      });
+    } catch (error: any) {
+      const e: AxiosError<ErrorResponse> = error;
+
+      console.error(e.response?.data.message);
     }
   }, [currentPage]);
 

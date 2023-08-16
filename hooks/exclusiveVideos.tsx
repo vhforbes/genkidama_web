@@ -54,11 +54,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível excluir os vídeos',
-      });
+      console.error(e.response?.data.message);
     }
   }, []);
 
@@ -73,6 +69,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
       });
 
       setExclusiveVideos(data.exclusiveVideos as ExclusiveVideo[]);
+
       setPagesInfo({
         next: data.next as number,
         previous: data.previous as number,
@@ -83,11 +80,7 @@ const ExclusiveVideosProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter os vídeos',
-      });
+      console.error(e.response?.data.message);
     }
   }, [currentPage]);
 

@@ -58,11 +58,7 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível checar sua assinatura',
-      });
+      console.log(e.response?.data.message);
     }
   }, []);
 
