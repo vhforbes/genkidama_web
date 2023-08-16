@@ -160,12 +160,12 @@ const UsersControlProvider = ({ children }: Props) => {
 
       if (subscription.type === 'PAYPAL') {
         await privateApi.post(
-          `${routes.subscriptions}/createPayapalSubscription/${subscription.id}`,
+          `${routes.subscriptions}/createPayapalSubscription`,
           subscription,
         );
       } else {
         await privateApi.post(
-          `${routes.subscriptions}/createManualSubscription/${subscription.id}`,
+          `${routes.subscriptions}/createManualSubscription`,
           subscription,
         );
       }
