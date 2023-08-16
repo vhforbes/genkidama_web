@@ -114,6 +114,11 @@ const UsersControlProvider = ({ children }: Props) => {
       setLoading(true);
 
       await privateApi.put(`${routes.users}/update/${user.id}`, user);
+
+      addToast({
+        type: 'success',
+        title: 'User atualizado com sucesso!',
+      });
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
@@ -135,13 +140,18 @@ const UsersControlProvider = ({ children }: Props) => {
         `${routes.subscriptions}/update/${subscription.id}`,
         subscription,
       );
+
+      addToast({
+        type: 'success',
+        title: 'Subscription atualizada com sucesso!',
+      });
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
       addToast({
         type: 'error',
         description: e.response?.data.message,
-        title: 'Não foi possível obter o usuário desejado',
+        title: 'Não foi possível atualizar o usuário desejado',
       });
     }
 
@@ -163,6 +173,11 @@ const UsersControlProvider = ({ children }: Props) => {
           subscription,
         );
       }
+
+      addToast({
+        type: 'success',
+        title: 'Subscription criada com sucesso!',
+      });
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
 
