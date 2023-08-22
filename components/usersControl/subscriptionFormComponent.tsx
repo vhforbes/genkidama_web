@@ -211,7 +211,6 @@ const SubscriptionFormComponent = ({
                   <div className="w-fit">
                     <div className="form-control">
                       <MyTextInput
-                        disabled
                         label="Plan ID:"
                         name="plan_id"
                         type="text"
