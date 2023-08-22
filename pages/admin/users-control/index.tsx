@@ -133,7 +133,22 @@ const MestreKame: NextPage = () => {
                           </button>
                         </Link>
                       )}
+
+                      {/* OPÇÃO DE REATIVAR SE ESTIVER CANCELADA */}
+                      {user.subscription?.status === 'CANCELED' ? (
+                        <Link
+                          href={`/admin/users-control/create-subscription/${user.id}`}
+                        >
+                          <button
+                            type="button"
+                            className="bg-secondary px-4 h-6 rounded-md hover:bg-accent"
+                          >
+                            REATIVAR
+                          </button>
+                        </Link>
+                      ) : null}
                     </td>
+
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {user.subscription?.type || ''}
                     </td>
