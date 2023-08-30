@@ -8,6 +8,8 @@ const XdecowPannelComponent = () => {
     getData();
   }, []);
 
+  if (!xdecowData) return null;
+
   return (
     <div className="card bg-primary flex h-56 border-2 border-lightTeal border-opacity-40">
       <div className="card-body p-0">
