@@ -5,7 +5,6 @@ const XdecowPannelComponent = () => {
   const { getData, xdecowData } = useXdecow();
 
   useEffect(() => {
-    console.log('Get data');
     getData();
   }, []);
 
@@ -51,7 +50,7 @@ const XdecowPannelComponent = () => {
                 xdecowData.funding_rate > 0 ? 'text-green' : 'text-red'
               }`}
             >
-              {xdecowData.funding_rate.toFixed(4)}%
+              {xdecowData?.funding_rate.toFixed(4)}%
             </span>
           </p>
         </div>
