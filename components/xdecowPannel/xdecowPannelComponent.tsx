@@ -52,7 +52,10 @@ const XdecowPannelComponent = () => {
                 xdecowData.funding_rate > 0 ? 'text-green' : 'text-red'
               }`}
             >
-              {xdecowData?.funding_rate.toFixed(4)}%
+              {xdecowData.funding_rate
+                ? xdecowData.funding_rate.toFixed(4)
+                : null}
+              %
             </span>
           </p>
         </div>
