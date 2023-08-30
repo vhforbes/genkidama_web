@@ -71,7 +71,7 @@ const Home: NextPage = () => {
             </div>
 
             <div className="mb-8">
-              <p className="text-2xl font-bold mb-8 text-center">XDECOW:</p>
+              <p className="text-2xl font-bold mb-8 text-center">RADAR:</p>
               <XdecowPannelComponent />
             </div>
 
