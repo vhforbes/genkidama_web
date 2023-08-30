@@ -10,6 +10,7 @@ import FilteredTradeOperationsContainer from '../components/tradeOperations/filt
 import NoAccessCompnent from '../components/noAccess/noAccessComponent';
 import TradeOperationsResumeCard from '../components/tradeOperations/tradeOperationsResumeCard';
 import { useSubscription } from '../hooks/subscription';
+import XdecowPannelComponent from '../components/xdecowPannel/xdecowPannelComponent';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -67,6 +68,11 @@ const Home: NextPage = () => {
                 PAINEL OPERAÇÕES:
               </p>
               <TradeOperationsResumeCard />
+            </div>
+
+            <div className="mb-8">
+              <p className="text-2xl font-bold mb-8 text-center">XDECOW:</p>
+              <XdecowPannelComponent />
             </div>
 
             <p className="text-2xl font-bold mb-8 text-center">

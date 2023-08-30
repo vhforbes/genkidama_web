@@ -13,6 +13,7 @@ import GeneralTradeOperationsProvider from './tradeOperations/_index';
 import { LiveControlProvider } from './liveControl';
 import { MestreKameProvider } from './mestreKame';
 import { UsersControlProvider } from './usersControl';
+import { XdecowProvider } from './xdecowPannel';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -26,7 +27,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
                   <GeneralTradeOperationsProvider>
                     <LiveControlProvider>
                       <MestreKameProvider>
-                        <UsersControlProvider>{children}</UsersControlProvider>
+                        <UsersControlProvider>
+                          <XdecowProvider>{children}</XdecowProvider>
+                        </UsersControlProvider>
                       </MestreKameProvider>
                     </LiveControlProvider>
                   </GeneralTradeOperationsProvider>

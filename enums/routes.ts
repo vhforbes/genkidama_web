@@ -13,6 +13,7 @@ const routes = {
   recoverPassword: '/users/recover',
   bitget: '/bitget',
   mestreKame: '/mestrekame',
+  xdecow: '/xdecow',
 };
 
 export default routes;
