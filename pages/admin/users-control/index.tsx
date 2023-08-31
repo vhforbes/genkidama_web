@@ -135,7 +135,7 @@ const MestreKame: NextPage = () => {
                       )}
 
                       {/* OPÇÃO DE REATIVAR SE ESTIVER CANCELADA */}
-                      {user.subscription?.status === 'CANCELED' ? (
+                      {user.subscription?.status !== 'ACTIVE' ? (
                         <Link
                           href={`/admin/users-control/create-subscription/${user.id}`}
                         >
