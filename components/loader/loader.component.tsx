@@ -14,7 +14,7 @@ const Loader = () => {
       <Triangle
         height="80"
         width="80"
-        color="#f97316"
+        color="#02E5EC"
         ariaLabel="three-dots-loading"
         wrapperStyle={{}}
         wrapperClass=""
