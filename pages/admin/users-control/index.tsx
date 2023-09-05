@@ -112,7 +112,7 @@ const MestreKame: NextPage = () => {
                       {user.created_at}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {user.bitgetUID}
+                      {user.exchangeUID}
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

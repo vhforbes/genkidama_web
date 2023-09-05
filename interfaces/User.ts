@@ -4,7 +4,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  bitgetUID?: string;
+  exchangeUID?: string;
   avatar?: string;
   subscription_id?: string;
   verified?: boolean;

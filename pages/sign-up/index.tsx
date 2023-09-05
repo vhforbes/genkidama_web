@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import * as Yup from 'yup';
 import React from 'react';
@@ -12,7 +12,8 @@ interface SubmitSignUpData {
   name: string;
   password: string;
   confirmedPassword: string;
-  bitgetUID?: string;
+  exchange: string;
+  exchangeUID?: string;
 }
 const SignUp: NextPage = () => {
   const { addToast } = useToast();
@@ -20,7 +21,14 @@ const SignUp: NextPage = () => {
   const { signUp } = useAuth();
 
   const submit = async (
-    { email, password, confirmedPassword, name, bitgetUID }: SubmitSignUpData,
+    {
+      email,
+      password,
+      confirmedPassword,
+      name,
+      exchangeUID,
+      exchange,
+    }: SubmitSignUpData,
     setSubmitting: (bool: boolean) => void,
   ) => {
     try {
@@ -31,7 +39,8 @@ const SignUp: NextPage = () => {
         name,
         password,
         confirmedPassword,
-        bitgetUID,
+        exchange,
+        exchangeUID,
       });
       addToast({
         type: 'success',
@@ -60,7 +69,7 @@ const SignUp: NextPage = () => {
               name: '',
               password: '',
               confirmedPassword: '',
-              a: '',
+              exchange: '',
             }}
             validationSchema={Yup.object({
               email: Yup.string()
@@ -95,11 +104,29 @@ const SignUp: NextPage = () => {
                   />
                 </div>
                 <div className="form-control">
+                  <label htmlFor="direction" className="">
+                    Exchange:
+                  </label>
+                  <Field
+                    id="exchange"
+                    name="exchange"
+                    as="select"
+                    className="input input-bordered w-full"
+                  >
+                    <option value=""> - </option>
+                    <option value="BITGET">BITGET</option>
+                    <option value="BYBIT">BYBIT</option>
+                  </Field>
+                  <div className="text-red">
+                    <ErrorMessage name="direction" />
+                  </div>
+                </div>
+                <div className="form-control">
                   <MyTextInput
-                    label="Bitget UID:"
-                    name="bitgetUID"
+                    label="Exchange UID:"
+                    name="exchangeUID"
                     type="text"
-                    placeholder="Seu UID na Bitget"
+                    placeholder="Seu UID na corretora:"
                   />
                 </div>
                 <div className="form-control">

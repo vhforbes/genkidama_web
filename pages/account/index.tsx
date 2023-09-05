@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { AxiosError } from 'axios';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
@@ -66,7 +66,8 @@ const Account: NextPage = () => {
                 id: user?.id,
                 name: user?.name,
                 email: user?.email,
-                bitgetUID: user?.bitgetUID,
+                exchangeUID: user?.exchangeUID,
+                exchange: user?.exchange || '',
               } as User
             }
             onSubmit={(values, { setSubmitting }) => {
@@ -95,9 +96,25 @@ const Account: NextPage = () => {
                 </div>
 
                 <div className="form-control">
+                  <label htmlFor="exchange" className="">
+                    Exchange:
+                  </label>
+                  <Field
+                    id="exchange"
+                    name="exchange"
+                    as="select"
+                    className="input input-bordered w-full"
+                  >
+                    <option value=""> - </option>
+                    <option value="BITGET">BITGET</option>
+                    <option value="BYBIT">BYBIT</option>
+                  </Field>
+                </div>
+
+                <div className="form-control">
                   <MyTextInput
-                    label="Bitget UID:"
-                    name="bitgetUID"
+                    label="Exchange UID:"
+                    name="exchangeUID"
                     type="text"
                     placeholder="Seu UID da Bitget"
                   />

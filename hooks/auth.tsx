@@ -21,7 +21,8 @@ interface SignUpCredentials {
   name: string;
   password: string;
   confirmedPassword: string;
-  bitgetUID?: string;
+  exchangeUID?: string;
+  exchange: string;
 }
 
 interface AuthContextData {
@@ -97,7 +98,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       password,
       confirmedPassword,
       name,
-      bitgetUID,
+      exchangeUID,
+      exchange,
     }: SignUpCredentials) => {
       if (password !== confirmedPassword) {
         addToast({
@@ -112,7 +114,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         email,
         name,
         password,
-        bitgetUID,
+        exchangeUID,
+        exchange,
       });
 
       router.push('/sign-in');

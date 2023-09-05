@@ -51,11 +51,12 @@ const EditUserComponent = ({ user }: { user: User }) => {
                 id: user.id || '',
                 email: user.email || '',
                 name: user.name || '',
-                bitgetUID: user.bitgetUID || '',
+                exchangeUID: user.exchangeUID || '',
                 exchangePartner: user?.exchangePartner || '',
                 // avatar: string || '',
                 verified: user.verified || '',
                 role: user.role || '',
+                exchange: user.exchange || '',
                 telegramId: user.telegramId || '',
                 onTelegramGroup: user.onTelegramGroup || '',
                 updated_at: user.updated_at || '',
@@ -92,8 +93,8 @@ const EditUserComponent = ({ user }: { user: User }) => {
 
                   <div className="form-control">
                     <MyTextInput
-                      label="Bitget UID:"
-                      name="bitgetUID"
+                      label="Exchange UID:"
+                      name="exchangeUID"
                       type="text"
                       placeholder=""
                     />
@@ -111,8 +112,26 @@ const EditUserComponent = ({ user }: { user: User }) => {
                     >
                       <option value=""> - </option>
                       <option value="ADMIN">ADMIN</option>
-                      <option value="BITGET">BITGET</option>
                       <option value="MEMBER">MEMBER</option>
+                    </Field>
+                    <div className="text-red">
+                      <ErrorMessage name="direction" />
+                    </div>
+                  </div>
+
+                  <div className="form-control">
+                    <label htmlFor="direction" className="">
+                      Exchange:
+                    </label>
+                    <Field
+                      id="exchange"
+                      name="exchange"
+                      as="select"
+                      className="input input-bordered w-full"
+                    >
+                      <option value=""> - </option>
+                      <option value="BITGET">BITGET</option>
+                      <option value="BYBIT">BYBIT</option>
                     </Field>
                     <div className="text-red">
                       <ErrorMessage name="direction" />
@@ -170,7 +189,7 @@ const EditUserComponent = ({ user }: { user: User }) => {
 
                     <div className="form-control">
                       <Checkbox
-                        label="Parceiro Bitget:"
+                        label="Parceiro Corretora:"
                         name="exchangePartner"
                       />
                     </div>
