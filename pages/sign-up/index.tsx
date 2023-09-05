@@ -103,6 +103,7 @@ const SignUp: NextPage = () => {
                     placeholder="Seu Nome"
                   />
                 </div>
+
                 <div className="form-control">
                   <label htmlFor="direction" className="">
                     Exchange:
@@ -121,6 +122,7 @@ const SignUp: NextPage = () => {
                     <ErrorMessage name="direction" />
                   </div>
                 </div>
+
                 <div className="form-control">
                   <MyTextInput
                     label="Exchange UID:"
