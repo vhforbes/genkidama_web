@@ -37,7 +37,7 @@ const SejaMembro: NextPage = () => {
 
     refreshUser();
 
-    if (user.role === 'BITGET') {
+    if (user.exchangePartner) {
       // V2
       setPlanID('P-64F73262DA4253457MR33BKI');
 
@@ -156,7 +156,7 @@ const SejaMembro: NextPage = () => {
             Seja membro da plataforma Genkidama!
           </p>
 
-          {user.role === roles.bitget ? (
+          {user.exchange === 'BITGET' ? (
             <div>
               <div className="mt-4 text-center">
                 <p className="text-xs">
@@ -269,7 +269,7 @@ const SejaMembro: NextPage = () => {
             />
           </div>
 
-          {user.bitgetPartner ? (
+          {user.exchangePartner ? (
             <div>
               <div className="mt-4 text-center">
                 <p className="">
@@ -294,7 +294,7 @@ const SejaMembro: NextPage = () => {
               </div>
             </div>
           ) : null}
-          {!user.bitgetPartner ? (
+          {!user.exchangePartner ? (
             <div>
               <div className="mt-4 text-center">
                 <p className="">

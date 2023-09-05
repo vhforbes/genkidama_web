@@ -78,7 +78,7 @@ const AccessControlProvider: React.FC<Props> = ({ children }) => {
         accessControl.hasLimitedAccess = true;
       }
 
-      if (user.bitgetPartner) {
+      if (user.exchangePartner) {
         accessControl.hasLimitedAccess = true;
       }
 

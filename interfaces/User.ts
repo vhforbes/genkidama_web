@@ -9,10 +9,11 @@ export interface User {
   subscription_id?: string;
   verified?: boolean;
   role?: string;
+  exchange?: string;
   telegramId?: number;
   subscription?: Subscription;
   updated_at?: string;
   created_at?: string;
-  bitgetPartner?: boolean;
+  exchangePartner?: boolean;
   onTelegramGroup?: boolean;
 }

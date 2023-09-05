@@ -52,7 +52,7 @@ const EditUserComponent = ({ user }: { user: User }) => {
                 email: user.email || '',
                 name: user.name || '',
                 bitgetUID: user.bitgetUID || '',
-                bitgetPartner: user?.bitgetPartner || '',
+                exchangePartner: user?.exchangePartner || '',
                 // avatar: string || '',
                 verified: user.verified || '',
                 role: user.role || '',
@@ -169,7 +169,10 @@ const EditUserComponent = ({ user }: { user: User }) => {
                     </div>
 
                     <div className="form-control">
-                      <Checkbox label="Parceiro Bitget:" name="bitgetPartner" />
+                      <Checkbox
+                        label="Parceiro Bitget:"
+                        name="exchangePartner"
+                      />
                     </div>
                   </div>
                 </div>
