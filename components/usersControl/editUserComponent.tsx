@@ -180,11 +180,7 @@ const EditUserComponent = ({ user }: { user: User }) => {
                     </div>
 
                     <div className="form-control">
-                      <Checkbox
-                        disabled
-                        label="Está no Grupo:"
-                        name="onTelegramGroup"
-                      />
+                      <Checkbox label="Está no Grupo:" name="onTelegramGroup" />
                     </div>
 
                     <div className="form-control">
