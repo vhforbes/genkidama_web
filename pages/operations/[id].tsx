@@ -13,7 +13,8 @@ const OperationPage = () => {
   const { user } = useAuth();
   const { getTradeOperationHistory, tradeOperationWithHistory } =
     useTradeOperationHistory();
-  const { getFollowingTradeOperations } = useFollowTradeOperations();
+  const { getFollowingTradeOperations, followTradeOperation } =
+    useFollowTradeOperations();
 
   const { id } = router.query;
 
@@ -28,6 +29,12 @@ const OperationPage = () => {
   useEffect(() => {
     if (id) {
       getTradeOperationHistory(id as string);
+    }
+
+    if (window.location.hash === '#seguir') {
+      console.log('FOLLOW');
+      console.log(id);
+      followTradeOperation(id as string);
     }
 
     getFollowingTradeOperations();
