@@ -349,10 +349,12 @@ const TradeOperationCard = ({
             <div className="ordens w-full">
               <p className="font-bold">Ordens:</p>
               <div>
-                <CopyableValue value={entryOrderOne} />
-                {entryOrderTwo ? <CopyableValue value={entryOrderTwo} /> : null}
+                <CopyableValue currency value={entryOrderOne} />
+                {entryOrderTwo ? (
+                  <CopyableValue currency value={entryOrderTwo} />
+                ) : null}
                 {entryOrderThree ? (
-                  <CopyableValue value={entryOrderThree} />
+                  <CopyableValue currency value={entryOrderThree} />
                 ) : null}
               </div>
             </div>
@@ -364,16 +366,16 @@ const TradeOperationCard = ({
                   <span className="font-normal">{stopDistance}%</span>
                 ) : null}
               </p>
-              <CopyableValue value={stop} />
+              <CopyableValue currency value={stop} />
             </div>
 
             <div className="take-profit w-full flex flex-row md:flex-col justify-between">
               <div>
                 <p className="font-bold">Take profit:</p>
                 <div>
-                  <CopyableValue value={takeProfitOne} />
+                  <CopyableValue currency value={takeProfitOne} />
                   {takeProfitTwo ? (
-                    <CopyableValue value={takeProfitTwo} />
+                    <CopyableValue currency value={takeProfitTwo} />
                   ) : null}
                 </div>
               </div>

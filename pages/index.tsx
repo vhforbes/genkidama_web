@@ -11,6 +11,7 @@ import NoAccessCompnent from '../components/noAccess/noAccessComponent';
 import TradeOperationsResumeCard from '../components/tradeOperations/tradeOperationsResumeCard';
 import { useSubscription } from '../hooks/subscription';
 import XdecowPannelComponent from '../components/xdecowPannel/xdecowPannelComponent';
+import NotOnTelegramGroupAlert from '../components/modal/NotOnTelegramGroupAlertComponent';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -44,10 +45,7 @@ const Home: NextPage = () => {
       {/* CHECK IF USER HAS ALREADY TALKED TO BOT */}
 
       {currentAccess.hasFullAccess && !user?.telegramId ? (
-        <h1 className="text-center text-red text-xl mt-4 dark:bg-lightTeal">
-          Você ainda não falou com o @MestreKamee_bot, assim não irá receber as
-          atualizações no seu telegram.
-        </h1>
+        <NotOnTelegramGroupAlert id="not-on-group" />
       ) : null}
 
       <main className="h-full hidden md:block">
