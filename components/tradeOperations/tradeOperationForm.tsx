@@ -268,7 +268,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
-                      label="Percentual:"
+                      label="Resultado percentual:"
                       name="percentual"
                       type="text"
                       placeholder="XX"
