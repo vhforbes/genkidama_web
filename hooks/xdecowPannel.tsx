@@ -38,12 +38,7 @@ const XdecowProvider = ({ children }: Props) => {
       setXdecowData(response.data);
     } catch (error: any) {
       const e: AxiosError<ErrorResponse> = error;
-
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter os dados do Xdecow',
-      });
+      console.error(e);
     }
 
     setLoading(false);

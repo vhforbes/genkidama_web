@@ -136,7 +136,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       );
       setData({ token, user });
     } catch (error: any) {
-      // Sign out if cant refresh
+      console.error(error);
 
       signOut();
     }

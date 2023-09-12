@@ -69,7 +69,7 @@ const FollowingTradeOperationsProvider: React.FC<Props> = ({ children }) => {
       addToast({
         type: 'error',
         description: e.response?.data.message,
-        title: 'Ops, tivemos um erro.',
+        title: 'Não foi possivel seguir a operação',
       });
     }
     setLoading(false);
