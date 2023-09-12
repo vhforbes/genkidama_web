@@ -358,7 +358,6 @@ const TradeOperationCard = ({
                 ) : null}
               </div>
             </div>
-
             <div className="stop w-full">
               <p className="font-bold">
                 Stop:{' '}
