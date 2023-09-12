@@ -7,9 +7,14 @@ import {
 interface Props {
   value: number;
   currency?: boolean;
+  crypto?: boolean;
 }
 
-const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
+const CopyableValue: React.FC<Props> = ({
+  value,
+  currency = false,
+  crypto = false,
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyClick = () => {
@@ -22,7 +27,7 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
   const formatUSD = (valueToFormat: number) => {
     const formatedValue = new Intl.NumberFormat('en-US', {
       currency: 'USD',
-      maximumFractionDigits: currency ? 2 : 6,
+      maximumFractionDigits: crypto ? 6 : 2,
     }).format(valueToFormat);
 
     return formatedValue;
@@ -31,7 +36,7 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
   return (
     <div className="flex justify-between">
       <div className="mr-2">
-        {currency ? (
+        {currency || crypto ? (
           <span>${formatUSD(Math.abs(value))}</span>
         ) : (
           <span>{formatUSD(Math.abs(value))}</span>
