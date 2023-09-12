@@ -29,12 +29,10 @@ const OperationPage = () => {
   useEffect(() => {
     if (id) {
       getTradeOperationHistory(id as string);
-    }
 
-    if (window.location.hash === '#seguir') {
-      console.log('FOLLOW');
-      console.log(id);
-      followTradeOperation(id as string);
+      if (window.location.hash === '#seguir') {
+        followTradeOperation(id as string);
+      }
     }
 
     getFollowingTradeOperations();
