@@ -15,8 +15,8 @@ interface Props {
 }
 
 interface SendMessageRequest {
-  message: string;
-  image: File;
+  message?: string;
+  image?: File;
   toGroup: boolean;
   toUsers: boolean;
 }
@@ -32,41 +32,46 @@ const MestreKameProvider = ({ children }: Props) => {
   const broadcastMessage = useCallback(
     async ({ message, image, toGroup, toUsers }: SendMessageRequest) => {
       const formData = new FormData();
-      formData.append('image', image);
+
+      if (image) formData.append('image', image);
 
       try {
         setLoading(true);
 
         if (toGroup) {
-          await privateApi.post(`${routes.mestreKame}/broadcastToGroup`, {
-            message,
-          });
+          if (message)
+            await privateApi.post(`${routes.mestreKame}/broadcastToGroup`, {
+              message,
+            });
 
-          await privateApi.post(
-            `${routes.mestreKame}/broadcastImageToGroup`,
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
+          if (image)
+            await privateApi.post(
+              `${routes.mestreKame}/broadcastImageToGroup`,
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
               },
-            },
-          );
+            );
         }
 
         if (toUsers) {
-          await privateApi.post(`${routes.mestreKame}/broadcastToMembers`, {
-            message,
-          });
+          if (message)
+            await privateApi.post(`${routes.mestreKame}/broadcastToMembers`, {
+              message,
+            });
 
-          await privateApi.post(
-            `${routes.mestreKame}/broadcastImageToMembers`,
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
+          if (image)
+            await privateApi.post(
+              `${routes.mestreKame}/broadcastImageToMembers`,
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
               },
-            },
-          );
+            );
         }
 
         addToast({

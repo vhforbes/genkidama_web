@@ -27,23 +27,29 @@ const MestreKame: NextPage = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    if (fileURL) {
+      URL.revokeObjectURL(fileURL);
+    }
 
     setFileUrl(URL.createObjectURL(e.target.files[0]) as string);
   };
 
   const handleUpload = async () => {
+    let file;
+
     if (fileInputRef.current && fileInputRef.current.files) {
-      const file = fileInputRef.current.files[0];
-      if (file) {
-        broadcastMessage({
-          message,
-          image: fileInputRef.current.files[0],
-          toGroup,
-          toUsers,
-        });
-      }
+      const [firstFile] = Array.from(fileInputRef.current.files);
+      file = firstFile;
     }
+
+    broadcastMessage({
+      message,
+      image: file,
+      toGroup,
+      toUsers,
+    });
   };
 
   return (
