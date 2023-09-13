@@ -58,11 +58,13 @@ const MestreKame: NextPage = () => {
           onChange={e => setMessage(e.target.value)}
         />
 
-        <img
-          className="mt-8 border-lightTeal border-4 rounded-lg bg-[#fff] p-4"
-          alt="uploaded-file"
-          src={fileURL}
-        />
+        {fileURL && (
+          <img
+            className="mt-8 border-lightTeal border-4 rounded-lg bg-[#fff] p-4"
+            alt="uploaded-file"
+            src={fileURL}
+          />
+        )}
 
         <input
           className="mt-8 text-center"
