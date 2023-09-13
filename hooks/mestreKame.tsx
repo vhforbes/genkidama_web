@@ -40,7 +40,7 @@ const MestreKameProvider = ({ children }: Props) => {
         }
 
         if (toUsers) {
-          await privateApi.post(`${routes.mestreKame}/broadcastToUsers`, {
+          await privateApi.post(`${routes.mestreKame}/broadcastToMembers`, {
             message,
           });
         }

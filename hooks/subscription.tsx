@@ -63,6 +63,8 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const activateSubscription = useCallback(async (paypalData: any) => {
+    console.log(paypalData);
+
     try {
       setLoading(true);
       const { data } = await privateApi.post(
