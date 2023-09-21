@@ -19,6 +19,12 @@ const Admin: NextPage = () => {
       >
         Criar Operaçao
       </a>
+      <a
+        className="btn btn-secondary w-1/2 mt-10"
+        href="/admin/operations/list"
+      >
+        Lista Operações
+      </a>
       <div>
         <h1 className="text-center mt-20 text-3xl">Editar Operações:</h1>
         <div className="mt-16">

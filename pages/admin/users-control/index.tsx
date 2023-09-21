@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useAccessControl } from '../../../hooks/accessControl';
 import { useUsersControl } from '../../../hooks/usersControl';
 
-const MestreKame: NextPage = () => {
+const UsersList: NextPage = () => {
   const { checkAdmin } = useAccessControl();
   const { getUsersList, usersList } = useUsersControl();
 
@@ -176,4 +176,4 @@ const MestreKame: NextPage = () => {
   );
 };
 
-export default MestreKame;
+export default UsersList;
