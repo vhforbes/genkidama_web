@@ -15,6 +15,7 @@ import MyTextInput from '../shared/textInput.component';
 
 import { TradeOperation } from '../../interfaces/TradeOperation';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
+import CopyToClipboardButton from './components/copyToClipboardButton';
 
 const TradeOperationForm = ({
   edit,
@@ -296,9 +297,10 @@ const TradeOperationForm = ({
                 />
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-secondary">
+                <button type="submit" className="btn btn-secondary mb-6">
                   Enviar
                 </button>
+                <CopyToClipboardButton />
               </div>
             </Form>
           </Formik>
