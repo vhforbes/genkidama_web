@@ -14,6 +14,7 @@ export interface TradeOperation {
   updatedAt?: string;
   result?: string;
   percentual?: number;
+  riskReturnRatio?: number;
   version: string;
   maxFollowers: number;
   currentFollowers: number;
