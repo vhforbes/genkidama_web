@@ -101,6 +101,7 @@ const TradeOperationForm = ({
 
                 result: tradeOperation?.result || '',
                 percentual: tradeOperation?.percentual || '',
+                stopDistance: tradeOperation?.stopDistance || '',
                 observation: tradeOperation?.observation || '',
               } as TradeOperation
             }
