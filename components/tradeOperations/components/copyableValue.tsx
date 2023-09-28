@@ -7,14 +7,9 @@ import {
 interface Props {
   value: number;
   currency?: boolean;
-  crypto?: boolean;
 }
 
-const CopyableValue: React.FC<Props> = ({
-  value,
-  currency = false,
-  crypto = false,
-}) => {
+const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyClick = () => {
@@ -24,10 +19,22 @@ const CopyableValue: React.FC<Props> = ({
     setCopied(true);
   };
 
+  const needDecimals = (valueToCheck: number): boolean => {
+    // Separate the integer and decimal parts
+    const [integerPart, decimalPart] = valueToCheck.toString().split('.');
+
+    // Check if there is only the decimal part
+    if (parseInt(integerPart, 10) === 0 && decimalPart) {
+      return true;
+    }
+
+    return false;
+  };
+
   const formatUSD = (valueToFormat: number) => {
     const formatedValue = new Intl.NumberFormat('en-US', {
       currency: 'USD',
-      maximumFractionDigits: crypto ? 6 : 2,
+      maximumFractionDigits: needDecimals(valueToFormat) ? 6 : 2,
     }).format(valueToFormat);
 
     return formatedValue;
@@ -36,7 +43,7 @@ const CopyableValue: React.FC<Props> = ({
   return (
     <div className="flex justify-between">
       <div className="mr-2">
-        {currency || crypto ? (
+        {currency ? (
           <span>${formatUSD(Math.abs(value))}</span>
         ) : (
           <span>{formatUSD(Math.abs(value))}</span>
