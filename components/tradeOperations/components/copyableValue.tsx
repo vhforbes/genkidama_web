@@ -28,7 +28,11 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
       return true;
     }
 
-    return false;
+    if (integerPart) {
+      return false;
+    }
+
+    return true;
   };
 
   const formatUSD = (valueToFormat: number) => {
