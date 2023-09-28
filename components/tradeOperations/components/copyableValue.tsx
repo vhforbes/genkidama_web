@@ -3,6 +3,7 @@ import {
   ClipboardIcon,
   ClipboardDocumentCheckIcon,
 } from '@heroicons/react/24/outline';
+import formatNumber from '../../../helpers/formatNumber';
 
 interface Props {
   value: number;
@@ -19,38 +20,13 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
     setCopied(true);
   };
 
-  const needDecimals = (valueToCheck: number): boolean => {
-    // Separate the integer and decimal parts
-    const [integerPart, decimalPart] = valueToCheck.toString().split('.');
-
-    // Check if there is only the decimal part
-    if (parseInt(integerPart, 10) === 0 && decimalPart) {
-      return true;
-    }
-
-    if (integerPart) {
-      return false;
-    }
-
-    return true;
-  };
-
-  const formatValue = (valueToFormat: number) => {
-    const formatedValue = new Intl.NumberFormat('en-US', {
-      currency: 'USD',
-      maximumFractionDigits: needDecimals(valueToFormat) ? 6 : 2,
-    }).format(valueToFormat);
-
-    return formatedValue;
-  };
-
   return (
     <div className="flex justify-between">
       <div className="mr-2">
         {currency ? (
-          <span>${formatValue(Math.abs(value))}</span>
+          <span>${formatNumber(Math.abs(value))}</span>
         ) : (
-          <span>{formatValue(Math.abs(value))}</span>
+          <span>{formatNumber(Math.abs(value))}</span>
         )}
       </div>
 
