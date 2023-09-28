@@ -37,7 +37,7 @@ const TradingResumeContext = createContext<TradingResumeContextData>(
 );
 
 const TradingResumeProvider = ({ children }: Props) => {
-  const [period, setPeriod] = useState<number>(180);
+  const [period, setPeriod] = useState<number>(0);
   const [resumeData, setResumeData] = useState({} as TradingResumeData);
 
   const { setLoading } = useLoader();
@@ -45,25 +45,27 @@ const TradingResumeProvider = ({ children }: Props) => {
 
   const getResumeData = useCallback(async () => {
     setLoading(true);
-    try {
-      const { data } = await privateApi.get(
-        `${routes.tradeOperations}/resume`,
-        {
-          params: {
-            period,
+    if (period) {
+      try {
+        const { data } = await privateApi.get(
+          `${routes.tradeOperations}/resume`,
+          {
+            params: {
+              period,
+            },
           },
-        },
-      );
+        );
 
-      setResumeData(data as TradingResumeData);
-    } catch (error: any) {
-      const e: AxiosError<ErrorResponse> = error;
+        setResumeData(data as TradingResumeData);
+      } catch (error: any) {
+        const e: AxiosError<ErrorResponse> = error;
 
-      addToast({
-        type: 'error',
-        description: e.response?.data.message,
-        title: 'Não foi possível obter as operações: aguardando',
-      });
+        addToast({
+          type: 'error',
+          description: e.response?.data.message,
+          title: 'Não foi possível obter as operações: aguardando',
+        });
+      }
     }
     setLoading(false);
   }, [period]);
