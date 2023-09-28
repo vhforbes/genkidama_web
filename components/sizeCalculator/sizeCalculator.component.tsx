@@ -9,6 +9,7 @@ import {
   computeTotalAssetSize,
   computeWeightedAverage,
 } from './calculations';
+import formatNumber from '../../helpers/formatNumber';
 
 interface Props {
   tradeOperation: TradeOperation;
@@ -83,19 +84,6 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
     { price: entryOrderTwo, proportion: orderTwoPerc / 100 },
     { price: entryOrderThree, proportion: orderThreePerc / 100 },
   ]);
-
-  const formatUSD = (valueToFormat?: number, digits: number = 6) => {
-    if (valueToFormat) {
-      const formatedValue = new Intl.NumberFormat('en-US', {
-        currency: 'USD',
-        maximumFractionDigits: digits,
-      }).format(valueToFormat);
-
-      return formatedValue;
-    }
-
-    return null;
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Replace $, % and spaces with nothing
@@ -258,7 +246,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
           </div>
 
           <div className={`flex flex-col ${entryOrderTwo ? 'md:mr-4' : ''}`}>
-            <p>Ordem 1: ${formatUSD(entryOrderOne)}</p>
+            <p>Ordem 1: ${formatNumber(entryOrderOne)}</p>
 
             <CurrencyInput
               type="text"
@@ -277,7 +265,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
           {entryOrderTwo && (
             <div className={`flex flex-col ${entryOrderThree ? 'mr-4' : ''}`}>
-              <p>Ordem 2: ${formatUSD(entryOrderTwo)}</p>
+              <p>Ordem 2: ${formatNumber(entryOrderTwo)}</p>
 
               <CurrencyInput
                 type="text"
@@ -297,7 +285,7 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
 
           {entryOrderThree && (
             <div className="flex flex-col">
-              <p>Ordem 3: ${formatUSD(entryOrderThree)}</p>
+              <p>Ordem 3: ${formatNumber(entryOrderThree)}</p>
 
               <CurrencyInput
                 type="text"
@@ -433,14 +421,14 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               <span className="mt-2 ">
                 Preço médio:{' '}
                 <span className="font-bold text-lightTeal">
-                  ${formatUSD(weightedAveragePrice, 2)}
+                  ${formatNumber(weightedAveragePrice)}
                 </span>
               </span>
               <span className="mt-2">
                 Distancia Stop:{' '}
                 <span className="font-bold text-lightTeal">
-                  {formatUSD(Math.abs(distanceToStop), 2)} % | $
-                  {formatUSD(Math.abs(monetaryStopDistance), 2)}{' '}
+                  {formatNumber(Math.abs(distanceToStop))} % | $
+                  {formatNumber(Math.abs(monetaryStopDistance))}{' '}
                 </span>
               </span>
             </div>
@@ -448,14 +436,14 @@ const SizeCalculator = ({ tradeOperation }: Props) => {
               <span className="mt-2">
                 Ativos:{' '}
                 <span className="font-bold text-lightTeal">
-                  {formatUSD(Math.abs(totalAssetSize))}
+                  {formatNumber(Math.abs(totalAssetSize))}
                 </span>
               </span>
               <span className="mt-2">
                 Capital:{' '}
                 <span className="font-bold text-lightTeal">
                   {' '}
-                  ${formatUSD(Math.abs(totalAssetSizeUSD), 2)}
+                  ${formatNumber(Math.abs(totalAssetSizeUSD))}
                 </span>
               </span>
             </div>

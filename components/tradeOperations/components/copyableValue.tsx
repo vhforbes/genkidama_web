@@ -35,7 +35,7 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
     return true;
   };
 
-  const formatUSD = (valueToFormat: number) => {
+  const formatValue = (valueToFormat: number) => {
     const formatedValue = new Intl.NumberFormat('en-US', {
       currency: 'USD',
       maximumFractionDigits: needDecimals(valueToFormat) ? 6 : 2,
@@ -48,9 +48,9 @@ const CopyableValue: React.FC<Props> = ({ value, currency = false }) => {
     <div className="flex justify-between">
       <div className="mr-2">
         {currency ? (
-          <span>${formatUSD(Math.abs(value))}</span>
+          <span>${formatValue(Math.abs(value))}</span>
         ) : (
-          <span>{formatUSD(Math.abs(value))}</span>
+          <span>{formatValue(Math.abs(value))}</span>
         )}
       </div>
 
