@@ -19,7 +19,7 @@ const TradeOperationsResumeCard = () => {
   }, [period]);
 
   return (
-    <div className="card bg-primary flex h-52 border-2 border-lightTeal border-opacity-40">
+    <div className="card bg-primary flex h-64 border-2 border-lightTeal border-opacity-40">
       <div className="card-body p-0">
         <div className="relative w-full px-4 bg-secondary borrder-2 border-b-slate900">
           <div className="max-w-xs flex justify-around m-auto">
@@ -88,6 +88,20 @@ const TradeOperationsResumeCard = () => {
               `}
             >
               {resumeData?.totalProfitPercentage?.toFixed(2)}%
+            </span>
+          </p>
+
+          <p className="">
+            Payoff:{' '}
+            <span
+              className={`font-bold text-2xl ${
+                resumeData?.totalRiskReturnRatio > 0
+                  ? 'dark:text-lightTeal text-green'
+                  : 'text-red'
+              }
+              `}
+            >
+              {resumeData?.totalRiskReturnRatio?.toFixed(2)}
             </span>
           </p>
 

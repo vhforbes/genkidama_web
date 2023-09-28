@@ -19,6 +19,7 @@ interface TradingResumeData {
   lossPercentage: number;
   evenPercentage: number;
   totalProfitPercentage: number;
+  totalRiskReturnRatio: number;
 }
 
 interface TradingResumeContextData {
@@ -68,7 +69,7 @@ const TradingResumeProvider = ({ children }: Props) => {
       }
     }
     setLoading(false);
-  }, []);
+  }, [period]);
 
   return (
     <TradingResumeContext.Provider
