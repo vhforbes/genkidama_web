@@ -7,7 +7,9 @@ const TradeOperationsResumeCard = () => {
   useEffect(() => {
     if (window.location.pathname === '/home') {
       setPeriod(180);
-    } else {
+    }
+
+    if (window.location.pathname === '/') {
       setPeriod(7);
     }
   }, []);
