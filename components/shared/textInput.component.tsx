@@ -12,6 +12,7 @@ interface InputData {
   type: string;
   placeholder: string;
   disabled?: boolean;
+  className?: string;
 }
 
 const MyTextInput = ({
@@ -19,6 +20,7 @@ const MyTextInput = ({
   mask,
   currency,
   percentual,
+  className,
   ...props
 }: InputData) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -31,7 +33,7 @@ const MyTextInput = ({
     if (mask) {
       return (
         <InputMask
-          className="input input-bordered"
+          className={`input input-bordered ${className}`}
           mask={mask}
           maskChar=" "
           {...field}
@@ -43,7 +45,7 @@ const MyTextInput = ({
     if (currency) {
       return (
         <CurrencyInput
-          className="input input-bordered"
+          className={`input input-bordered ${className}`}
           prefix="$ "
           id="input-example"
           decimalsLimit={8}
@@ -59,7 +61,7 @@ const MyTextInput = ({
     if (percentual) {
       return (
         <CurrencyInput
-          className="input input-bordered"
+          className={`input input-bordered ${className}`}
           prefix="% "
           id="input-example"
           decimalsLimit={8}
@@ -72,7 +74,13 @@ const MyTextInput = ({
       );
     }
 
-    return <input className="input input-bordered" {...field} {...props} />;
+    return (
+      <input
+        className={`input input-bordered ${className}`}
+        {...field}
+        {...props}
+      />
+    );
   };
 
   return (

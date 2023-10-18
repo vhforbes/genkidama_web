@@ -189,6 +189,7 @@ const TradeOperationForm = ({
                 <div className="w-fit">
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-deepBlue"
                       label="Entry Order One:"
                       name="entryOrderOne"
                       type="text"
@@ -199,6 +200,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-deepBlue"
                       label="Entry Order Two:"
                       name="entryOrderTwo"
                       type="text"
@@ -209,6 +211,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-deepBlue"
                       label="Entry Order Three:"
                       name="entryOrderThree"
                       type="text"
@@ -219,6 +222,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-green"
                       label="Take Profit One:"
                       name="takeProfitOne"
                       type="text"
@@ -229,6 +233,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-green"
                       label="Take Profit Two:"
                       name="takeProfitTwo"
                       type="text"
@@ -239,6 +244,7 @@ const TradeOperationForm = ({
 
                   <div className="form-control">
                     <MyTextInput
+                      className="bg-red"
                       label="Stop:"
                       name="stop"
                       type="text"
