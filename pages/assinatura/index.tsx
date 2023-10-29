@@ -40,10 +40,10 @@ const SejaMembro: NextPage = () => {
 
     if (user.exchangePartner) {
       // V2
-      setPlanID('P-64F73262DA4253457MR33BKI');
+      // setPlanID('P-64F73262DA4253457MR33BKI');
 
       // V1
-      // setPlanID('P-2RF01754NW371114VMRH3VAI');
+      setPlanID('P-2RF01754NW371114VMRH3VAI');
     }
 
     if (user.role === 'EA') {
