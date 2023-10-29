@@ -14,6 +14,7 @@ import { LiveControlProvider } from './liveControl';
 import { MestreKameProvider } from './mestreKame';
 import { UsersControlProvider } from './usersControl';
 import { XdecowProvider } from './xdecowPannel';
+import ModalAdvertisementProvider from './modalAdvertisement/modalAdvertisementProvider';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -28,7 +29,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => (
                     <LiveControlProvider>
                       <MestreKameProvider>
                         <UsersControlProvider>
-                          <XdecowProvider>{children}</XdecowProvider>
+                          <XdecowProvider>
+                            <ModalAdvertisementProvider>
+                              {children}
+                            </ModalAdvertisementProvider>
+                          </XdecowProvider>
                         </UsersControlProvider>
                       </MestreKameProvider>
                     </LiveControlProvider>
