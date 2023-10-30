@@ -30,17 +30,9 @@ const TradeOperationsResumeCard = () => {
               } hover:bg-primary border-none w-10 rounded-none`}
               type="button"
             >
-              7d
+              7D
             </button>
-            <button
-              onClick={() => setPeriod(15)}
-              className={`h-10 ${
-                period === 15 ? 'bg-primary' : 'bg-secondary'
-              } hover:bg-primary border-none w-10 rounded-none`}
-              type="button"
-            >
-              15d
-            </button>
+
             <button
               onClick={() => setPeriod(30)}
               className={`${
@@ -48,7 +40,7 @@ const TradeOperationsResumeCard = () => {
               } hover:bg-primary border-none w-10 rounded-none`}
               type="button"
             >
-              30d
+              30D
             </button>
             <button
               onClick={() => setPeriod(90)}
@@ -57,7 +49,7 @@ const TradeOperationsResumeCard = () => {
               } hover:bg-primary border-none w-10 rounded-none`}
               type="button"
             >
-              90d
+              90D
             </button>
             <button
               onClick={() => setPeriod(180)}
@@ -66,7 +58,7 @@ const TradeOperationsResumeCard = () => {
               } hover:bg-primary border-none w-10 rounded-none`}
               type="button"
             >
-              180d
+              180D
             </button>
             <button
               onClick={() => setPeriod(9999)}
