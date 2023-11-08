@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import ModalAdvertisementContext from './modalAdvertisementContext';
-import AdvertisementModalComponent from '../../components/advertisimentModal/AdvertisementModalComponent';
 
 interface Props {
   children: React.ReactNode;
@@ -42,7 +41,7 @@ const ModalAdvertisementProvider: React.FC<Props> = ({ children }) => {
         closeModal,
       }}
     >
-      <AdvertisementModalComponent />
+      {/* <AdvertisementModalComponent /> */}
       {children}
     </ModalAdvertisementContext.Provider>
   );
