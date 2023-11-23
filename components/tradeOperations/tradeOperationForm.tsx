@@ -87,6 +87,8 @@ const TradeOperationForm = ({
                 id: tradeOperation?.id || '',
                 authorId: tradeOperation?.authorId || '',
                 market: tradeOperation?.market || '',
+                marketLocation: tradeOperation?.marketLocation || 'futures',
+
                 status: tradeOperation?.status || 'aguardando',
                 direction: tradeOperation?.direction || '',
                 maxFollowers: tradeOperation?.maxFollowers || 30,
@@ -128,6 +130,21 @@ const TradeOperationForm = ({
                       placeholder="BTCUSDT"
                       mask="**********"
                     />
+                  </div>
+
+                  <div className="form-control">
+                    <label htmlFor="status" className="">
+                      Spot ou futuros:
+                    </label>
+                    <Field
+                      id="marketLocation"
+                      name="marketLocation"
+                      as="select"
+                      className="input input-bordered w-full"
+                    >
+                      <option value="futures">Futures</option>
+                      <option value="spot">Spot</option>
+                    </Field>
                   </div>
 
                   <div className="form-control">

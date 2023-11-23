@@ -2,6 +2,7 @@ export interface TradeOperation {
   id: string;
   authorId: string;
   market: string;
+  marketLocation: 'spot' | 'futures';
   status: 'aguardando' | 'ativa' | 'fechada';
   direction: string;
   entryOrderOne: number;
@@ -21,6 +22,17 @@ export interface TradeOperation {
   tradingViewLink?: string;
   observation?: string;
   stopDistance?: string;
+  entryOrdersStatus?: {
+    entryOrderOneTriggered?: boolean;
+    entryOrderTwoTriggered?: boolean;
+    entryOrderThreeTriggered?: boolean;
+  };
+  takeProfitStatus?: {
+    takeProfitOneTriggered?: boolean;
+    takeProfitTwoTriggered?: boolean;
+    takeProfitThreeTriggered?: boolean;
+  };
+
   // USED IN THE HISTORY MODEL
   tradeOperation: TradeOperation;
 }

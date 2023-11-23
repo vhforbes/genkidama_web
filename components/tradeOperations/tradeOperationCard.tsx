@@ -43,6 +43,7 @@ const TradeOperationCard = ({
     id,
     status,
     market,
+    marketLocation,
     updatedAt,
     createdAt,
     direction,
@@ -318,6 +319,7 @@ const TradeOperationCard = ({
                 <TradingViewModal imageLink={tradingViewLink} id={id} />
                 <SizeCalculatorModal tradeOperation={tradeOperation} />
               </div>
+              <span>{marketLocation.toUpperCase()}</span>
             </div>
 
             <p className="mb-4 w-full">

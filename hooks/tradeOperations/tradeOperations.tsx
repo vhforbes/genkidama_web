@@ -87,6 +87,7 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
 
   const createTradeOperation = useCallback(
     async (tradeOperation: TradeOperation) => {
+      console.log(tradeOperation);
       try {
         await privateApi.post(routes.tradeOperations, tradeOperation);
 
@@ -110,6 +111,8 @@ const TradeOperationsProvider: React.FC<Props> = ({ children }) => {
 
   const editTradeOperation = useCallback(
     async (tradeOperation: TradeOperation) => {
+      console.log(tradeOperation);
+
       setLoading(true);
       try {
         const { data } = await privateApi.put(
