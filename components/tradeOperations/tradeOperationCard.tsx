@@ -60,6 +60,8 @@ const TradeOperationCard = ({
     currentFollowers,
     tradingViewLink,
     stopDistance,
+    entryOrdersStatus,
+    takeProfitStatus,
   } = tradeOperation as TradeOperation;
 
   const [colorHex] = useState(() => {
@@ -347,16 +349,31 @@ const TradeOperationCard = ({
           </div>
 
           {/* RIGHT ROW */}
-          <div className="rightRow flex flex-col justify-between min-h-[14em]">
+          <div className="rightRow flex flex-col justify-between items-end min-h-[14em]">
             <div className="ordens w-full">
               <p className="font-bold">Ordens:</p>
               <div>
-                <CopyableValue currency value={entryOrderOne} />
+                <div className="flex flex-row justify-between">
+                  <span className="mr-1">
+                    {entryOrdersStatus?.entryOrderOneTriggered ? '☑ ' : '☐ '}
+                  </span>
+                  <CopyableValue currency value={entryOrderOne} />
+                </div>
                 {entryOrderTwo ? (
-                  <CopyableValue currency value={entryOrderTwo} />
+                  <div className="flex flex-row justify-between">
+                    <span className="mr-1">
+                      {entryOrdersStatus?.entryOrderTwoTriggered ? '☑' : '☐'}
+                    </span>
+                    <CopyableValue currency value={entryOrderTwo} />
+                  </div>
                 ) : null}
                 {entryOrderThree ? (
-                  <CopyableValue currency value={entryOrderThree} />
+                  <div className="flex flex-row justify-between">
+                    <span className="mr-1">
+                      {entryOrdersStatus?.entryOrderThreeTriggered ? '☑' : '☐'}
+                    </span>
+                    <CopyableValue currency value={entryOrderThree} />
+                  </div>
                 ) : null}
               </div>
             </div>
@@ -374,10 +391,18 @@ const TradeOperationCard = ({
               <div>
                 <p className="font-bold">Take profit:</p>
                 <div>
-                  <CopyableValue currency value={takeProfitOne} />
-                  {takeProfitTwo ? (
-                    <CopyableValue currency value={takeProfitTwo} />
-                  ) : null}
+                  <div className="flex flex-row justify-between">
+                    <span className="mr-1">
+                      {takeProfitStatus?.takeProfitOneTriggered ? '☑' : '☐'}
+                    </span>
+                    <CopyableValue currency value={takeProfitOne} />
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    {takeProfitStatus?.takeProfitTwoTriggered ? '☑' : '☐'}
+                    {takeProfitTwo ? (
+                      <CopyableValue currency value={takeProfitTwo} />
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>

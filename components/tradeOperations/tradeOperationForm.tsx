@@ -16,6 +16,7 @@ import MyTextInput from '../shared/textInput.component';
 import { TradeOperation } from '../../interfaces/TradeOperation';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
 import CopyToClipboardButton from './components/copyToClipboardButton';
+import Checkbox from '../shared/checkbox.component';
 
 const TradeOperationForm = ({
   edit,
@@ -105,6 +106,16 @@ const TradeOperationForm = ({
                 percentual: tradeOperation?.percentual || '',
                 stopDistance: tradeOperation?.stopDistance || '',
                 observation: tradeOperation?.observation || '',
+                entryOrdersStatus: tradeOperation?.entryOrdersStatus || {
+                  entryOrderOneTriggered: false,
+                  entryOrderTwoTriggered: false,
+                  entryOrderThreeTriggered: false,
+                },
+                takeProfitStatus: tradeOperation?.takeProfitStatus || {
+                  takeProfitOneTriggered: false,
+                  takeProfitTwoTriggered: false,
+                  takeProfitThreeTriggered: false,
+                },
               } as TradeOperation
             }
             validationSchema={Yup.object({
@@ -309,8 +320,46 @@ const TradeOperationForm = ({
                       percentual
                     />
                   </div>
+
+                  <div className="form-control">
+                    <Checkbox
+                      label="Entry Order One:"
+                      name="entryOrdersStatus.entryOrderOneTriggered"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <Checkbox
+                      label="Entry Order Two:"
+                      name="entryOrdersStatus.entryOrderTwoTriggered"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <Checkbox
+                      label="Entry Order Three:"
+                      name="entryOrdersStatus.entryOrderThreeTriggered"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <Checkbox
+                      label="Take Profit One:"
+                      name="takeProfitStatus.takeProfitOneTriggered"
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <Checkbox
+                      label="Take Profit Two:"
+                      name="takeProfitStatus.takeProfitTwoTriggered"
+                    />
+                  </div>
                 </div>
               </div>
+
+              {/* OBSERVATION */}
+
               <div className="form-control px-8">
                 <MyTextInput
                   label="Observação:"
@@ -319,6 +368,8 @@ const TradeOperationForm = ({
                   placeholder=""
                 />
               </div>
+
+              {/* SEND */}
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-secondary mb-6">
                   Enviar
