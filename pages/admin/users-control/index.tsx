@@ -14,7 +14,10 @@ const UsersList: NextPage = () => {
   }, []);
 
   const paypalUsersCount = usersList.filter(
-    user => user.subscription && user.subscription.type === 'PAYPAL',
+    user =>
+      user.subscription &&
+      user.subscription.type === 'PAYPAL' &&
+      user.subscription.status === 'ACTIVE',
   ).length;
 
   const yearlyUsersCount = usersList.filter(
