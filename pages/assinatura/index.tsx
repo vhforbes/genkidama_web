@@ -48,10 +48,10 @@ const SejaMembro: NextPage = () => {
 
     if (user.role === 'EA') {
       // V2
-      setPlanID('P-5E407350VB375000FMR36MPQ');
+      // setPlanID('P-5E407350VB375000FMR36MPQ');
 
       // V1
-      // setPlanID('P-3NX15147R0531871RMRH3VPA');
+      setPlanID('P-3NX15147R0531871RMRH3VPA');
     }
 
     dispatch({
