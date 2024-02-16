@@ -41,7 +41,7 @@ const HeaderComponent = () => {
           </a>
           <a
             className="ml-6"
-            href="https://www.youtube.com/@GENKIDAMAcriptoskills"
+            href="https://www.youtube.com/@GNKcripto"
             target="_blank"
             rel="noreferrer"
           >
@@ -49,7 +49,7 @@ const HeaderComponent = () => {
           </a>
           <a
             className="ml-6"
-            href="https://t.me/genkidamaskillschat"
+            href="https://t.me/genkidamaskills"
             target="_blank"
             rel="noreferrer"
           >

@@ -40,17 +40,17 @@ const SejaMembro: NextPage = () => {
 
     if (user.exchangePartner) {
       // V2
-      setPlanID('P-64F73262DA4253457MR33BKI');
+      // setPlanID('P-64F73262DA4253457MR33BKI');
 
       // V1
-      // setPlanID('P-2RF01754NW371114VMRH3VAI');
+      setPlanID('P-2RF01754NW371114VMRH3VAI');
     }
 
     if (user.role === 'EA') {
       // V2
       // setPlanID('P-5E407350VB375000FMR36MPQ');
 
-      // V1
+      // V1 .
       setPlanID('P-3NX15147R0531871RMRH3VPA');
     }
 
@@ -90,7 +90,7 @@ const SejaMembro: NextPage = () => {
           </div>
 
           <p className="mt-8 text-center text-xl w-4/5 font-bold">
-            Você já é um membro Genkidama!
+            Você já é um membro GNK!
           </p>
 
           <div className="mt-4 text-center">
@@ -154,7 +154,7 @@ const SejaMembro: NextPage = () => {
           </div>
 
           <p className="mt-8 text-center text-xl w-4/5">
-            Seja membro da plataforma Genkidama!
+            Seja membro da plataforma GNK!
           </p>
 
           {user.exchange === 'BITGET' ? (
@@ -201,8 +201,8 @@ const SejaMembro: NextPage = () => {
             <div>
               <div className="mt-4 text-center">
                 <p className="text-xs">
-                  Estamos felizes que você queira fazer parte da Genkidama!
-                  Assine agora por:
+                  Estamos felizes que você queira fazer parte da GNK! Assine
+                  agora por:
                 </p>
 
                 <span className="text-2xl font-semibold">

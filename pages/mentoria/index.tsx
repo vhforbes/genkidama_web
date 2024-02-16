@@ -6,7 +6,7 @@ const MentoriaPage: NextPage = () => {
   return (
     <main className="flex flex-col justify-center lg:w-4/5 xxl:w-3/5 m-auto font-bold">
       <h1 className="text-center p-2 max-w-lg mt-6 lg:mt-20 text-3xl lg:text-6xl leading-snug lg:max-w-5xl self-center font-extrabold">
-        Programa Genkidama de Mentoria Personalizada para Traders
+        Programa GNK de Mentoria Personalizada para Traders
       </h1>
       <div className="flex flex-col p-8 lg:p-14 lg:mt-14 justify-center">
         <div className="flex flex-col lg:flex-row self-center justify-start">

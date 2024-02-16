@@ -78,7 +78,7 @@ const SubscriptionProvider: React.FC<Props> = ({ children }) => {
       addToast({
         type: 'success',
         description: 'Seja bem-vindo!',
-        title: 'Você acaba de se tornar um Membro Genkidama!',
+        title: 'Você acaba de se tornar um Membro GNK!',
       });
 
       subscriptionData(data as SubscriptionState);

@@ -5,7 +5,7 @@ const ParceriaBitget: NextPage = () => {
   return (
     <div className="flex flex-col items-center mt-10 p-6 m-auto text-center">
       <h1 className="text-3xl md:max-w-2xl">
-        Graças a parceria <strong>Genkidama - Bitget</strong>, tenha acesso a
+        Graças a parceria <strong>GNK - Bitget</strong>, tenha acesso a
         conteúdos exclusivos e participe do crescimento dessa plataforma!
       </h1>
       <div>
@@ -102,7 +102,7 @@ const ParceriaBitget: NextPage = () => {
             >
               Crie sua conta
             </a>{' '}
-            na plataforma Genkidama inserido o seu UID ou se já tiver uma conta,
+            na plataforma GNK inserido o seu UID ou se já tiver uma conta,
             atualize seu UID da Bitget na{' '}
             <a
               href="/account"
